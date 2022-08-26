@@ -1,25 +1,40 @@
 .info{
     height: 100vh;
-
+    min-width: 300px;
 }
 
 .loginPage_main{
     border: 2px solid black;
-    margin: 100px 0;
+    margin: 40px 0;
     height: 70vh;
     display: flex;
+    justify-content: center;
 }
 
 
 .imgContainer{
-    height: 72vh;
+    height: 76vh;
+    position: relative;
+    border: 2px solid chartreuse;
 }
+
+.imgBase{
+    height: 100%;
+}
+.imgContent{
+    height: 86%;
+    position: absolute;
+    left:33.5%;
+    bottom: 10%;
+}
+
+
+
 
 .cardMain{
 
     border: 2px solid gold;
 
-    flex:1 1 0;
 
 
     display: flex;
@@ -66,6 +81,8 @@
     width: 100%;
     height: 10%;
 
+    font-size: 0.9em;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -81,7 +98,8 @@
 }
 
 .getTheApp{
-    margin: 10px 20px;
+    margin: 20px 20px;
+    font-size: small;
 }
 
 .downloadImages{
@@ -110,6 +128,14 @@
 }
 .forgetPassword:hover{
     cursor: pointer;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: rgb(146, 146, 146);
+    font-weight: 500;
 }
 
 .css-1mog9k0-MuiFormLabel-root-MuiInputLabel-root{

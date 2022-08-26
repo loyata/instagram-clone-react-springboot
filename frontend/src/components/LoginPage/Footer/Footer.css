@@ -1,0 +1,28 @@
+.allTags{
+    display: flex;
+    width: 65vw;
+    column-gap:1rem;
+    row-gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.lineTwo{
+    font-size: 1.1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1.5em 0;
+}
+
+#selector{
+    background-color: transparent;
+    border: none;
+
+    margin: 0;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+
+}

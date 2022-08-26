@@ -8,8 +8,16 @@ import imgContainer from "./images/phoneContainer.png"
 import insLogo from "./images/ins_logo.png"
 import appleStore from "./images/appleStore.png"
 import googlePlay from "./images/googlePlay.png"
-import divider from "./images/divider.png"
 import {AiFillFacebook} from "react-icons/ai"
+
+import content1 from "./images/content1.png"
+import content2 from "./images/content2.png"
+import content3 from "./images/content3.png"
+// import content4 from "./images/content4.png"
+
+import Divider from "./Divider/Divider";
+import Footer from "./Footer/Footer";
+import useWindowDimensions from "../../utilities/useWindowDimension";
 
 import "./LoginPage.css"
 
@@ -41,68 +49,72 @@ const InsTextField = styled((props) => (
 
 
 const LoginPage = () => {
+
+    const { width } = useWindowDimensions();
+
     return (
         <div>
-            <Grid container>
-                <Grid item xs={3}/>
-                <Grid item xs={6} className="info">
-                   <div className="loginPage_main">
-
-                       <div>
-                           <img src={imgContainer} className="imgContainer"/>
-                       </div>
-
-                       <div className="cardMain">
-                           <div className="upperCard">
-                               <img src={insLogo} className="insLogo"/>
-
-                               <InsTextField
-                                   label="Phone number, username, or email"
-                                   id="reddit-input"
-                                   variant="filled"
-                                   size="small"
-
-                                   className="inputText"
-                               />
-
-                               <InsTextField
-                                   label="Password"
-                                   id="reddit-input"
-                                   variant="filled"
-                                   size="small"
-                                   margin="dense"
-                                   className="inputText"
-                               />
-
-                               <Button variant="contained" id="loginButton" size="small">Log In</Button>
-                               {/*<div>or</div>*/}
-
-                               <img src={divider}/>
-
-                               <div className="facebook">
-
-                                   <Button><AiFillFacebook fontSize="1.3rem"/>&nbsp;Log in with Facebook</Button>
-                               </div>
-
-                               <div className="forgetPassword">
-                                   <a href="">Forgot password?</a>
-                               </div>
-                           </div>
-                            <div className="bottomCard">
-                                <div>Don't have an account? Sign up</div>
+            <div className="loginPage_main">
+                {
+                    width < 720 ?  <div/> :
+                        <div className="imgContainer">
+                            <div className="imgBase">
+                                <img src={imgContainer} height="100%" />
                             </div>
-                            <div className="appDownload">
-                                <div className="getTheApp">Get the app.</div>
-                                <div className="downloadImages">
-                                    <a href="https://apps.apple.com/app/instagram/id389801252?vt=lo" target="_blank"><img src={appleStore} className="downloadImageApple"/></a>
-                                    <a href="https://play.google.com/store/apps/details?id=com.instagram.android" target="_blank"><img src={googlePlay} className="downloadImageGoogle"/></a>
-                                </div>
+                            <div className="imgContent">
+                                <img src={content1} height="100%" />
                             </div>
-                       </div>
-                   </div>
-                </Grid>
-                <Grid item xs={3}/>
-            </Grid>
+                        </div>
+                }
+                <div className="cardMain">
+                    <div className="upperCard">
+                        <img src={insLogo} className="insLogo"/>
+
+                        <InsTextField
+                            label="Phone number, username, or email"
+                            id="reddit-input"
+                            variant="filled"
+                            size="small"
+
+                            className="inputText"
+                        />
+
+                        <InsTextField
+                            label="Password"
+                            id="reddit-input"
+                            variant="filled"
+                            size="small"
+                            margin="dense"
+                            className="inputText"
+                        />
+
+                        <Button variant="contained" id="loginButton" size="small">Log In</Button>
+                        <Divider text="or"/>
+
+                        <div className="facebook">
+                            <Button><AiFillFacebook fontSize="1.3rem"/>&nbsp;Log in with Facebook</Button>
+                        </div>
+
+                        <div className="forgetPassword">
+                            <a href="">Forgot password?</a>
+                        </div>
+                    </div>
+                    <div className="bottomCard">
+                        <div>Don't have an account? Sign up</div>
+                    </div>
+                    <div className="appDownload">
+                        <div className="getTheApp">Get the app.</div>
+                        <div className="downloadImages">
+                            <a href="https://apps.apple.com/app/instagram/id389801252?vt=lo" target="_blank"><img src={appleStore} className="downloadImageApple"/></a>
+                            <a href="https://play.google.com/store/apps/details?id=com.instagram.android" target="_blank"><img src={googlePlay} className="downloadImageGoogle"/></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="footer">
+                <Footer/>
+            </div>
+
         </div>
     );
 };
