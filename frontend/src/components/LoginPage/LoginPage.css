@@ -1,10 +1,10 @@
 .info{
-    height: 100vh;
+    min-height: 100vh;
     min-width: 300px;
 }
 
 .loginPage_main{
-    border: 2px solid black;
+    padding: 1rem;
     margin: 40px 0;
     height: 70vh;
     display: flex;
@@ -12,31 +12,9 @@
 }
 
 
-.imgContainer{
-    height: 76vh;
-    position: relative;
-    border: 2px solid chartreuse;
-}
-
-.imgBase{
-    height: 100%;
-}
-.imgContent{
-    height: 86%;
-    position: absolute;
-    left:33.5%;
-    bottom: 10%;
-}
-
-
-
-
 .cardMain{
-
-    border: 2px solid gold;
-
-
-
+    width: 23%;
+    min-width: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;

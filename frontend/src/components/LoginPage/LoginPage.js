@@ -10,18 +10,15 @@ import appleStore from "./images/appleStore.png"
 import googlePlay from "./images/googlePlay.png"
 import {AiFillFacebook} from "react-icons/ai"
 
-import content1 from "./images/content1.png"
-import content2 from "./images/content2.png"
-import content3 from "./images/content3.png"
-// import content4 from "./images/content4.png"
 
 import Divider from "./Divider/Divider";
 import Footer from "./Footer/Footer";
 import useWindowDimensions from "../../utilities/useWindowDimension";
 
 import "./LoginPage.css"
+import PhonePicture from "./PhonePicture/PhonePicture";
 
-const InsTextField = styled((props) => (
+export const InsTextField = styled((props) => (
     <TextField InputProps={{ disableUnderline: true }} {...props} />
 ))(({ theme }) => ({
     '& .MuiFilledInput-root': {
@@ -52,19 +49,13 @@ const LoginPage = () => {
 
     const { width } = useWindowDimensions();
 
+
+
     return (
         <div>
             <div className="loginPage_main">
                 {
-                    width < 720 ?  <div/> :
-                        <div className="imgContainer">
-                            <div className="imgBase">
-                                <img src={imgContainer} height="100%" />
-                            </div>
-                            <div className="imgContent">
-                                <img src={content1} height="100%" />
-                            </div>
-                        </div>
+                    width < 720 ?  <div/> : <PhonePicture/>
                 }
                 <div className="cardMain">
                     <div className="upperCard">
