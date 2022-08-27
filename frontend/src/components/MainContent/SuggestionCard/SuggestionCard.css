@@ -1,0 +1,54 @@
+.suggestionCard_container{
+    /*border: 1px solid black;*/
+    width: 100%;
+    margin: 1rem;
+    padding: 0rem 1rem 1rem 1rem;
+}
+
+.suggestionCard_switchButton{
+    border: none;
+    background: transparent;
+    color: black;
+    font-weight: bolder;
+}
+
+.suggestionCard_title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.suggestionCard_suggestions{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.suggestionCard_names{
+    display: flex;
+    align-items: center;
+}
+
+.suggestionCard_id{
+    margin-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.suggestionCard_seeAllButton{
+    border: none;
+    background: transparent;
+    font-weight: bolder;
+}
+
+.suggestionCard_followButton{
+    border: none;
+    background: transparent;
+    color: rgb(65,147,239);
+    font-weight: bolder;
+}
+
+.suggestionCard_followButton:hover, .suggestionCard_seeAllButton:hover{
+    cursor:pointer;
+}

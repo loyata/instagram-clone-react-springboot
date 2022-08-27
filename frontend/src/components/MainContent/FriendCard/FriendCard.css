@@ -1,8 +1,8 @@
 .friendCard_container{
     background-color: white;
-    width: 50%;
+    /*width: 50%;*/
     min-width: 350px;
-    height: 15%;
+    /*height: 15%;*/
     margin:16px 0 0;
     padding:16px 0;
     border-radius: 8px;
@@ -14,7 +14,7 @@
 }
 
 .friendCard_person{
-    padding-left: 1rem;
+    padding-left: 0.6rem;
     margin-top: 0.4rem;
 
     display: flex;

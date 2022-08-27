@@ -59,11 +59,13 @@ input:focus{
 }
 
 .navBar_avatar{
+
     display: flex;
+    justify-content: flex-end;
     align-items: center;
     font-size: 1.5em;
     gap: 1rem;
-    flex-shrink: 0;
+    min-width: 250px;
 }
 
 .navBar_inputText:hover{

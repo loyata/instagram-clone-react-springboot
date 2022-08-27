@@ -20,8 +20,11 @@ import {BsHeartFill} from "react-icons/bs"
 import ins_logo from "./images/ins_logo.png"
 import DropDown from "./DropDown/DropDown";
 import SearchResult from "./SearchResult/SearchResult";
+import useWindowDimensions from "../../utilities/useWindowDimension";
 
 const NavBar = () => {
+
+    const { width } = useWindowDimensions();
 
 
     const [hideDropDown, setHideDropDown] = useState(true);
@@ -49,24 +52,31 @@ const NavBar = () => {
                             <DropDown/>
                         </div>
                 </Grid>
-                <Grid item xs={3.5} className="navBar_search">
-                    {
-                        searchContent === '' ?
-                        <input type="text" placeholder=" 🔍 Search" className="navBar_inputFull" value={searchContent} onChange={handleSearchInputChange}/>
-                            :
-                        <>
-                            <input type="text" placeholder=" 🔍 Search" className="navBar_input" value={searchContent} onChange={handleSearchInputChange}/>
-                            <div className="navBar_inputText">
-                            <TiDelete className="navBar_inputDelete" onClick={() => setSearchContent("")}/>
-                            </div>
 
-                            <SearchResult/>
-                        </>
+                {
+                    width < 650 ?
+                        <div/>
+                        :
+                        <Grid item xs={3.5} className="navBar_search">
+                            {
+                                searchContent === '' ?
+                                    <input type="text" placeholder=" 🔍 Search" className="navBar_inputFull" value={searchContent} onChange={handleSearchInputChange}/>
+                                    :
+                                    <>
+                                        <input type="text" placeholder=" 🔍 Search" className="navBar_input" value={searchContent} onChange={handleSearchInputChange}/>
+                                        <div className="navBar_inputText">
+                                            <TiDelete className="navBar_inputDelete" onClick={() => setSearchContent("")}/>
+                                        </div>
 
-                    }
-                </Grid>
-                <Grid item xs={5} className="navBar_avatar">
-                    <div style={{marginLeft:"6rem"}}/>
+                                        <SearchResult/>
+                                    </>
+
+                            }
+                        </Grid>
+                }
+
+
+                <Grid item xs={3} className="navBar_avatar">
                     <BsFillHouseDoorFill/>
                     <IoPaperPlaneOutline/>
                     <FiPlusSquare/>
@@ -74,6 +84,8 @@ const NavBar = () => {
                     <BsHeart/>
                     <Avatar alt="Donald Trump" src="" sx={{height:"30px", width:"30px"}}/>
                 </Grid>
+
+                <Grid item xs={2}/>
             </Grid>
         </div>
     );
