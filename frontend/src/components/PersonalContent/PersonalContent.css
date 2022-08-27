@@ -1,0 +1,80 @@
+.personalContent_info{
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+
+}
+
+.personalContent_des{
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    margin-left: 6rem;
+}
+
+
+.personalContent_line1 ,.personalContent_line2, .personalContent_line3{
+    display: flex;
+    align-items: center;
+}
+.personalContent_line1{
+    font-size: 1.6rem;
+}
+
+.personalContent_button{
+    font-size: 0.9rem;
+    border: 1px solid rgb(219,219,219);
+    padding: 5px 9px;
+    border-radius: 4px;
+    font-weight: 700;
+    margin-left: 1.5rem;
+    margin-right: 0.6rem;
+}
+
+.personalContent_button:hover{
+    cursor: pointer;
+}
+
+.personalContent_gear:hover{
+    cursor: pointer;
+}
+
+.personalContent_line2{
+    gap: 1rem;
+}
+
+.personalContent_line3{
+    font-weight: 800;
+}
+
+.personalContent_divider{
+    margin-top: 1rem;
+    border: none;
+    border-top: 1px solid rgb(219,219,219);
+}
+
+.personalContent_selection{
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.personalContent_tag{
+    display: flex;
+    align-items: center;
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+    color: rgb(144,144,144);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.personalContent_tag:hover{
+    cursor: pointer;
+}
+
+.selected{
+    color: black;
+    border-top: 1px solid black;
+}

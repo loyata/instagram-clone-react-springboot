@@ -3,6 +3,7 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import SignUp from "./components/LoginPage/SignUp/SignUp";
 import HomePage from "./components/HomePage/HomePage";
 import React from "react";
+import PersonalPage from "./components/PersonalPage/PersonalPage";
 
 
 
@@ -15,6 +16,7 @@ function App() {
             <SignUp/>
             <hr/>
             <HomePage/>
+            <PersonalPage/>
         </div>
     </div>
 
