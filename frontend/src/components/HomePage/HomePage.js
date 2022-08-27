@@ -1,14 +1,14 @@
 import React from 'react';
 import "./HomePage.css"
 import NavBar from "../NavBar/NavBar";
+import MainContent from "../MainContent/MainContent";
 
-import SelectBar from "../NavBar/DropDown/DropDown";
 
 const HomePage = () => {
     return (
         <div className="home">
             <NavBar/>
-
+            <MainContent/>
 
 
 

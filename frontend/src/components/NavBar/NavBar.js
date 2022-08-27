@@ -19,6 +19,7 @@ import {BsHeartFill} from "react-icons/bs"
 
 import ins_logo from "./images/ins_logo.png"
 import DropDown from "./DropDown/DropDown";
+import SearchResult from "./SearchResult/SearchResult";
 
 const NavBar = () => {
 
@@ -49,10 +50,20 @@ const NavBar = () => {
                         </div>
                 </Grid>
                 <Grid item xs={3.5} className="navBar_search">
-                    <input type="text" placeholder=" 🔍 Search" className="navBar_input" value={searchContent} onChange={handleSearchInputChange}/>
-                    <div className="navBar_inputText">
-                        <TiDelete className="navBar_inputDelete" onClick={() => setSearchContent("")}/>
-                    </div>
+                    {
+                        searchContent === '' ?
+                        <input type="text" placeholder=" 🔍 Search" className="navBar_inputFull" value={searchContent} onChange={handleSearchInputChange}/>
+                            :
+                        <>
+                            <input type="text" placeholder=" 🔍 Search" className="navBar_input" value={searchContent} onChange={handleSearchInputChange}/>
+                            <div className="navBar_inputText">
+                            <TiDelete className="navBar_inputDelete" onClick={() => setSearchContent("")}/>
+                            </div>
+
+                            <SearchResult/>
+                        </>
+
+                    }
                 </Grid>
                 <Grid item xs={5} className="navBar_avatar">
                     <div style={{marginLeft:"6rem"}}/>

@@ -1,0 +1,24 @@
+.searchResult_card{
+    width: 23vw;
+    height: 56vh;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    overflow-y:scroll;
+    position:absolute;
+    top:8vh;
+    left:110px;
+}
+
+.searchResult_list{
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.searchResult_name{
+    margin-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

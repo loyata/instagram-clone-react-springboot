@@ -1,0 +1,8 @@
+.mainContent_container{
+    border: 1px solid black;
+    min-height: 100vh;
+    display: flex;
+
+}
+
+
