@@ -1,9 +1,10 @@
+import React from "react";
 import './App.css';
 import LoginPage from "./components/LoginPage/LoginPage";
 import SignUp from "./components/LoginPage/SignUp/SignUp";
 import HomePage from "./components/HomePage/HomePage";
-import React from "react";
 import PersonalPage from "./components/PersonalPage/PersonalPage";
+import Display from "./components/Display/Display";
 
 
 
@@ -12,11 +13,10 @@ function App() {
     <div className="App">
         <div style={{display:"flex", flexDirection:"column"}}>
             <LoginPage/>
-            <hr/>
             <SignUp/>
-            <hr/>
             <HomePage/>
             <PersonalPage/>
+            <Display/>
         </div>
     </div>
 

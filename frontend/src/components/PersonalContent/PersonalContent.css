@@ -78,3 +78,32 @@
     color: black;
     border-top: 1px solid black;
 }
+
+
+.personalContent_iconDetails{
+    display: none;
+    gap: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    align-items: center;
+    position: absolute;
+    color:white;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+
+.personalContent_imageItem:hover{
+    cursor: pointer;
+    filter: brightness(50%);
+}
+
+.personalContent_imageItem:hover + .personalContent_iconDetails{
+    display: flex;
+}
+
+.personalContent_ht, .personalContent_ct{
+    display: flex;
+    align-items: center;
+}
+

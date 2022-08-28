@@ -3,9 +3,13 @@ import "./PersonalContent.css"
 import {Avatar, Container, Grid, ImageList, ImageListItem} from "@mui/material";
 import {BsGearWide} from "react-icons/bs"
 
-import {BsGrid3X3, BsBookmarkStar, BsFileEarmarkPerson} from "react-icons/bs"
+import {BsGrid3X3, BsBookmarkStar, BsFileEarmarkPerson, BsFillChatFill, BsFillHeartFill} from "react-icons/bs"
+import {AiFillHeart} from "react-icons/ai"
 
 
+function BsFillHeart() {
+    return null;
+}
 
 const PersonalContent = () => {
 
@@ -86,7 +90,8 @@ const PersonalContent = () => {
                         <div className="personalContent_line3">Name</div>
                     </div>
                 </div>
-                <div>
+
+                <div className="personalContent_selectionTool">
                     <hr className="personalContent_divider"/>
                     <div className="personalContent_selection">
                         <div className={"personalContent_tag".concat(tag === 0 ? " selected":"")} onClick={() => {setTag(0); selected = posts;}}>
@@ -105,18 +110,26 @@ const PersonalContent = () => {
                 </div>
 
 
-                <ImageList sx={{ width: "100%"}} cols={3}>
+                <ImageList sx={{ width: "100%"}} cols={3} gap={24}>
                     {selected.map((item) => (
-                        <ImageListItem key={item.img}>
+                        <ImageListItem key={item.img} style={{position:"relative"}}>
                             <img
                                 src={`${item.img}?fit=crop&auto=format`}
                                 srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                                 alt={item.title}
                                 loading="lazy"
+                                className="personalContent_imageItem"
                             />
+                            <div className="personalContent_iconDetails" >
+                                <span className="personalContent_ht"><BsFillHeartFill style={{marginTop:"2px"}}/>&nbsp;{Math.floor(Math.random() * 10) + 1}</span>
+                                <span className="personalContent_ct"><BsFillChatFill/>&nbsp;{Math.floor(Math.random() * 10) + 1}</span>
+                            </div>
                         </ImageListItem>
                     ))}
                 </ImageList>
+
+
+
             </Container>
         </div>
     );

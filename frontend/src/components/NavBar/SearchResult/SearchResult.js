@@ -4,7 +4,7 @@ import {Avatar} from "@mui/material";
 
 const SearchResult = () => {
     return (
-        <div className="searchResult_card">
+        <div className="searchResult_card" onClick={e => e.nativeEvent.stopImmediatePropagation()}>
             <div className="searchResult_list">
                 <Avatar/>
                 <div className="searchResult_name">

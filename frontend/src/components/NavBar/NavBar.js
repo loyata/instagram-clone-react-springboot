@@ -24,23 +24,6 @@ import useWindowDimensions from "../../utilities/useWindowDimension";
 
 
 
-// const useOutsideClick = (ref) => {
-//     useEffect(() => {
-//         const handleClickOutside = (event) => {
-//             console.log()
-//             if(ref.current && !ref.current.contains(event.target)){
-//                 alert("outside")
-//             }
-//         }
-//         document.addEventListener("mousedown", handleClickOutside);
-//         return () => {
-//             document.removeEventListener("mousedown", handleClickOutside)
-//         }
-//     }, [ref])
-// }
-
-document.addEventListener("mousedown", e => console.log(e.target))
-
 
 
 
@@ -56,14 +39,13 @@ const NavBar = () => {
         setSearchContent(e.target.value);
     }
 
+    useEffect(() => {
+        document.addEventListener("click", () => {
+            setHideDropDown(true);
+            setSearchContent("");
+        });
+    }, [])
 
-    const myRef = useRef(null);
-    // const ref2 = useRef(null);
-
-
-    // useEffect(() => {
-    //     console.log(ref1)
-    // },[ref1])
 
 
     return (
@@ -72,13 +54,17 @@ const NavBar = () => {
                 <Grid item xs={3.5} className="select" >
                     {/*https://www.positronx.io/react-detect-outside-click-to-hide-dropdown-element-tutorial/*/}
                         <img src={ins_logo} height="60%" />&nbsp;
+
                         <BsChevronDown
-                            onClick={() => {setHideDropDown(hideDropDown => !hideDropDown)}}
+                            onClick={(e) => {
+                                setHideDropDown(hideDropDown => !hideDropDown);
+                                e.nativeEvent.stopImmediatePropagation();
+                            }}
                             className="selectButton"
-                            ref={myRef}
                         />
+
                         <div className="navBar_selectBar" hidden={hideDropDown}>
-                            <DropDown/>
+                            <DropDown setHideDropDown={setHideDropDown}/>
                         </div>
                 </Grid>
 
@@ -89,10 +75,10 @@ const NavBar = () => {
                         <Grid item xs={3.5} className="navBar_search">
                             {
                                 searchContent === '' ?
-                                    <input type="text" placeholder=" 🔍 Search" className="navBar_inputFull" value={searchContent} onChange={handleSearchInputChange}/>
+                                    <input type="text" placeholder=" 🔍 Search" className="navBar_inputFull" value={searchContent} onChange={handleSearchInputChange} onClick={e => e.nativeEvent.stopImmediatePropagation()}/>
                                     :
                                     <>
-                                        <input type="text" placeholder=" 🔍 Search" className="navBar_input" value={searchContent} onChange={handleSearchInputChange}/>
+                                        <input type="text" placeholder=" 🔍 Search" className="navBar_input" value={searchContent} onChange={handleSearchInputChange} onClick={e => e.nativeEvent.stopImmediatePropagation()}/>
                                         <div className="navBar_inputText">
                                             <TiDelete className="navBar_inputDelete" onClick={() => setSearchContent("")}/>
                                         </div>

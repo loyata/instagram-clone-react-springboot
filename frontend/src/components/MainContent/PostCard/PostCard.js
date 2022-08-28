@@ -65,7 +65,7 @@ const PostCard = () => {
                             setCommentInput("");
                         }}>POST</button>
                 }
-                </div>
+            </div>
         </div>
     );
 };

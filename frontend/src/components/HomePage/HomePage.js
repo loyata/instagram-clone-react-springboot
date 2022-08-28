@@ -9,9 +9,6 @@ const HomePage = () => {
         <div className="home">
             <NavBar/>
             <MainContent/>
-
-
-
         </div>
     );
 };
