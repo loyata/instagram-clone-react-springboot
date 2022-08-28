@@ -1,11 +1,17 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import "./DropDown.css"
 
 import {BsPersonCheck} from "react-icons/bs"
 import {AiOutlineStar} from "react-icons/ai"
 
 
+
+
+
 const DropDown = () => {
+
+
+
     return (
 
             <div className="selectBar_detail">
