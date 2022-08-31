@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
 import "./NavBar.css"
 import {Grid} from "@mui/material";
-import {BsChevronDown} from "react-icons/bs"
+import {BsChevronDown, BsHouseDoor} from "react-icons/bs"
 import {AiOutlineSearch} from "react-icons/ai"
 import {TiDelete} from "react-icons/ti"
 
@@ -21,6 +21,7 @@ import ins_logo from "./images/ins_logo.png"
 import DropDown from "./DropDown/DropDown";
 import SearchResult from "./SearchResult/SearchResult";
 import useWindowDimensions from "../../utilities/useWindowDimension";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 
 
@@ -33,6 +34,7 @@ const NavBar = () => {
 
 
     const [hideDropDown, setHideDropDown] = useState(true);
+    const [hideProfileInfo, setHideProfileInfo] = useState(true);
     const [searchContent, setSearchContent] = useState("");
 
     const handleSearchInputChange = (e) => {
@@ -42,6 +44,7 @@ const NavBar = () => {
     useEffect(() => {
         document.addEventListener("click", () => {
             setHideDropDown(true);
+            setHideProfileInfo(true);
             setSearchContent("");
         });
     }, [])
@@ -92,16 +95,29 @@ const NavBar = () => {
 
 
                 <Grid item xs={3} className="navBar_avatar">
-                    <BsFillHouseDoorFill/>
-                    <IoPaperPlaneOutline/>
-                    <FiPlusSquare/>
-                    <ImCompass2/>
-                    <BsHeart/>
-                    <Avatar alt="Donald Trump" src="" sx={{height:"30px", width:"30px"}}/>
+                    <BsHouseDoor className="navBar_Click"/>
+                    <IoPaperPlaneOutline className="navBar_Click"/>
+                    <FiPlusSquare className="navBar_Click"/>
+                    <ImCompass2 className="navBar_Click"/>
+                    <BsHeart className="navBar_Click"/>
+                    <div style={{position:"relative"}}>
+                        <Avatar src="" sx={{height:"30px", width:"30px"}} style={hideProfileInfo ? {}:{border:"1px solid white",outline:"1px solid black"}} className="navBar_Click" onClick={(e) => {
+                            setHideProfileInfo(!hideProfileInfo);
+                            e.nativeEvent.stopImmediatePropagation();
+                        }}/>
+                        {hideProfileInfo ? <div/> : <ProfileInfo/>}
+                    </div>
+
                 </Grid>
+
+
+
+
 
                 <Grid item xs={2}/>
             </Grid>
+
+
         </div>
     );
 };

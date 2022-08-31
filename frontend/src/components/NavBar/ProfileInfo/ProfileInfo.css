@@ -1,0 +1,44 @@
+.profileInfo_container{
+    position: absolute;
+    width: 200px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+    top:160%;
+    right:5%;
+}
+
+ul{
+    list-style-type: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+li{
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    padding: 0.5rem 0rem 0.5rem 0.8rem;
+}
+
+li:hover{
+    cursor: pointer;
+    background: rgb(249,249,249);
+}
+
+li:hover:first-of-type{
+    border-radius: 8px 8px 0 0;
+}
+
+li:hover:last-of-type{
+    border-radius: 0 0 8px 8px;
+}
+
+
+span{
+    margin-left: 0.8rem;
+}

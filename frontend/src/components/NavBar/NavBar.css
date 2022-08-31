@@ -66,6 +66,7 @@ input:focus{
     font-size: 1.5em;
     gap: 1rem;
     min-width: 250px;
+    position: relative;
 }
 
 .navBar_inputText:hover{
@@ -81,5 +82,8 @@ input:focus{
     position: absolute;
     top:60px;
     z-index: 3;
+}
 
+.navBar_Click:hover{
+    cursor: pointer;
 }
