@@ -348,6 +348,8 @@
     padding: 0.5rem;
 }
 
+
+
 .newPost_filter{
     /*border: 1px solid gold;*/
     flex: 1 0 33%;
@@ -380,3 +382,6 @@
     border: 2px solid rgb(65,147,239);
 }
 
+.newPost_adjustments{
+    margin-top: 0.5rem;
+}

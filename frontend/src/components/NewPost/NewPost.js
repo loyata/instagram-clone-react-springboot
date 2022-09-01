@@ -12,6 +12,8 @@ import {FiImage} from "react-icons/fi"
 import {TbRectangle, TbRectangleVertical} from "react-icons/tb";
 import {Slider} from "@mui/material";
 import GeneralCard from "../GeneralCard/GeneralCard";
+import CustomSlider from "./CustomSlider/CustomSlider";
+import CustomSliderSingleDirection from "./CustomSliderSingleDirection/CustomSliderSingleDirection";
 
 const NewPost = () => {
 
@@ -83,6 +85,18 @@ const NewPost = () => {
                         'Lark', 'Reyes', 'Juno', 'Slumber', 'Crena',
                         'Ludwig', 'Aden','Perpetua']
 
+    const allAdjustments = ['Brightness', 'Contrast', 'Saturation', 'Temperature', 'Fade', 'Vignette']
+
+    const [adjValues, setAdjValues] = useState({
+        'Brightness': 0,
+        'Contrast': 0,
+        'Saturation': 0,
+        'Temperature': 0,
+        'Fade': 0,
+        'Vignette': 0
+    });
+
+
     useEffect(() => {
         document.addEventListener("click", () => {
             setShowIconAMenu(false);
@@ -103,9 +117,9 @@ const NewPost = () => {
     },[file])
 
 
-    useEffect(() => {
-        console.log(filter)
-    },[filter])
+    // useEffect(() => {
+    //     console.log(adjValues)
+    // },[adjValues])
 
 
     const calculateMaxShift = () => {
@@ -437,7 +451,9 @@ const NewPost = () => {
                                 >Adjustments</div>
                             </div>
                             <div>
-                                <div className="newPost_filters">
+                                {
+                                    adjustment === 0 ?
+                                    <div className="newPost_filters" >
                                     {
                                         allFilters.map((singleFilter, id) => (
                                             <div
@@ -452,7 +468,16 @@ const NewPost = () => {
                                             </div>
                                         ))
                                     }
-                                </div>
+                                </div >:
+                                        <div className="newPost_adjustments" >
+                                            {
+                                                allAdjustments.slice(0, allAdjustments.length - 1).map((adjName, index) => (
+                                                    <CustomSlider key={index} adjName={adjName} adjValues={adjValues} setAdjValues={setAdjValues}/>
+                                                ))
+                                            }
+                                            <CustomSliderSingleDirection adjName={allAdjustments[allAdjustments.length - 1]} adjValues={adjValues} setAdjValues={setAdjValues}/>
+                                        </div>
+                                }
                             </div>
                         </div>
                     </div>
