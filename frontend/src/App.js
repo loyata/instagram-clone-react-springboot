@@ -20,8 +20,6 @@ function App() {
             <PersonalPage/>
             <Display/>
             <NewPost/>
-
-            <GeneralCard/>
         </div>
     </div>
 

@@ -1,7 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import "./NewPost.css"
+import "./cssgram.min.css"
 
 import logoImg from "./images/img.png"
+import balloon from "./images/balloon.png"
 
 import {BsArrowLeft, BsArrowsAngleExpand, BsSquare} from "react-icons/bs"
 import {BiLayerPlus} from "react-icons/bi"
@@ -9,6 +11,7 @@ import {MdOutlinePhotoSizeSelectLarge} from "react-icons/md"
 import {FiImage} from "react-icons/fi"
 import {TbRectangle, TbRectangleVertical} from "react-icons/tb";
 import {Slider} from "@mui/material";
+import GeneralCard from "../GeneralCard/GeneralCard";
 
 const NewPost = () => {
 
@@ -56,11 +59,11 @@ const NewPost = () => {
 
     /**
      * Stage 0 => Upload
-     * Stage 1 => Discard Post
-     * Stage 2 => Crop
-     * Stage 3 => Filter
+     * Stage 1 => Crop
+     * Stage 2 => Filter
      */
     const [stage, setStage] = useState(0);
+    const [showDiscardCard, setShowDiscardCard] = useState(false)
 
 
 
@@ -68,6 +71,17 @@ const NewPost = () => {
     const [sliderMove, setSliderMove] = useState(0);
     const [sliderStartInitialized, setSliderStartInitialized] = useState(false)
 
+    /**
+     * 0 => Filters
+     * 1 => Adjustments
+     */
+    const [adjustment, setAdjustment] = useState(0);
+
+    const [filter, setFilter] = useState(0);
+
+    const allFilters = ['Original', 'Clarendon', 'Gingham', 'Moon',
+                        'Lark', 'Reyes', 'Juno', 'Slumber', 'Crena',
+                        'Ludwig', 'Aden','Perpetua']
 
     useEffect(() => {
         document.addEventListener("click", () => {
@@ -90,8 +104,8 @@ const NewPost = () => {
 
 
     useEffect(() => {
-        console.log(showIconBMenu)
-    },[showIconBMenu])
+        console.log(filter)
+    },[filter])
 
 
     const calculateMaxShift = () => {
@@ -152,240 +166,299 @@ const NewPost = () => {
          * Todo
          * check if the upload is successful
          */
-        setStage(2);
+        setStage(1);
     };
-
-
-
 
     return (
         <div style={{position:"relative"}} >
-
-            {/*<canvas id={"blankCanvas"}/>*/}
             <div className="newPost_close">×</div>
+            <div className="newPost_cardWrapper" style={{display:`${showDiscardCard && stage === 1 ? "block" : "none"}`}}>
+                <GeneralCard setShowDiscardCard={setShowDiscardCard} setStage={setStage}/>
+            </div>
             <div className="newPost_container">
-                {
-                    file?
-                        <div className="newPost_create">
-                            <div className="newPost_title newPost_title_crop">
-                                <BsArrowLeft style={{fontSize:"1.5rem"}}/>
-                                <span>Crop</span>
-                                <span style={{fontSize:"0.9rem", color:"rgb(65,147,239)"}}>Next</span>
-                            </div>
+                <div className="newPost_create" style={{display:`${stage === 0 ? "block" : "none"}`}}>
+                    <div className="newPost_title">Create New Post</div>
+                    <div className="newPost_body" >
+                        <img src={logoImg} />
+                        <div style={{fontSize:"1.3rem"}}>Drag photos and videos here</div>
+
+                        <input
+                            type="file"
+                            ref={hiddenFileInput}
+                            style={{display: 'none'}}
+                            onChange={handleChange}
+                        />
+                        <div className="newPost_button" onClick={handleClick}>
+                            Select from computer
+                        </div>
+                    </div>
+                </div>
+                <div className="newPost_create" style={{display:`${stage === 1 ? "block" : "none"}`}}>
+                      <div className="newPost_title newPost_title_crop">
+                          <BsArrowLeft className="newPost_bs" onClick={() => {
+                                setShowDiscardCard(true)
+                          }}/>
+                          <span>Crop</span>
+                          <span className="newPost_next" onClick={() => setStage(2)}>Next</span>
+                      </div>
+                      <div className="newPost_crop">
+                          <div style={showGrid?{display:"block"}:{display:"none"}} className="newPost_gridContainer">
+                              <div className="newPost_grid newPost_gridA"/>
+                              <div className="newPost_grid newPost_gridB"/>
+                              <div className="newPost_grid newPost_gridC"/>
+                          </div>
+
+                          <div className="newPost_iconAMenu"
+                               style={{display:`${showIconAMenu ? "block" : "none"}`}}
+                               onClick={e=>e.nativeEvent.stopImmediatePropagation()}
+                          >
+                              <ul className="newPost_iconAMenu_ul">
+                                  <li
+                                      className={`newPost_iconAMenu_li ${imageSize === 0 ? 'newPost_iconAMenu_highlight' : ''}`}
+                                      onClick={() => {
+                                          setRatio(Math.floor(document.getElementById("target").clientHeight / document.getElementById("target").clientWidth * 100));
+                                          setImageSize(0);
+                                          setSliderMove(0);
+                                          setImageStatus({
+                                              ...imageStatus,
+                                              height:"unset",
+                                              width:"100%",
+                                              containerHeight: `${ratio}%`,
+                                              containerWidth: "100%",
+                                              translationX: 0,
+                                              translationY: 0,
+                                              translationXBase: 0,
+                                              translationYBase: 0,
+                                              scale: 1
+                                          })}}
+                                  >
+                                      <div>Original</div>
+                                      <FiImage style={{fontSize:"1.3rem"}}/>
+                                  </li>
+
+                                  <li
+                                      className={`newPost_iconAMenu_li ${imageSize === 1 ? 'newPost_iconAMenu_highlight' : ''}`}
+                                      onClick={() => {
+                                          setImageSize(1);
+                                          setSliderMove(0);
+                                          setImageStatus({
+                                              ...imageStatus,
+                                              height:"100%",
+                                              width:"unset",
+                                              containerHeight: "100%",
+                                              containerWidth: "100%",
+                                              translationX: 0,
+                                              translationY: 0,
+                                              translationXBase: 0,
+                                              translationYBase: 0,
+                                              scale: 1
+                                          })}}
+                                  >
+                                      <div>1:1</div>
+                                      <BsSquare style={{fontWeight:"bold"}}/>
+                                  </li>
+
+                                  <li
+                                      className={`newPost_iconAMenu_li ${imageSize === 2 ? 'newPost_iconAMenu_highlight' : ''}`}
+                                      onClick={() => {
+                                          setImageSize(2);
+                                          setSliderMove(0);
+                                          setImageStatus({
+                                              ...imageStatus,
+                                              height:"100%",
+                                              width:"unset",
+                                              containerHeight: "100%",
+                                              containerWidth: `${currContainerSize[0] * 0.8}px`,
+                                              translationX: 0,
+                                              translationY: 0,
+                                              translationXBase: 0,
+                                              translationYBase: 0,
+                                              scale: 1
+                                          })
+                                      }}
+                                  >
+                                      <div>4:5</div>
+                                      <TbRectangle style={{fontSize:"1.3rem"}}/>
+                                  </li>
+
+                                  <li
+                                      className={`newPost_iconAMenu_li ${imageSize === 3 ? 'newPost_iconAMenu_highlight' : ''}`}
+                                      onClick={() => {
+                                          setImageSize(3);
+                                          setSliderMove(0);
+                                          setImageStatus({
+                                              ...imageStatus,
+                                              height:"unset",
+                                              width:"100%",
+                                              containerHeight: `${currContainerSize[0] * 9 / 16}px`,
+                                              containerWidth: "100%",
+                                              translationX: 0,
+                                              translationY: 0,
+                                              translationXBase: 0,
+                                              translationYBase: 0,
+                                              scale: 1
+                                          })}}
+                                  >
+                                      <div>16:9</div>
+                                      <TbRectangleVertical style={{fontSize:"1.3rem"}}/>
+                                  </li>
+                              </ul>
+                          </div>
+
+                          <div className="newPost_Slider" onClick={e=>e.nativeEvent.stopImmediatePropagation()} style={{display:`${showIconBMenu ? "block" : "none"}`}}>
+                              <div style={{width:"100%", height:"100%", display:"flex"}}>
+                                  <div className="newPost_SliderLeft" style={{width:`${sliderMove + 10}px`}}>
+                                      <hr id={"leftHr"}/>
+                                      <div className="ball"
+                                           draggable="true"
+                                           onDragStart={e=>{
+                                               if(sliderStartInitialized === false){
+                                                   setSliderStart(e.clientX)
+                                                   setSliderStartInitialized(true)
+                                               }
+                                               // const blankCanvas = document.getElementById("blankCanvas")
+                                                  const img = new Image();
+                                               e.dataTransfer.setDragImage(img, 0, 0);
+                                           }}
+                                           onDrag={e=>{
+                                               if(e.clientX !== 0){
+                                                   let val = e.clientX - sliderStart;
+                                                   if(val < 0) val = 0;
+                                                   if(val > 92) val = 92;
+                                                   setSliderMove(val);
+                                                   setImageStatus({...imageStatus, scale:(1+val/92)});
+                                               }
+                                           }}
+
+                                           style={{
+                                               left:`${sliderMove}px`
+                                           }}
+                                      />
+                                  </div>
+                                  <div className="newPost_SliderRight">
+                                      <hr id="rightHr"/>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div className="newPost_icon newPost_iconA" onClick={(e) => {
+                              setShowIconAMenu(!showIconAMenu);
+                              setShowIconBMenu(false)
+                              e.nativeEvent.stopImmediatePropagation();
+                              setRatio(Math.floor(imgRef.current.naturalHeight / imgRef.current.naturalWidth * 100))
+                          }}>
+                              <BsArrowsAngleExpand />
+                          </div>
+
+                          <div className="newPost_icon newPost_iconB" onClick={
+                              (e) => {
+                                  e.nativeEvent.stopImmediatePropagation();
+                                  setShowIconBMenu(!showIconBMenu);
+                                  setShowIconAMenu(false);
+                              }
+                          }>
+                              <MdOutlinePhotoSizeSelectLarge/>
+                          </div>
+
+                          <div className="newPost_icon newPost_iconC">
+                              <BiLayerPlus/>
+                          </div>
+
+                          <div
+                              className="newPost_imgContainer"
+                              ref={imgParentRef}
+                              style={{
+                              width:`${imageStatus.containerWidth}`,
+                              height:`${imageStatus.containerHeight}`,
+                          }}
+                          >
+                              <img
+                                  src={file}
+                                  id="target"
+                                  onDragStart={handleOnDragStart}
+                                  onDrag={handleOnDrag}
+                                  onDragEnd={handleOnDragEnd}
+                                  style={{
+                                      width:`${imageStatus.width}`,
+                                      height:`${imageStatus.height}`,
+                                      position:`${imageStatus.position}`,
+                                      objectFit:`scale-down`,
+                                      transform:`translate(${imageStatus.translationX}px, ${imageStatus.translationY}px) scale(${imageStatus.scale})`,
+                                  }}
+                                  ref={imgRef}
+                              />
+                          </div>
+
+                      </div>
+                  </div>
+                <div className="newPost_edit" style={{display:`${stage === 2 ? "block" : "none"}`}}>
+                    <div className="newPost_title newPost_title_crop">
+                        <BsArrowLeft className="newPost_bs" onClick={() => {
+                            setStage(1)
+                        }}/>
+                        <span>Edit</span>
+                        <span className="newPost_next">Next</span>
+                    </div>
+                    <div className="newPost_editPhoto">
+                        <div className="newPost_editPhoto_left">
 
 
-                            <div className="newPost_crop">
-
-                                <div style={showGrid?{display:"block"}:{display:"none"}} className="newPost_gridContainer">
-                                    <div className="newPost_grid newPost_gridA"/>
-                                    <div className="newPost_grid newPost_gridB"/>
-                                    <div className="newPost_grid newPost_gridC"/>
-                                </div>
-
-                                <div className="newPost_iconAMenu"
-                                     style={{display:`${showIconAMenu ? "block" : "none"}`}}
-                                     onClick={e=>e.nativeEvent.stopImmediatePropagation()}
-                                >
-                                    <ul className="newPost_iconAMenu_ul">
-                                        <li
-                                            className={`newPost_iconAMenu_li ${imageSize === 0 ? 'newPost_iconAMenu_highlight' : ''}`}
-                                            onClick={() => {
-                                                setRatio(Math.floor(document.getElementById("target").clientHeight / document.getElementById("target").clientWidth * 100));
-                                                setImageSize(0);
-                                                setImageStatus({
-                                                    ...imageStatus,
-                                                    height:"unset",
-                                                    width:"100%",
-                                                    containerHeight: `${ratio}%`,
-                                                    containerWidth: "100%",
-                                                    translationX: 0,
-                                                    translationY: 0,
-                                                    translationXBase: 0,
-                                                    translationYBase: 0,
-                                                    scale: 1
-                                                })}}
-                                        >
-                                            <div>Original</div>
-                                            <FiImage style={{fontSize:"1.3rem"}}/>
-                                        </li>
-
-                                        <li
-                                            className={`newPost_iconAMenu_li ${imageSize === 1 ? 'newPost_iconAMenu_highlight' : ''}`}
-                                            onClick={() => {
-                                                setImageSize(1);
-                                                setImageStatus({
-                                                    ...imageStatus,
-                                                    height:"100%",
-                                                    width:"unset",
-                                                    containerHeight: "100%",
-                                                    containerWidth: "100%",
-                                                    translationX: 0,
-                                                    translationY: 0,
-                                                    translationXBase: 0,
-                                                    translationYBase: 0,
-                                                    scale: 1
-                                                })}}
-                                        >
-                                            <div>1:1</div>
-                                            <BsSquare style={{fontWeight:"bold"}}/>
-                                        </li>
-
-                                        <li
-                                            className={`newPost_iconAMenu_li ${imageSize === 2 ? 'newPost_iconAMenu_highlight' : ''}`}
-                                            onClick={() => {
-                                                setImageSize(2);
-                                                setImageStatus({
-                                                    ...imageStatus,
-                                                    height:"100%",
-                                                    width:"unset",
-                                                    containerHeight: "100%",
-                                                    containerWidth: `${currContainerSize[0] * 0.8}px`,
-                                                    translationX: 0,
-                                                    translationY: 0,
-                                                    translationXBase: 0,
-                                                    translationYBase: 0,
-                                                    scale: 1
-                                                })
-                                            }}
-                                        >
-                                            <div>4:5</div>
-                                            <TbRectangle style={{fontSize:"1.3rem"}}/>
-                                        </li>
-
-                                        <li
-                                            className={`newPost_iconAMenu_li ${imageSize === 3 ? 'newPost_iconAMenu_highlight' : ''}`}
-                                            onClick={() => {
-                                                setImageSize(3);
-                                                setImageStatus({
-                                                    ...imageStatus,
-                                                    height:"unset",
-                                                    width:"100%",
-                                                    containerHeight: `${currContainerSize[0] * 9 / 16}px`,
-                                                    containerWidth: "100%",
-                                                    translationX: 0,
-                                                    translationY: 0,
-                                                    translationXBase: 0,
-                                                    translationYBase: 0,
-                                                    scale: 1
-                                                })}}
-                                        >
-                                            <div>16:9</div>
-                                            <TbRectangleVertical style={{fontSize:"1.3rem"}}/>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div className="newPost_Slider" onClick={e=>e.nativeEvent.stopImmediatePropagation()} style={{display:`${showIconBMenu ? "block" : "none"}`}}>
-                                    <div style={{width:"100%", height:"100%", display:"flex"}}>
-                                        <div className="newPost_SliderLeft" style={{width:`${sliderMove + 10}px`}}>
-                                            <hr id={"leftHr"}/>
-                                            <div className="ball"
-                                                 draggable="true"
-                                                 onDragStart={e=>{
-                                                     if(sliderStartInitialized === false){
-                                                         setSliderStart(e.clientX)
-                                                         setSliderStartInitialized(true)
-                                                     }
-                                                     // const blankCanvas = document.getElementById("blankCanvas")
-                                                        const img = new Image();
-                                                     e.dataTransfer.setDragImage(img, 0, 0);
-                                                 }}
-                                                 onDrag={e=>{
-                                                     if(e.clientX !== 0){
-                                                         let val = e.clientX - sliderStart;
-                                                         if(val < 0) val = 0;
-                                                         if(val > 92) val = 92;
-                                                         setSliderMove(val);
-                                                         setImageStatus({...imageStatus, scale:(1+val/92)});
-                                                     }
-                                                 }}
-
-                                                 style={{
-                                                     left:`${sliderMove}px`
-                                                 }}
-                                            />
-                                        </div>
-                                        <div className="newPost_SliderRight">
-                                            <hr id="rightHr"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="newPost_icon newPost_iconA" onClick={(e) => {
-                                    setShowIconAMenu(!showIconAMenu);
-                                    setShowIconBMenu(false)
-                                    e.nativeEvent.stopImmediatePropagation();
-                                    setRatio(Math.floor(imgRef.current.naturalHeight / imgRef.current.naturalWidth * 100))
-                                }}>
-                                    <BsArrowsAngleExpand />
-                                </div>
-
-                                <div className="newPost_icon newPost_iconB" onClick={
-                                    (e) => {
-                                        e.nativeEvent.stopImmediatePropagation();
-                                        setShowIconBMenu(!showIconBMenu);
-                                        setShowIconAMenu(false);
-                                    }
-                                }>
-                                    <MdOutlinePhotoSizeSelectLarge/>
-                                </div>
-
-                                <div className="newPost_icon newPost_iconC">
-                                    <BiLayerPlus/>
-                                </div>
-
-                                <div
-                                    className="newPost_imgContainer"
-                                    ref={imgParentRef}
-                                    style={{
+                            <div
+                                className={`newPost_imgContainer ${allFilters[filter].toLowerCase()}`}
+                                ref={imgParentRef}
+                                style={{
                                     width:`${imageStatus.containerWidth}`,
                                     height:`${imageStatus.containerHeight}`,
                                 }}
-                                >
-                                    <img
-                                        src={file}
-                                        id="target"
-                                        onDragStart={handleOnDragStart}
-                                        onDrag={handleOnDrag}
-                                        onDragEnd={handleOnDragEnd}
-                                        style={{
-                                            width:`${imageStatus.width}`,
-                                            height:`${imageStatus.height}`,
-                                            position:`${imageStatus.position}`,
-                                            objectFit:`scale-down`,
-                                            transform:`translate(${imageStatus.translationX}px, ${imageStatus.translationY}px) scale(${imageStatus.scale})`,
-                                        }}
-                                        ref={imgRef}
-                                    />
-                                </div>
-
-                            </div>
-                        </div>
-                        :
-                        <div className="newPost_create">
-                            <div className="newPost_title">Create New Post</div>
-                            <div className="newPost_body" >
-                                <img src={logoImg} />
-                                <div style={{fontSize:"1.3rem"}}>Drag photos and videos here</div>
-
-                                <input
-                                    type="file"
-                                    ref={hiddenFileInput}
-                                    style={{display: 'none'}}
-                                    onChange={handleChange}
+                            >
+                                <img
+                                    src={file}
+                                    id="target"
+                                    draggable="false"
+                                    style={{
+                                        width:`${imageStatus.width}`,
+                                        height:`${imageStatus.height}`,
+                                        position:`${imageStatus.position}`,
+                                        objectFit:`cover`,
+                                        transform:`translate(${imageStatus.translationX}px, ${imageStatus.translationY}px) scale(${imageStatus.scale})`,
+                                    }}
                                 />
-                                {file ? <img src={file} width="100%"/> : <div/>}
-                                <div className="newPost_button" onClick={handleClick}>
-                                    Select from computer
+                            </div>
+                        </div>
+                        <div className="newPost_editPhoto_right">
+                            <div className="newPost_editPhoto_right_selectors">
+                                <div
+                                    className={`newPost_editPhoto_right_selector${adjustment === 0 ? " newPost_highlight" : ""}`}
+                                    onClick={() => setAdjustment(0)}
+                                >Filters</div>
+                                <div
+                                    className={`newPost_editPhoto_right_selector${adjustment === 1 ? " newPost_highlight" : ""}`}
+                                    onClick={() => setAdjustment(1)}
+                                >Adjustments</div>
+                            </div>
+                            <div>
+                                <div className="newPost_filters">
+                                    {
+                                        allFilters.map((singleFilter, id) => (
+                                            <div
+                                                className={`newPost_filter${filter === id ? " newPost_filter_highlight" : ""}`}
+                                                key={id}
+                                                onClick={() => setFilter(id)}
+                                            >
+                                                <div className={`${singleFilter.toLowerCase()}`}>
+                                                    <img src={balloon} width="100%" draggable="false"/>
+                                                </div>
+                                                <div>{singleFilter}</div>
+                                            </div>
+                                        ))
+                                    }
                                 </div>
                             </div>
                         </div>
-                }
-
+                    </div>
+                </div>
             </div>
-
         </div>
-
     );
 };
 

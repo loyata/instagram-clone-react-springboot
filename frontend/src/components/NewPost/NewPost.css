@@ -25,6 +25,7 @@
     font-weight: bold;
     padding: 0.8rem;
     border-bottom: 1px solid rgb(219,219,219);
+
 }
 
 .newPost_title_crop{
@@ -34,8 +35,7 @@
 }
 
 .newPost_body{
-    height: 100%;
-    flex: 1 1 0;
+    height: calc(100% - 2.5rem);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,13 +45,13 @@
 }
 
 .newPost_crop{
-    height: 100%;
-    flex: 1 1 0;
+    /*border: 3px solid gold;*/
+    height: calc(100% - 2.5rem);
+    /*flex: 1 1 0;*/
     position: relative;
     user-select: none;
     display: flex;
     align-items: center;
-
 }
 
 
@@ -147,7 +147,7 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    top:93%;
+    top:92%;
     z-index: 2;
 }
 
@@ -165,10 +165,6 @@
 
 .newPost_iconC{
     left: 90%;
-}
-
-img:active, img:hover{
-    cursor: grab;
 }
 
 .newPost_iconAMenu{
@@ -267,3 +263,120 @@ img:active, img:hover{
     height: 0;
     background-color: transparent;
 }
+
+.newPost_bs{
+    font-size: 1.5rem;
+}
+
+.newPost_bs:hover,.newPost_next:hover{
+    cursor: pointer;
+}
+
+.newPost_next{
+    font-size: 0.9rem;
+    color: rgb(65,147,239);
+}
+
+.newPost_cardWrapper{
+    width: 100%;
+    height:100%
+}
+
+.newPost_edit{
+    height: 87vh;
+    /*width: 40%;*/
+    width: 1000px;
+    border-radius: 16px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.newPost_editPhoto{
+    height: calc(100% - 2.5rem);
+
+    display: flex;
+    user-select: none;
+}
+
+.newPost_editPhoto_left{
+    width: 650px;
+    height: 100%;
+    border-right: 1px solid rgb(237,237,237);
+    display: flex;
+    align-items: center;
+    background-color: rgb(250,250,250);
+    border-radius: 0 0 0 12px;
+}
+
+.newPost_editPhoto_right{
+    width: calc(100% - 650px);
+
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgb(237,237,237);
+}
+
+.newPost_editPhoto_right_selectors{
+    display: flex;
+    justify-content: center;
+}
+
+.newPost_editPhoto_right_selector{
+    text-align: center;
+    flex: 1 1 0;
+    padding: 1rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgb(190,190,190);
+    border-bottom:1px solid rgb(237,237,237)
+}
+
+.newPost_editPhoto_right_selector:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.newPost_highlight{
+    color: black;
+    border-bottom: 1px solid rgb(38,38,38);
+}
+
+.newPost_filters{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+}
+
+.newPost_filter{
+    /*border: 1px solid gold;*/
+    flex: 1 0 33%;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+}
+
+.newPost_filter:hover{
+    cursor: pointer;
+}
+
+.newPost_filter img{
+    /*border-radius: 12px;*/
+}
+
+.newPost_filter div{
+    text-align: center;
+    margin-top: 0.4rem;
+    font-size: 0.8rem;
+    color: rgb(164,164,164);
+}
+
+.newPost_filter_highlight div{
+    color: rgb(65,147,239);
+    font-weight: 600;
+}
+
+.newPost_filter_highlight img{
+    border: 2px solid rgb(65,147,239);
+}
+
