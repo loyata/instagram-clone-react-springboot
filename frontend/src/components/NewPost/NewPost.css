@@ -48,13 +48,13 @@
     height: 100%;
     flex: 1 1 0;
     position: relative;
-    overflow: hidden;
     user-select: none;
-
     display: flex;
     align-items: center;
 
 }
+
+
 
 .newPost_imgContainer{
 
@@ -103,10 +103,14 @@
     z-index: 1;
 }
 
+.newPost_gridContainer{
+    height: 100%;
+}
+
 .newPost_grid{
     border: 1px solid rgba(255,255,255,0.6);
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     pointer-events: none;
  }
 
@@ -119,7 +123,7 @@
 .newPost_gridB{
     width: 33%;
     height: 100%;
-    left:33%;
+    left: 33%;
 }
 
 .newPost_gridC{

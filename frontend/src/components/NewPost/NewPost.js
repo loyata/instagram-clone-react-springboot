@@ -95,27 +95,24 @@ const NewPost = () => {
     const handleOnDragStart = event => {
         setStart([event.clientX, event.clientY]);
         setShowGrid(true);
+        setMaxShift(calculateMaxShift());
     }
 
     const handleOnDrag = (event) => {
         if(event.clientX !== 0 && event.clientY !== 0){
             let left = event.clientX - start[0];
             let top = (event.clientY - start[1]);
-            // setTranslation([left, top])
+            // if shift has exceeded the container edge, slow down the moving speed by 10x
+            const [maxShiftX, maxShiftY] = maxShift;
+            if(left > maxShiftX || left < -maxShiftX) left /= 10;
+            if(top > maxShiftY || top < -maxShiftY) top /= 10;
             setImageStatus({...imageStatus, translationX: left + imageStatus.translationXBase, translationY: top + imageStatus.translationYBase})
-
         }
     }
 
     const handleOnDragEnd = event => {
 
-        console.log(imgRef)
-
-        let containerX = imgParentRef.current.clientWidth;
-        let containerY = imgParentRef.current.clientHeight;
-        let scale = imageStatus.scale;
-        let maxShiftX = Math.floor((imgRef.current.clientWidth * scale - containerX) / 2);
-        let maxShiftY = Math.floor((imgRef.current.clientHeight * scale - containerY) / 2);
+        const [maxShiftX, maxShiftY] = maxShift;
 
         let actualX = imageStatus.translationX;
         let actualY = imageStatus.translationY;
@@ -165,7 +162,7 @@ const NewPost = () => {
 
                             <div className="newPost_crop">
 
-                                <div style={showGrid?{display:"block"}:{display:"none"}}>
+                                <div style={showGrid?{display:"block"}:{display:"none"}} className="newPost_gridContainer">
                                     <div className="newPost_grid newPost_gridA"/>
                                     <div className="newPost_grid newPost_gridB"/>
                                     <div className="newPost_grid newPost_gridC"/>
@@ -284,6 +281,7 @@ const NewPost = () => {
                                                          let val = e.clientX - sliderStart;
                                                          if(val < 0) val = 0;
                                                          if(val > 92) val = 92;
+                                                         setSliderMove(val);
                                                          setImageStatus({...imageStatus, scale:(1+val/92)});
                                                      }
                                                  }}
