@@ -6,6 +6,7 @@ import HomePage from "./components/HomePage/HomePage";
 import PersonalPage from "./components/PersonalPage/PersonalPage";
 import Display from "./components/Display/Display";
 import NewPost from "./components/NewPost/NewPost";
+import GeneralCard from "./components/GeneralCard/GeneralCard";
 
 
 
@@ -19,6 +20,8 @@ function App() {
             <PersonalPage/>
             <Display/>
             <NewPost/>
+
+            <GeneralCard/>
         </div>
     </div>
 

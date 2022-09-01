@@ -1,0 +1,43 @@
+.generalCard_container{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.3);
+    flex-direction: column;
+}
+
+.generalCard_general{
+    width: 400px;
+    height: 200px;
+    background-color: white;
+    list-style-type: none;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.generalCard_first{
+    text-align: center;
+    margin: 1.7rem;
+}
+
+.generalCard_rest{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+}
+
+.generalCard_selection{
+    border-top: 1px solid rgb(219,219,219);
+    flex:1 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.generalCard_selection:hover{
+    cursor: pointer;
+}

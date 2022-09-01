@@ -18,6 +18,8 @@ const NewPost = () => {
 
     const [file, setFile] = useState(null); // current image to load
 
+
+
     const [start, setStart] = useState([]);  // mouse position onDragStart
     // const [translation, setTranslation] = useState([]);  // shift from start
     const [imageStatus, setImageStatus] = useState({
@@ -50,6 +52,15 @@ const NewPost = () => {
      * 16:9 => 3
      */
     const [imageSize, setImageSize] = useState(1);
+
+
+    /**
+     * Stage 0 => Upload
+     * Stage 1 => Discard Post
+     * Stage 2 => Crop
+     * Stage 3 => Filter
+     */
+    const [stage, setStage] = useState(0);
 
 
 
@@ -136,18 +147,21 @@ const NewPost = () => {
     const handleChange = event => {
         const fileUploaded = URL.createObjectURL(event.target.files[0]);
         setFile(file => fileUploaded)
+
+        /**
+         * Todo
+         * check if the upload is successful
+         */
+        setStage(2);
     };
 
-
-
-    let blancCanvas = document.getElementById("blankCanvas")
 
 
 
     return (
         <div style={{position:"relative"}} >
 
-            <canvas id={"blankCanvas"}/>
+            {/*<canvas id={"blankCanvas"}/>*/}
             <div className="newPost_close">×</div>
             <div className="newPost_container">
                 {
@@ -273,8 +287,8 @@ const NewPost = () => {
                                                          setSliderStartInitialized(true)
                                                      }
                                                      // const blankCanvas = document.getElementById("blankCanvas")
-
-                                                     e.dataTransfer.setDragImage(blancCanvas, 0, 0);
+                                                        const img = new Image();
+                                                     e.dataTransfer.setDragImage(img, 0, 0);
                                                  }}
                                                  onDrag={e=>{
                                                      if(e.clientX !== 0){
