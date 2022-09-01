@@ -9,7 +9,7 @@
 }
 
 .newPost_create{
-    height: 80vh;
+    height: 87vh;
     /*width: 40%;*/
     width: 650px;
     border-radius: 16px;
@@ -49,13 +49,28 @@
     flex: 1 1 0;
     position: relative;
     overflow: hidden;
+    user-select: none;
+
+    display: flex;
+    align-items: center;
 
 }
 
+.newPost_imgContainer{
+
+    overflow:hidden;
+
+    /*border:3px solid gold;*/
+
+    position:relative;
+    margin:0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
 #target{
-    position: absolute;
     overflow: hidden;
 }
 
@@ -114,3 +129,137 @@
 
 
 
+
+
+.newPost_icon{
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+    background-color: rgb(71,71,71);
+    border-radius: 50%;
+    color: white!important;
+    margin-left: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top:93%;
+    z-index: 2;
+}
+
+.newPost_icon:hover{
+    cursor: pointer;
+}
+
+.newPost_iconA{
+    font-size: 1rem;
+}
+
+.newPost_iconB{
+    left: 9%;
+}
+
+.newPost_iconC{
+    left: 90%;
+}
+
+img:active, img:hover{
+    cursor: grab;
+}
+
+.newPost_iconAMenu{
+    position: absolute;
+    z-index: 3;
+    top: 62%;
+    left: 2%;
+}
+
+.newPost_iconAMenu_ul{
+    list-style-type: none;
+    background-color: rgba(26, 26, 26, .6);
+    border-radius: 8px;
+    color: rgba(142,142,142);
+}
+
+.newPost_iconAMenu_li {
+    border-bottom: 1px solid rgba(219,219,219);
+    display: flex;
+    align-items: center;
+    gap:0.5rem;
+    padding: 0.8rem 1.3rem 0.8rem 1rem;
+    font-weight: bold;
+}
+
+.newPost_iconAMenu_li:last-of-type{
+    border-bottom: none;
+}
+
+.newPost_iconAMenu_li:hover{
+    cursor: pointer;
+}
+
+.newPost_iconAMenu_highlight{
+    color: white;
+}
+
+.newPost_Slider{
+    background-color: rgba(26, 26, 26, .6);
+    position: absolute;
+
+    width: 120px;
+    height: 30px;
+    border-radius: 12px;
+
+    top: 86%;
+    left: 11%;
+    z-index: 3;
+    padding: 0.3rem;
+}
+
+.newPost_SliderLeft{
+    /*border: 1px solid gold;*/
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex:0 0 auto
+}
+
+.newPost_SliderRight{
+    /*border: 1px solid red;*/
+    position: relative;
+    flex: 1 1 0;
+}
+
+.ball{
+    height: 1rem;
+    width: 1rem;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 4;
+}
+
+.ball:active{
+    cursor: move;
+}
+
+#leftHr{
+    width: 100%;
+    position: absolute;
+    top:50%
+}
+
+#rightHr{
+    width: 100%;
+    position: absolute;
+    top:50%;
+    border: none;
+    border-top: 1px solid rgb(36,36,36);
+}
+
+#blankCanvas{
+    /*display: none;*/
+    height: 0;
+    background-color: transparent;
+}

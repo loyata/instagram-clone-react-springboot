@@ -16,24 +16,24 @@ const ProfileInfo = () => {
     return (
         <div className="profileInfo_container" onClick={e=>e.nativeEvent.stopImmediatePropagation()}>
             <ul className="profileInfo_ul">
-                <li onClick={handleClick("Profile")}>
+                <li className="profileInfo_li" onClick={handleClick("Profile")}>
                     <FaRegUserCircle/>
-                    <span>Profile</span>
+                    <span className="profileInfo_1">Profile</span>
                 </li>
-                <li onClick={handleClick("Saved")}>
+                <li  className="profileInfo_li"onClick={handleClick("Saved")}>
                     <BsBookmark/>
                     <span>Saved</span>
                 </li>
-                <li onClick={handleClick("Settings")}>
+                <li  className="profileInfo_li" onClick={handleClick("Settings")}>
                     <BsGearWide/>
                     <span>Settings</span>
                 </li>
-                <li onClick={handleClick("Switch")}>
+                <li className="profileInfo_li" onClick={handleClick("Switch")}>
                     <HiSwitchHorizontal/>
                     <span style={{display:"inline"}}>Switch accounts</span>
                 </li>
                 <hr/>
-                <li onClick={handleClick("Logout")}>
+                <li className="profileInfo_li" onClick={handleClick("Logout")}>
                     Log out
                 </li>
             </ul>

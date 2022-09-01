@@ -9,7 +9,7 @@
     right:5%;
 }
 
-ul{
+.profileInfo_ul{
     list-style-type: none;
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -18,27 +18,27 @@ ul{
 }
 
 
-li{
+.profileInfo_li{
     display: flex;
     align-items: center;
     font-size: 0.95rem;
     padding: 0.5rem 0rem 0.5rem 0.8rem;
 }
 
-li:hover{
+.profileInfo_li:hover{
     cursor: pointer;
     background: rgb(249,249,249);
 }
 
-li:hover:first-of-type{
+.profileInfo_li:hover:first-of-type{
     border-radius: 8px 8px 0 0;
 }
 
-li:hover:last-of-type{
+.profileInfo_li:hover:last-of-type{
     border-radius: 0 0 8px 8px;
 }
 
 
-span{
+.profileInfo_1{
     margin-left: 0.8rem;
 }
