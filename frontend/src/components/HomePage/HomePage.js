@@ -8,7 +8,7 @@ import {useSelector} from "react-redux";
 
 const HomePage = () => {
 
-    const {navbarStatus, navbarCache} = useSelector(state => state.navbarStatus);
+    const {navbarStatus} = useSelector(state => state.navbarStatus);
 
     /*
     mainContent's z-index 1-10

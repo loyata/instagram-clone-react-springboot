@@ -37,8 +37,10 @@ export const navbarStatusSlice = createSlice({
             alert(`navigate to ${action.payload}`);
         },
         updateStateComplex: (state, action) => {
+            //open
             if(!state.navbarStatus[action.payload]){
-                state.navbarCache = Object.keys(state.navbarStatus).find(status => state.navbarStatus[status] === true);
+                const cache = Object.keys(state.navbarStatus).find(status => state.navbarStatus[status] === true);
+                if (cache === 'homepage' || cache === 'message' || cache === 'explore') state.navbarCache = cache;
                 state.navbarStatus = {...navbarStatusDefault, [action.payload]: true};
             }
             //close

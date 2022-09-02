@@ -20,6 +20,7 @@ import DropDown from "./DropDown/DropDown";
 import SearchResult from "./SearchResult/SearchResult";
 import useWindowDimensions from "../../utilities/useWindowDimension";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import ReportInfo from "./ReportInfo/ReportInfo";
 
 
 
@@ -44,6 +45,10 @@ const NavBar = () => {
         });
     } )
 
+
+    useEffect(() => {
+        console.log(navbarCache)
+    },[navbarStatus, navbarCache])
 
 
 
@@ -106,15 +111,18 @@ const NavBar = () => {
                             dispatch(updateStateComplex('newPost'))
                     }}/>}
 
-                    {navbarStatus.explore ? <AiFillCompass className="navBar_Click"/> :
-                        <AiOutlineCompass className="navBar_Click" onClick={e => {
+                    {navbarStatus.explore ? <AiFillCompass className="navBar_Click" style={{fontSize:"1.8rem", fontWeight:"500"}}/> :
+                        <AiOutlineCompass className="navBar_Click" style={{fontSize:"1.8rem", fontWeight:"300"}} onClick={e => {
                             dispatch(updateStateSimple('explore'))
                     }}/>}
 
-                    {navbarStatus.report ? <BsHeartFill className="navBar_Click"/> :
-                        <BsHeart className="navBar_Click" onClick={e => {
-                            dispatch(updateStateComplex('report'))
-                     }}/>}
+                    <div style={{position:"relative"}}>
+                        {navbarStatus.report ? <BsHeartFill className="navBar_Click" style={{marginTop:"8px"}} onClick={() => dispatch(updateStateComplex('report'))}/> :
+                            <BsHeart className="navBar_Click" style={{marginTop:"8px"}} onClick={() => {
+                                dispatch(updateStateComplex('report'))
+                        }}/>}
+                        {navbarStatus.report ?  <ReportInfo/>: <div/>}
+                    </div>
 
                     <div style={{position:"relative"}}>
                         <Avatar src="" sx={{height:"28px", width:"28px"}} style={navbarStatus.profile ? {border:"1px solid white",outline:"1px solid black"}:{}} className="navBar_Click" onClick={(e) => {

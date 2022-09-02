@@ -243,9 +243,9 @@ const NewPost = () => {
     }
 
 
-    useEffect(() => {
-        console.log(showDiscardCard)
-    },[showDiscardCard])
+    // useEffect(() => {
+    //     console.log(showDiscardCard)
+    // },[showDiscardCard])
 
 
     return (

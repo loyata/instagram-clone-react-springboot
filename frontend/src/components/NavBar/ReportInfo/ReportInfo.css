@@ -1,0 +1,45 @@
+.reportInfo_container{
+    position: absolute;
+    width: 450px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    z-index: 2;
+    top:150%;
+    transform: translate(-83%, 0);
+}
+
+.reportInfo_detail{
+    display: flex;
+    align-items: center;
+}
+
+.reportInfo_avatar{
+    flex: 1 1 10%;
+}
+
+.reportInfo_text{
+    flex: 1 1 75%;
+}
+
+.reportInfo_button{
+    flex: 1 1 25%;
+    height: 30px;
+    background-color: #0095F6;
+    margin: 0 1rem;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+    color: white;
+    font-weight: bold;
+}
+
+.reportInfo_button:hover{
+    cursor: pointer;
+}
+
+.reportInfo_button:active{
+    opacity: 80%;
+}
