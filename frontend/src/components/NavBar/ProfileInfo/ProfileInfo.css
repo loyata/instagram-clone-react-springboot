@@ -4,9 +4,9 @@
     background-color: white;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-
-    top:160%;
-    right:5%;
+    z-index: 2;
+    top:150%;
+    transform: translate(-75%, 0);
 }
 
 .profileInfo_ul{

@@ -1,21 +1,18 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
+
+import {useSelector, useDispatch} from "react-redux";
+import {updateStateSimple, updateStateOuter, updateStateComplex} from "../../redux/navbarStatusSlice"
+
 import "./NavBar.css"
+
 import {Grid} from "@mui/material";
-import {BsChevronDown, BsHouseDoor} from "react-icons/bs"
-import {AiOutlineSearch} from "react-icons/ai"
-import {TiDelete} from "react-icons/ti"
-
-import {BsFillHouseDoorFill} from "react-icons/bs"
-import {IoPaperPlaneOutline} from "react-icons/io5"
-import {FiPlusSquare} from "react-icons/fi"
-import {ImCompass2} from "react-icons/im"
-import {BsHeart} from "react-icons/bs"
 import Avatar from '@mui/material/Avatar';
-import {BsHeartFill} from "react-icons/bs"
 
-
-
-
+import {BsChevronDown, BsHouseDoor, BsHouseDoorFill} from "react-icons/bs"
+import {AiFillCompass, AiOutlineCompass} from "react-icons/ai"
+import {TiDelete} from "react-icons/ti"
+import {BsHeart, BsPlusSquareFill, BsPlusSquare} from "react-icons/bs"
+import {IoPaperPlaneOutline, IoPaperPlaneSharp} from "react-icons/io5"
 
 import ins_logo from "./images/ins_logo.png"
 import DropDown from "./DropDown/DropDown";
@@ -25,18 +22,14 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 
 
-
-
-
 const NavBar = () => {
 
     const { width } = useWindowDimensions();
-
-
+    const [searchContent, setSearchContent] = useState("");
     const [hideDropDown, setHideDropDown] = useState(true);
-    const [hideProfileInfo, setHideProfileInfo] = useState(true);
 
-    const [navBarStatus, setNavBarStatus] = useState({
+
+    const [navbarStatus, setNavbarStatus] = useState({
         homepage: true,
         message: false,
         newPost: false,
@@ -44,10 +37,14 @@ const NavBar = () => {
         profile: false
     })
 
-
-
-
-    const [searchContent, setSearchContent] = useState("");
+    const navbarStatusDefault = {
+        homepage: false,
+        message: false,
+        newPost: false,
+        explore: false,
+        profile: false
+    }
+    const [navBarCache, setNavBarCache] = useState('');
 
     const handleSearchInputChange = (e) => {
         setSearchContent(e.target.value);
@@ -55,11 +52,23 @@ const NavBar = () => {
 
     useEffect(() => {
         document.addEventListener("click", () => {
+            console.log(navBarCache)
             setHideDropDown(true);
-            setHideProfileInfo(true);
+
+            if (navBarCache !== '') {
+                setNavbarStatus({...navbarStatusDefault, [navBarCache]:true});
+                setNavBarCache('');
+            }
+
+
             setSearchContent("");
         });
-    }, [])
+    } )
+
+    useEffect(() => {
+        // console.log(navbarStatus)
+        console.log(navBarCache)
+    },[navbarStatus])
 
 
 
@@ -106,18 +115,60 @@ const NavBar = () => {
                 }
 
 
-                <Grid item xs={3} className="navBar_avatar">
-                    <BsHouseDoor className="navBar_Click"/>
-                    <IoPaperPlaneOutline className="navBar_Click"/>
-                    <FiPlusSquare className="navBar_Click"/>
-                    <ImCompass2 className="navBar_Click"/>
+                <Grid item xs={3} className="navBar_avatar" onClick={e=>e.nativeEvent.stopImmediatePropagation()}>
+
+                    {navbarStatus.homepage ? <BsHouseDoorFill className="navBar_Click"/> :
+                        <BsHouseDoor className="navBar_Click" onClick={e=>{
+                            setNavbarStatus({...navbarStatusDefault, homepage: true});
+                            setNavBarCache('');
+                            alert("Navigate to HomePage")
+                    }}/>}
+
+                    {navbarStatus.message ? <IoPaperPlaneSharp className="navBar_Click"/> :
+                    <IoPaperPlaneOutline className="navBar_Click" onClick={e => {
+                        setNavbarStatus({...navbarStatusDefault, message: true});
+                        setNavBarCache('');
+                        alert("Navigate to Message")
+                    }}/>}
+
+                    {navbarStatus.newPost ? <BsPlusSquareFill className="navBar_Click"/> :
+                        <BsPlusSquare className="navBar_Click" onClick={() => {
+                            //open
+                            if(!navbarStatus['newPost']){
+                                const cache = Object.keys(navbarStatus).find(status => navbarStatus[status] === true);
+                                setNavBarCache(cache);
+                                setNavbarStatus({...navbarStatusDefault, newPost: true})
+                            }
+                            //close
+                            else{
+                                setNavbarStatus({...navbarStatusDefault, [navBarCache]:true});
+                                setNavBarCache('')
+                            }
+                    }}/>}
+
+
+                    {navbarStatus.explore ? <AiFillCompass className="navBar_Click"/> :
+                        <AiOutlineCompass className="navBar_Click" onClick={e => {
+                            setNavbarStatus({...navbarStatusDefault, explore: true});
+                            setNavBarCache('');
+                            alert("Navigate to Explore")
+                        }}/>}
                     <BsHeart className="navBar_Click"/>
                     <div style={{position:"relative"}}>
-                        <Avatar src="" sx={{height:"30px", width:"30px"}} style={hideProfileInfo ? {}:{border:"1px solid white",outline:"1px solid black"}} className="navBar_Click" onClick={(e) => {
-                            setHideProfileInfo(!hideProfileInfo);
-                            e.nativeEvent.stopImmediatePropagation();
+                        <Avatar src="" sx={{height:"28px", width:"28px"}} style={navbarStatus.profile ? {border:"1px solid white",outline:"1px solid black"}:{}} className="navBar_Click" onClick={(e) => {
+                            //open
+                            if(!navbarStatus['profile']){
+                                const cache = Object.keys(navbarStatus).find(status => navbarStatus[status] === true);
+                                setNavBarCache(cache);
+                                setNavbarStatus({...navbarStatusDefault, profile: true})
+                            }
+                            //close
+                            else{
+                                setNavbarStatus({...navbarStatusDefault, [navBarCache]:true});
+                                setNavBarCache('')
+                            }
                         }}/>
-                        {hideProfileInfo ? <div/> : <ProfileInfo/>}
+                        {navbarStatus.profile ?  <ProfileInfo/>: <div/>}
                     </div>
 
                 </Grid>

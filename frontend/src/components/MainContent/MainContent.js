@@ -13,7 +13,8 @@ const MainContent = () => {
     const {width} = useWindowDimensions();
 
     return (
-        <div>
+        <div style={{position:"relative"}}>
+
             <Container maxWidth="md" >
                 <div className="mainContent_container">
                     <div className="mainContent_left">

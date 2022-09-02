@@ -5,6 +5,8 @@ import MainContent from "../MainContent/MainContent";
 
 
 const HomePage = () => {
+
+
     return (
         <div className="home">
             <NavBar/>

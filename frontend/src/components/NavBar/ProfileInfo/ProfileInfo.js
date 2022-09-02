@@ -22,15 +22,15 @@ const ProfileInfo = () => {
                 </li>
                 <li  className="profileInfo_li"onClick={handleClick("Saved")}>
                     <BsBookmark/>
-                    <span>Saved</span>
+                    <span className="profileInfo_1">Saved</span>
                 </li>
                 <li  className="profileInfo_li" onClick={handleClick("Settings")}>
                     <BsGearWide/>
-                    <span>Settings</span>
+                    <span className="profileInfo_1">Settings</span>
                 </li>
                 <li className="profileInfo_li" onClick={handleClick("Switch")}>
                     <HiSwitchHorizontal/>
-                    <span style={{display:"inline"}}>Switch accounts</span>
+                    <span style={{display:"inline"}} className="profileInfo_1">Switch accounts</span>
                 </li>
                 <hr/>
                 <li className="profileInfo_li" onClick={handleClick("Logout")}>
