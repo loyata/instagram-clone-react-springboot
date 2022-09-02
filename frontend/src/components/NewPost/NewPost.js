@@ -10,16 +10,21 @@ import {BiLayerPlus} from "react-icons/bi"
 import {MdOutlinePhotoSizeSelectLarge} from "react-icons/md"
 import {FiImage} from "react-icons/fi"
 import {TbRectangle, TbRectangleVertical} from "react-icons/tb";
-import {Slider} from "@mui/material";
 import GeneralCard from "../GeneralCard/GeneralCard";
 import CustomSlider from "./CustomSlider/CustomSlider";
 import CustomSliderSingleDirection from "./CustomSliderSingleDirection/CustomSliderSingleDirection";
+
+import * as htmlToImage from 'html-to-image'
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import download from "downloadjs"
+
 
 const NewPost = () => {
 
 
     const imgRef = useRef(null);
     const imgParentRef = useRef(null);
+    const imgFilterRef = useRef(null)
 
     const [file, setFile] = useState(null); // current image to load
 
@@ -95,6 +100,38 @@ const NewPost = () => {
         'Fade': 0,
         'Vignette': 0
     });
+
+    const [adjValuesMapping, setAdjValuesMapping] = useState({
+        'brightness': 100,
+        'contrast': 100,
+        'saturate': 100,
+        'opacity': 100,
+        'vignette': 0,
+        'temperature_opacity': 0
+    });
+
+    useEffect(() => {
+        let brightness, contrast, saturate, opacity, vignette, temperature_opacity;
+
+        const {Brightness, Contrast, Saturation, Temperature, Fade, Vignette} = adjValues;
+
+        brightness = 100 + Math.floor(Brightness/(100 - (-100)) * (140 - 60));
+        contrast = 100 + Math.floor(Contrast/(100 - (-100)) * (130 - 70));
+        saturate = 100 + Math.floor(Saturation/(100 - (-100)) * (200 - 0));
+
+        temperature_opacity = Math.abs(Temperature) / 800;
+
+        if(Fade >= 0) opacity = 100 + Math.floor(Fade / (100 - 0) * (80 - 100));
+        else {
+            contrast += Math.floor(Fade / (0 - (-100)) * (100 - 120));
+            opacity = 100;
+        }
+
+        vignette = 0 + Math.floor(Vignette/(100 - (0)) * (200 - 0));
+
+
+        setAdjValuesMapping({brightness, contrast, saturate, opacity, vignette, temperature_opacity})
+    },[adjValues])
 
 
     useEffect(() => {
@@ -182,6 +219,13 @@ const NewPost = () => {
          */
         setStage(1);
     };
+
+
+    const uploadImage = () => {
+        htmlToImage.toPng(imgParentRef.current).then(function (dataUrl) {
+            download(dataUrl, "res.png")
+        })
+    }
 
     return (
         <div style={{position:"relative"}} >
@@ -408,16 +452,23 @@ const NewPost = () => {
                 <div className="newPost_edit" style={{display:`${stage === 2 ? "block" : "none"}`}}>
                     <div className="newPost_title newPost_title_crop">
                         <BsArrowLeft className="newPost_bs" onClick={() => {
+                            setAdjValues({
+                                'Brightness': 0,
+                                    'Contrast': 0,
+                                    'Saturation': 0,
+                                    'Temperature': 0,
+                                    'Fade': 0,
+                                    'Vignette': 0
+                            })
                             setStage(1)
                         }}/>
                         <span>Edit</span>
-                        <span className="newPost_next">Next</span>
+                        <span className="newPost_next" onClick={uploadImage}>Next</span>
                     </div>
                     <div className="newPost_editPhoto">
                         <div className="newPost_editPhoto_left">
-
-
                             <div
+                                id="containerDisplay"
                                 className={`newPost_imgContainer ${allFilters[filter].toLowerCase()}`}
                                 ref={imgParentRef}
                                 style={{
@@ -427,16 +478,28 @@ const NewPost = () => {
                             >
                                 <img
                                     src={file}
-                                    id="target"
+                                    id="imageDisplay"
                                     draggable="false"
+                                    ref={imgFilterRef}
                                     style={{
                                         width:`${imageStatus.width}`,
                                         height:`${imageStatus.height}`,
                                         position:`${imageStatus.position}`,
                                         objectFit:`cover`,
                                         transform:`translate(${imageStatus.translationX}px, ${imageStatus.translationY}px) scale(${imageStatus.scale})`,
+                                        filter:`brightness(${adjValuesMapping.brightness}%) contrast(${adjValuesMapping.contrast}%) saturate(${adjValuesMapping.saturate}%) opacity(${adjValuesMapping.opacity}%)`,
+
                                     }}
                                 />
+
+                                <div className="newPost_imageCover" style={{
+                                    position:`absolute`,
+                                    background:`${adjValues.Temperature >= 0 ? `rgba(255,255,0,${adjValuesMapping.temperature_opacity})` : `rgba(0,0,255,${adjValuesMapping.temperature_opacity})`}`,
+                                    boxShadow:`inset 0px 0px ${adjValuesMapping.vignette}px black`,
+                                    width:`${imgParentRef.current?.offsetWidth || 0}px`,
+                                    height:`${imgParentRef.current?.offsetHeight || 0}px`,
+                                }}/>
+
                             </div>
                         </div>
                         <div className="newPost_editPhoto_right">

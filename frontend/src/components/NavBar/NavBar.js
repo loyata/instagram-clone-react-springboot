@@ -35,6 +35,18 @@ const NavBar = () => {
 
     const [hideDropDown, setHideDropDown] = useState(true);
     const [hideProfileInfo, setHideProfileInfo] = useState(true);
+
+    const [navBarStatus, setNavBarStatus] = useState({
+        homepage: true,
+        message: false,
+        newPost: false,
+        explore: false,
+        profile: false
+    })
+
+
+
+
     const [searchContent, setSearchContent] = useState("");
 
     const handleSearchInputChange = (e) => {
