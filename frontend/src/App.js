@@ -14,12 +14,12 @@ function App() {
   return (
     <div className="App">
         <div style={{display:"flex", flexDirection:"column"}}>
-            <LoginPage/>
-            <SignUp/>
+            {/*<LoginPage/>*/}
+            {/*<SignUp/>*/}
             <HomePage/>
-            <PersonalPage/>
-            <Display/>
-            <NewPost/>
+            {/*<PersonalPage/>*/}
+            {/*<Display/>*/}
+            {/*<NewPost/>*/}
         </div>
     </div>
 

@@ -43,8 +43,10 @@ export const navbarStatusSlice = createSlice({
             }
             //close
             else{
+
                 state.navbarStatus = {...navbarStatusDefault, [state.navbarCache]:true};
                 state.navbarCache = '';
+
             }
         }
     }

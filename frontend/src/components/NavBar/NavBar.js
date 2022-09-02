@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import {useSelector, useDispatch} from "react-redux";
 import {updateStateSimple, updateStateOuter, updateStateComplex} from "../../redux/navbarStatusSlice"
+import {update} from "../../redux/confirmationSlice";
 
 import "./NavBar.css"
 
@@ -31,25 +32,6 @@ const NavBar = () => {
     const dispatch = useDispatch();
     const {navbarStatus, navbarCache} = useSelector(state => state.navbarStatus);
 
-
-
-    // const [navbarStatus, setNavbarStatus] = useState({
-    //     homepage: true,
-    //     message: false,
-    //     newPost: false,
-    //     explore: false,
-    //     profile: false
-    // })
-    //
-    // const navbarStatusDefault = {
-    //     homepage: false,
-    //     message: false,
-    //     newPost: false,
-    //     explore: false,
-    //     profile: false
-    // }
-    // const [navBarCache, setNavBarCache] = useState('');
-
     const handleSearchInputChange = (e) => {
         setSearchContent(e.target.value);
     }
@@ -57,21 +39,11 @@ const NavBar = () => {
     useEffect(() => {
         document.addEventListener("click", () => {
             setHideDropDown(true);
-
-            // if (navBarCache !== '') {
-            //     setNavbarStatus({...navbarStatusDefault, [navBarCache]:true});
-            //     setNavBarCache('');
-            // }
             dispatch(updateStateOuter());
-
             setSearchContent("");
         });
     } )
 
-    useEffect(() => {
-        // console.log(navbarStatus)
-        console.log(navbarCache)
-    },[navbarStatus])
 
 
 
@@ -112,7 +84,6 @@ const NavBar = () => {
 
                                         <SearchResult/>
                                     </>
-
                             }
                         </Grid>
                 }

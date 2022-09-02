@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.6);
     flex-direction: column;
     /*position: relative;*/
 }
@@ -17,6 +17,7 @@
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     display: flex;
     flex-direction: column;
+    user-select: none;
 }
 
 .newPost_title{
@@ -97,10 +98,17 @@
     position: absolute;
     display: inline-block;
     margin: 1rem;
-    left: 95%;
+    left: 96.5%;
+    transform: translate(0, -30%);
     font-size: 2rem;
+    font-weight: 300;
     color: white;
-    z-index: 1;
+    z-index: 11;
+    user-select: none;
+}
+
+.newPost_close:hover{
+    cursor: pointer;
 }
 
 .newPost_gridContainer{
@@ -110,7 +118,7 @@
 .newPost_grid{
     border: 1px solid rgba(255,255,255,0.6);
     position: absolute;
-    z-index: 2;
+    z-index: 12;
     pointer-events: none;
  }
 
@@ -148,7 +156,7 @@
     align-items: center;
     position: absolute;
     top:92%;
-    z-index: 2;
+    z-index: 12;
 }
 
 .newPost_icon:hover{
@@ -169,7 +177,7 @@
 
 .newPost_iconAMenu{
     position: absolute;
-    z-index: 3;
+    z-index: 13;
     top: 62%;
     left: 2%;
 }
@@ -212,7 +220,7 @@
 
     top: 86%;
     left: 11%;
-    z-index: 3;
+    z-index: 13;
     padding: 0.3rem;
 }
 
@@ -237,7 +245,7 @@
     background-color: white;
     border-radius: 50%;
     position: absolute;
-    z-index: 4;
+    z-index: 14;
 }
 
 .ball:active{

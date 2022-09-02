@@ -18,6 +18,9 @@ import * as htmlToImage from 'html-to-image'
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import download from "downloadjs"
 
+import {useSelector, useDispatch} from "react-redux";
+import {updateStateOuter} from "../../redux/navbarStatusSlice"
+
 
 const NewPost = () => {
 
@@ -28,7 +31,8 @@ const NewPost = () => {
 
     const [file, setFile] = useState(null); // current image to load
 
-
+    const dispatch = useDispatch();
+    const {navbarStatus, navbarCache} = useSelector(state => state.navbarStatus);
 
     const [start, setStart] = useState([]);  // mouse position onDragStart
     // const [translation, setTranslation] = useState([]);  // shift from start
@@ -227,15 +231,35 @@ const NewPost = () => {
         })
     }
 
+    const handleDiscard = () => {
+        // alert("discard")
+        if(stage === 0){
+            dispatch(updateStateOuter());
+        }
+
+        setShowDiscardCard(true)
+
+
+    }
+
+
+    useEffect(() => {
+        console.log(showDiscardCard)
+    },[showDiscardCard])
+
+
     return (
-        <div style={{position:"relative"}} >
-            <div className="newPost_close">×</div>
-            <div className="newPost_cardWrapper" style={{display:`${showDiscardCard && stage === 1 ? "block" : "none"}`}}>
-                <GeneralCard setShowDiscardCard={setShowDiscardCard} setStage={setStage}/>
+        <div style={{position:"relative"}} onClick={e=> e.nativeEvent.stopImmediatePropagation()}>
+            <div className="newPost_close" onClick={handleDiscard}>×</div>
+
+            <div className="newPost_cardWrapper" style={{display:`${showDiscardCard && (stage !== 0) ? "block" : "none"}`}}>
+                <GeneralCard setShowDiscardCard={setShowDiscardCard} setStage={setStage} setFile={setFile}/>
             </div>
-            <div className="newPost_container">
-                <div className="newPost_create" style={{display:`${stage === 0 ? "block" : "none"}`}}>
-                    <div className="newPost_title">Create New Post</div>
+
+            <div className="newPost_container" onClick={handleDiscard}>
+                <div className="newPost_create" style={{display:`${stage === 0 ? "block" : "none"}`}}
+                     onClick={e=> {e.stopPropagation()}}>
+                    <div className="newPost_title" >Create New Post</div>
                     <div className="newPost_body" >
                         <img src={logoImg} />
                         <div style={{fontSize:"1.3rem"}}>Drag photos and videos here</div>
@@ -251,7 +275,7 @@ const NewPost = () => {
                         </div>
                     </div>
                 </div>
-                <div className="newPost_create" style={{display:`${stage === 1 ? "block" : "none"}`}}>
+                <div className="newPost_create" style={{display:`${stage === 1 ? "block" : "none"}`}} onClick={e=> {e.stopPropagation()}}>
                       <div className="newPost_title newPost_title_crop">
                           <BsArrowLeft className="newPost_bs" onClick={() => {
                                 setShowDiscardCard(true)
@@ -449,7 +473,7 @@ const NewPost = () => {
 
                       </div>
                   </div>
-                <div className="newPost_edit" style={{display:`${stage === 2 ? "block" : "none"}`}}>
+                <div className="newPost_edit" style={{display:`${stage === 2 ? "block" : "none"}`}} onClick={e=> {e.stopPropagation()}}>
                     <div className="newPost_title newPost_title_crop">
                         <BsArrowLeft className="newPost_bs" onClick={() => {
                             setAdjValues({

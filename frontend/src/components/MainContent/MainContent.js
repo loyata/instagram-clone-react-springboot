@@ -1,7 +1,8 @@
 import React from 'react';
-import FriendCard from "./FriendCard/FriendCard";
 import {Container} from "@mui/material";
 import "./MainContent.css"
+
+import FriendCard from "./FriendCard/FriendCard";
 import PostCard from "./PostCard/PostCard";
 import Profile from "./Profile/Profile";
 import SuggestionCard from "./SuggestionCard/SuggestionCard";
@@ -13,8 +14,7 @@ const MainContent = () => {
     const {width} = useWindowDimensions();
 
     return (
-        <div style={{position:"relative"}}>
-
+        <div>
             <Container maxWidth="md" >
                 <div className="mainContent_container">
                     <div className="mainContent_left">

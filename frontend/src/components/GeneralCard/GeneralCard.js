@@ -1,7 +1,14 @@
 import React from 'react';
 import "./GeneralCard.css"
 
-const GeneralCard = ({setShowDiscardCard, setStage}) => {
+import {useDispatch} from "react-redux";
+import {updateStateOuter} from "../../redux/navbarStatusSlice"
+
+const GeneralCard = ({setShowDiscardCard, setStage, setFile}) => {
+
+    const dispatch = useDispatch();
+
+
     return (
         <div className="generalCard_container">
             <div className="generalCard_general">
@@ -12,7 +19,8 @@ const GeneralCard = ({setShowDiscardCard, setStage}) => {
                 <div className="generalCard_rest">
                     <div className="generalCard_selection" style={{color:"rgb(219,86,91)"}} onClick={(e) => {
                         setShowDiscardCard(false);
-                        setStage(0);
+                        dispatch(updateStateOuter());
+                        setFile(null)
                         e.nativeEvent.stopImmediatePropagation();
                     }}>Discard</div>
                     <div className="generalCard_selection" onClick={(e) => {

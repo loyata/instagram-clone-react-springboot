@@ -2,6 +2,7 @@
     height: 8vh;
     background-color: white;
     border-bottom: 1px solid rgb(219,219,219);
+    user-select: none;
 }
 
 .select{
