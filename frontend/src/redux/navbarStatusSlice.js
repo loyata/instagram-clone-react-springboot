@@ -6,6 +6,7 @@ const initialState = {
         message: false,
         newPost: false,
         explore: false,
+        report: false,
         profile: false
     },
     navbarCache:''
@@ -16,6 +17,7 @@ const navbarStatusDefault = {
     message: false,
     newPost: false,
     explore: false,
+    report: false,
     profile: false
 }
 
@@ -23,7 +25,7 @@ export const navbarStatusSlice = createSlice({
     name:"status",
     initialState,
     reducers:{
-        updateStateOuter: (state, payload) => {
+        updateStateOuter: (state) => {
             if (state.navbarCache !== '') {
                 state.navbarStatus = {...navbarStatusDefault, [state.navbarCache]:true};
                 state.navbarCache = '';
