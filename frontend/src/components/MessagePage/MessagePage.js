@@ -101,6 +101,25 @@ const MessagePage = () => {
                             <div className="messagePage_right_down">
                                 <div className="messagePage_right_down_chat">
 
+
+                                    <div className="messagePage_right_down_chatDetail">
+                                        <div className="messagePage_time">December 25, 2019 11:47 am</div>
+                                        <div className="messagePage_self">
+                                            <div className="box_self">
+                                                It seems that it's 26th now😂 but anyway Merry Christmas Esin!
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="messagePage_right_down_chatDetail">
+                                        <div className="messagePage_time">December 25, 2019 11:00 pm</div>
+                                        <div className="messagePage_counterpart">
+                                            <Avatar sx={{width:"25px", height:"25px"}}/>
+                                            <div className="box_other">
+                                                Thanks 😊 happy Xmas to you too!
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="messagePage_right_down_text">
                                     <div className="messagePage_right_down_border">
@@ -120,7 +139,6 @@ const MessagePage = () => {
                                             }
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
