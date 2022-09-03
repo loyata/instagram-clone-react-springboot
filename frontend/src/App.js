@@ -9,20 +9,27 @@ import NewPost from "./components/NewPost/NewPost";
 import GeneralCard from "./components/GeneralCard/GeneralCard";
 import MessagePage from "./components/MessagePage/MessagePage";
 
+import {Routes, Route} from "react-router-dom";
+import NotFound from "./components/NotFound/NotFound";
+
 
 
 function App() {
   return (
     <div className="App">
-        <div style={{display:"flex", flexDirection:"column"}}>
-            {/*<LoginPage/>*/}
-            {/*<SignUp/>*/}
-            {/*<HomePage/>*/}
-            {/*<PersonalPage/>*/}
-            {/*<Display/>*/}
-            {/*<NewPost/>*/}
-            <MessagePage/>
-        </div>
+        <Routes>
+            <Route path="/" element={<HomePage/>}/>
+            <Route path="/direct/*" element={<MessagePage/>}/>
+
+            <Route path="*" element={<NotFound/>}/>
+        </Routes>
+        {/*<LoginPage/>*/}
+        {/*<SignUp/>*/}
+        {/*<HomePage/>*/}
+        {/*<PersonalPage/>*/}
+        {/*<Display/>*/}
+        {/*<NewPost/>*/}
+        {/*<MessagePage/>*/}
     </div>
 
   );

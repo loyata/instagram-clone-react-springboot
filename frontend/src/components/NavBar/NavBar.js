@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 
 import {useSelector, useDispatch} from "react-redux";
 import {updateStateSimple, updateStateOuter, updateStateComplex} from "../../redux/navbarStatusSlice"
-import {update} from "../../redux/confirmationSlice";
+
+import {useNavigate} from "react-router-dom";
 
 import "./NavBar.css"
 
@@ -31,6 +32,7 @@ const NavBar = () => {
     const [hideDropDown, setHideDropDown] = useState(true);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {navbarStatus, navbarCache} = useSelector(state => state.navbarStatus);
 
     const handleSearchInputChange = (e) => {
@@ -98,12 +100,16 @@ const NavBar = () => {
 
                     {navbarStatus.homepage ? <BsHouseDoorFill className="navBar_Click"/> :
                         <BsHouseDoor className="navBar_Click" onClick={()=>{
-                            dispatch(updateStateSimple('homepage'))
+                            dispatch(updateStateSimple('homepage'));
+
+                            navigate("/");
                     }}/>}
 
                     {navbarStatus.message ? <IoPaperPlaneSharp className="navBar_Click"/> :
                     <IoPaperPlaneOutline className="navBar_Click" onClick={e => {
                         dispatch(updateStateSimple('message'))
+
+                            navigate("/direct/inbox")
                     }}/>}
 
                     {navbarStatus.newPost ? <BsPlusSquareFill className="navBar_Click"/> :
