@@ -17,10 +17,10 @@ const MessagePage = () => {
     const [commentInput, setCommentInput] = useState('');
 
     return (
-        <div style={{height:"100vh", display:"flex", flexDirection:"column", overflow:"scroll"}}>
-            <div>
-                <NavBar/>
-            </div>
+        <div style={{height:"90vh", display:"flex", flexDirection:"column"}}>
+            {/*<div>*/}
+            {/*    <NavBar/>*/}
+            {/*</div>*/}
             <div className="messagePage_container">
                 <div className="messagePage_main">
                     <div className="messagePage_main2">

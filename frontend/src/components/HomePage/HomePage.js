@@ -4,6 +4,8 @@ import NavBar from "../NavBar/NavBar";
 import MainContent from "../MainContent/MainContent";
 import NewPost from "../NewPost/NewPost";
 import {useSelector} from "react-redux";
+import {Route, Routes} from "react-router-dom";
+import MessagePage from "../MessagePage/MessagePage";
 
 
 const HomePage = () => {
@@ -16,10 +18,10 @@ const HomePage = () => {
     */
 
     return (
+
         <div className="home" style={{
             position:"relative",
-            maxHeight:`${navbarStatus.newPost ? '100vh' : 'unset'}`,
-            overflow:`${navbarStatus.newPost ? 'hidden' : 'unset'}`
+            // overflowY:`${navbarStatus.message ? 'scroll' : 'hidden'}`
         }}>
             {navbarStatus.newPost ?
                 <div style={{position:"absolute",width:"100%", zIndex:10}}>
@@ -29,7 +31,12 @@ const HomePage = () => {
                 <div/>
             }
             <NavBar/>
-            <MainContent/>
+            <Routes>
+                <Route path="/" element={<MainContent/>}/>
+                <Route path="/direct/*" element={<MessagePage/>}/>
+            </Routes>
+
+            {/*<MainContent/>*/}
         </div>
     );
 };

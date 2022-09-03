@@ -18,8 +18,8 @@ function App() {
   return (
     <div className="App">
         <Routes>
-            <Route path="/" element={<HomePage/>}/>
-            <Route path="/direct/*" element={<MessagePage/>}/>
+            <Route path="/*" element={<HomePage/>}/>
+            {/*<Route path="/direct/*" element={<MessagePage/>}/>*/}
 
             <Route path="*" element={<NotFound/>}/>
         </Routes>
