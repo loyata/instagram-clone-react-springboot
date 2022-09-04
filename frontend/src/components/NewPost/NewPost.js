@@ -5,7 +5,7 @@ import "./cssgram.min.css"
 import logoImg from "./images/img.png"
 import balloon from "./images/balloon.png"
 
-import {BsArrowLeft, BsArrowsAngleExpand, BsSquare} from "react-icons/bs"
+import {BsArrowLeft, BsArrowsAngleExpand, BsChevronDown,BsChevronUp, BsSquare} from "react-icons/bs"
 import {BiLayerPlus} from "react-icons/bi"
 import {MdOutlinePhotoSizeSelectLarge} from "react-icons/md"
 import {FiImage} from "react-icons/fi"
@@ -28,33 +28,73 @@ import {navigation} from "../../api";
 import {GrClose} from "react-icons/gr";
 import Picker from 'emoji-picker-react'
 
+/**
+ * switch
+ */
+import { styled } from '@mui/material/styles';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+
+const AntSwitch = styled(Switch)(({ theme }) => ({
+    width: 28,
+    height: 16,
+    padding: 0,
+    display: 'flex',
+    '&:active': {
+        '& .MuiSwitch-thumb': {
+            width: 15,
+        },
+        '& .MuiSwitch-switchBase.Mui-checked': {
+            transform: 'translateX(9px)',
+        },
+    },
+    '& .MuiSwitch-switchBase': {
+        padding: 2,
+        '&.Mui-checked': {
+            transform: 'translateX(12px)',
+            color: '#fff',
+            '& + .MuiSwitch-track': {
+                opacity: 1,
+                backgroundColor: theme.palette.mode === 'dark' ? '#177ddc' : '#1890ff',
+            },
+        },
+    },
+    '& .MuiSwitch-thumb': {
+        boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        transition: theme.transitions.create(['width'], {
+            duration: 200,
+        }),
+    },
+    '& .MuiSwitch-track': {
+        borderRadius: 16 / 2,
+        opacity: 1,
+        backgroundColor:
+            theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
+        boxSizing: 'border-box',
+    },
+}));
+
+
 const AWS = require('aws-sdk')
-
-
-
 const S3_BUCKET ='loyata.images';
 const REGION ='us-east-1';
 const ACCESS_KEY ='AKIAYYQLTSE2EYA5JA2I';
 const SECRET_ACCESS_KEY ='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';
-
 AWS.config.update({ accessKeyId: ACCESS_KEY, secretAccessKey: SECRET_ACCESS_KEY, region: REGION });
-
 const s3 = new AWS.S3();
 
-
 const NewPost = () => {
-
-
-
-
-
-
     const imgRef = useRef(null);
     const imgParentRef = useRef(null);
     const imgFilterRef = useRef(null)
 
     const [file, setFile] = useState(null); // current image to load
-
     const dispatch = useDispatch();
     const {navbarStatus, navbarCache} = useSelector(state => state.navbarStatus);
 
@@ -148,7 +188,14 @@ const NewPost = () => {
     const [locationFocus, setLocationFocus] = useState(false)
     const [timer, setTimer] = useState(0);
     const [locationResult, setLocationResult] = useState([]);
-    const [disableLocation, setDisableLocation] = useState(false)
+    const [disableLocation, setDisableLocation] = useState(false);
+    const [accessOpen, setAccessOpen] = useState(false);
+    const [accessContent, setAccessContent] = useState('');
+
+    const [advancedOn, setAdvancedOn] = useState(false);
+    const [hideLikeAndView, setHideLikeAndView] = useState(false);
+    const [disableComment, setDisableComment] = useState(false);
+
 
     // const testLocationResult = ['Toronto, Ontario, Canada', 'Toronto Street, Ottawa, Ontario K1S 0N3, Canada', 'Toronto, Ohio, United States', 'Toronto, South Dakota, United States', 'Toronto, Iowa, United States', 'Toronto, Kansas, United States', 'Toronto Mbugani, Tanga, Tanzania', 'Toronto Street, Kingston, Ontario K7L 4A9, Canada', 'Toronto Road, Colborne, Ontario K0K 1S0, Canada', 'Toronto Road, Port Hope, Ontario L1A 3V5, Canada']
 
@@ -571,7 +618,7 @@ const NewPost = () => {
                                 setStage(1)
                             }
                         }}/>
-                        <span>{captionStage? "Create new Post": "Edit"}</span>
+                        <span>{captionStage? "Create New Post": "Edit"}</span>
                         <span className="newPost_next" onClick={()=>{
                             if(!captionStage) setCaptionStage(true)
                             else{
@@ -658,6 +705,7 @@ const NewPost = () => {
                                                 </div>
                                                 :
                                                 <input
+                                                    className="newPost_inputA"
                                                     placeholder="Add location"
                                                     type="text"
                                                     value={locationContent}
@@ -684,6 +732,74 @@ const NewPost = () => {
                                             }
                                         </div>
                                     </div>
+
+
+                                    <div className="newPost_access">
+                                        <div style={{display:"flex", justifyContent:"space-between"}}>
+                                            <div style={{fontWeight:`${accessOpen? 'bold':'unset'}`}}>Accessibility</div>
+                                            <div
+                                                className="newPost_up_and_down"
+                                                onClick={() => setAccessOpen(!accessOpen)}
+                                            >{accessOpen?<BsChevronUp/>:<BsChevronDown/>}</div>
+                                        </div>
+
+                                        <div style={{display:`${accessOpen ? 'block':'none'}`}}>
+                                            <div style={{margin:"0.8rem 0", fontSize:"0.8rem", color:"rgb(143,143,143)"}}>
+                                                Alt text describes your photos for people with visual impairments. Alt text will be automatically created for your photos or you can choose to write your own.
+                                            </div>
+                                            <div style={{display:"flex", alignItems:"center"}}>
+                                                <img src={file} width="40px" height="40px"/>&nbsp;&nbsp;
+                                                <input type="text"
+                                                       className="newPost_inputB"
+                                                       placeholder="Write alt text..."
+                                                       value={accessContent}
+                                                       onChange={e=>setAccessContent(e.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/*const [advancedOn, setAdvancedOn] = useState(false);*/}
+                                    {/*const [hideLikeAndView, setHideLikeAndView] = useState(false);*/}
+                                    {/*const [disableComment, setDisableComment] = useState(false);*/}
+                                    <div className="newPost_access">
+                                        <div style={{display:"flex", justifyContent:"space-between"}}>
+                                            <div style={{fontWeight:`${advancedOn? 'bold':'unset'}`}}>Advanced Settings</div>
+                                            <div
+                                                className="newPost_up_and_down"
+                                                onClick={() => setAdvancedOn(!advancedOn)}
+                                            >{advancedOn?<BsChevronUp/>:<BsChevronDown/>}</div>
+                                        </div>
+
+                                        <div style={{display:`${advancedOn ? 'block':'none'}`}}>
+                                            <div style={{display:"flex", alignItems:"spaceBetween"}} className="newPost_switch">
+                                                <div style={{margin:"0.3rem 0"}}>Hide like and view counts on this post</div>
+                                                <div><AntSwitch
+                                                    inputProps={{ 'aria-label': 'ant design' }}
+                                                    checked={hideLikeAndView}
+                                                    onChange={() => setHideLikeAndView(!hideLikeAndView)}
+                                                /></div>
+                                            </div>
+                                            <div style={{fontSize:"0.8rem", color:"rgb(143,143,143)"}}>
+                                                <div>
+                                                    Only you will see the total number of likes and views on this post. You can change this later by going to the ··· menu at the top of the post. To hide like counts on other people's posts, go to your account settings.
+                                                </div>
+                                                <a className="newPost_href" target="_blank" href="https://help.instagram.com/113355287252104">Learn more</a>
+                                            </div>
+
+                                            <div style={{display:"flex", alignItems:"spaceBetween"}} className="newPost_switch">
+                                                <div style={{margin:"0.5rem 0"}}>Turn off commenting</div>
+                                                <div><AntSwitch
+                                                    inputProps={{ 'aria-label': 'ant design' }}
+                                                    checked={disableComment}
+                                                    onChange={() => setDisableComment(!disableComment)}
+                                                /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
                                     <div className="newPost_remain">
                                         {locationContent !== '' && disableLocation === false ?
                                             <div className="newPost_searchResults">

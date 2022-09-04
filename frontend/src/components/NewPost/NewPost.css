@@ -396,6 +396,7 @@
 
 .newPost_editPhoto_caption{
     width: calc(100% - 650px);
+    overflow-y: hidden;
 }
 
 .newPost_avatar{
@@ -457,7 +458,7 @@ textarea::placeholder {
     cursor: pointer;
 }
 
-input {
+.newPost_inputA {
     background-color: transparent;
     border: 0px solid;
     color: black;
@@ -466,7 +467,7 @@ input {
     font-size: 1rem;
 }
 
-input::placeholder{
+.newPost_inputA::placeholder{
     color: rgb(143,143,143);
     font-weight: 525;
 }
@@ -512,4 +513,42 @@ input::placeholder{
 
 .newPost_locationDisabled:hover{
     cursor: not-allowed;
+}
+
+.newPost_access{
+    display: flex;
+    flex-direction: column;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgb(219,219,219);
+}
+
+.newPost_inputB {
+    background-color: transparent;
+    color: black;
+    padding: 0.6rem;
+    border: 1px solid rgb(218,218,218);
+    border-radius: 8px;
+    width: 90%;
+    height: 100%;
+    font-size: 1rem;
+}
+
+.newPost_inputB::placeholder{
+    color: rgb(143,143,143, 0.7);
+    font-size: 0.9rem;
+    font-weight: 525;
+}
+
+.newPost_up_and_down{
+    cursor: pointer;
+}
+
+.newPost_href{
+    color: rgb(27,59,107)!important;
+}
+
+.newPost_switch{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
