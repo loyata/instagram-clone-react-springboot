@@ -1,13 +1,25 @@
 package ca.uottawa.ins;
-
-import org.junit.jupiter.api.Test;
+import ca.uottawa.ins.mapper.UserMapper;
+import ca.uottawa.ins.model.User;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
+@RunWith(SpringRunner.class)
 @SpringBootTest
-class BackendApplicationTests {
+public class BackendApplicationTests {
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Test
-    void contextLoads() {
+    public void getAll(){
+        List<User> users = userMapper.getAllUsers();
+        System.out.println(users.toString());
     }
 
 }
