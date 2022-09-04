@@ -24,7 +24,7 @@ function App() {
             <Route path="*" element={<NotFound/>}/>
         </Routes>
         {/*<LoginPage/>*/}
-        {/*<SignUp/>*/}
+        <SignUp/>
         {/*<HomePage/>*/}
         {/*<PersonalPage/>*/}
         {/*<Display/>*/}

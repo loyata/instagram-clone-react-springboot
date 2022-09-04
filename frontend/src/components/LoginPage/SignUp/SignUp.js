@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import insLogo from "../images/ins_logo.png";
 import Button from "@mui/material/Button";
 import Divider from "../Divider/Divider";
@@ -8,10 +8,53 @@ import googlePlay from "../images/googlePlay.png";
 import {InsTextField} from "../LoginPage";
 
 
+import {useNavigate} from "react-router-dom";
+
 import "./SignUp.css"
+import UserPool from "../../../UserPool"
+
 import Footer from "../Footer/Footer";
 
+import {InputAdornment} from "@mui/material";
+
+import {signUp} from "../../../api";
+
+
 const SignUp = () => {
+
+
+    const navigate = useNavigate()
+
+    const [signUpInfo, setSignUpInfo] = useState({
+        email:'',
+        fullName:'',
+        userName:'',
+        password:''
+    });
+
+    const [showPassword, setShowPassword] = useState(false)
+
+    // useEffect(() =>{
+    //     console.log(signUpInfo)
+    // },[signUpInfo])
+
+
+    const handleOnchange = (type) => (event) => setSignUpInfo({...signUpInfo, [type]:event.target.value})
+
+    const handleSubmit = () => {
+
+
+        // console.log(signUpInfo)
+        signUp(signUpInfo)
+
+
+
+
+    }
+
+
+
+
     return (
         <div>
             <div className="signUpPage_main">
@@ -27,46 +70,62 @@ const SignUp = () => {
 
 
                         <InsTextField
-                            label="Phone number, username, or email"
-                            id="reddit-input"
+                            label="Email"
                             variant="filled"
                             size="small"
-
                             className="inputText"
+                            value={signUpInfo.email}
+                            onChange = {handleOnchange('email')}
                         />
 
                         <InsTextField
                             label="Full Name"
-                            id="reddit-input"
                             variant="filled"
                             size="small"
                             margin="dense"
                             className="inputText"
+                            value={signUpInfo.fullName}
+                            onChange = {handleOnchange('fullName')}
                         />
 
                         <InsTextField
                             label="Username"
-                            id="reddit-input"
                             variant="filled"
                             size="small"
                             margin="dense"
                             className="inputText"
+                            value={signUpInfo.userName}
+                            onChange = {handleOnchange('userName')}
                         />
 
                         <InsTextField
                             label="Password"
-                            id="reddit-input"
                             variant="filled"
+                            type={showPassword?"text":"password"}
                             size="small"
                             margin="dense"
                             className="inputText"
+                            InputProps={signUpInfo.password !== '' ?
+                                {endAdornment:
+                                    <InputAdornment
+                                        position="end"
+                                        style={{userSelect:"none"}}
+                                    >
+                                    <div className="showPass" onClick={() => {setShowPassword(!showPassword)}}>{showPassword? 'hide':'show'}</div>
+                                    </InputAdornment>
+                                }:{}
+                            }
+                            value={signUpInfo.password}
+                            onChange = {handleOnchange('password')}
                         />
 
                         <div className="des2">People who use our service may have uploaded your contact information to Instagram. <a href="https://www.facebook.com/help/instagram/261704639352628">Learn More</a></div>
 
                         <div className="des2">By signing up, you agree to our <a href="https://www.facebook.com/privacy/policy">Terms , Privacy Policy</a>  and <a href="https://help.instagram.com/1896641480634370?ref=ig">Cookies Policy</a> .</div>
 
-                        <Button variant="contained" id="loginButton" size="small">Sign Up</Button>
+                        <Button variant="contained" id="loginButton" size="small"
+                                disabled={signUpInfo.password === '' || signUpInfo.fullName === ''|| signUpInfo.email.indexOf('@') === -1 || signUpInfo.fullName === '' || signUpInfo.email === ''}
+                                onClick={handleSubmit}>Sign Up</Button>
 
                     </div>
                     <div className="bottomCardSignUp">

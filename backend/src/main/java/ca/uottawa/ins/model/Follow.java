@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class Follow {
     private Integer user_id;
     private Integer follower_id;
+
 }

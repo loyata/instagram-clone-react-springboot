@@ -22,4 +22,10 @@ public class BackendApplicationTests {
         System.out.println(users.toString());
     }
 
+    @Test
+    public void getUserById(){
+        User user = userMapper.getUserById(1);
+        System.out.println(user.toString());
+    }
+
 }

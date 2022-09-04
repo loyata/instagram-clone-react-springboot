@@ -116,26 +116,36 @@
     font-weight: 500;
 }
 
-.css-1mog9k0-MuiFormLabel-root-MuiInputLabel-root{
-    font-size: 0.8rem!important;
-}
+/*.css-1mog9k0-MuiFormLabel-root-MuiInputLabel-root{*/
+/*    font-size: 0.8rem!important;*/
+/*}*/
 
-.css-c5v1qu-MuiInputBase-input-MuiFilledInput-input{
-    padding: 10px 0 5px 7px!important;
+/*.css-c5v1qu-MuiInputBase-input-MuiFilledInput-input{*/
+/*    padding: 10px 0 5px 7px!important;*/
 
-}
+/*}*/
 
-.css-1pw81iq-MuiInputBase-root-MuiFilledInput-root{
-    font-size: 0.8rem!important;
-    transform: translate(0px, 6px)!important;
-}
+/*.css-1pw81iq-MuiInputBase-root-MuiFilledInput-root{*/
+/*    font-size: 0.8rem!important;*/
+/*    transform: translate(0px, 6px)!important;*/
+/*}*/
 
 
 .css-11qr2p8-MuiButtonBase-root-MuiButton-root {
+    font-size: 0.9rem!important;
     font-weight: 800!important;
     text-transform: none!important;
 }
 
-.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
-    text-transform: none!important;
+/*.css-1e6y48t-MuiButtonBase-root-MuiButton-root {*/
+/*    text-transform: none!important;*/
+/*}*/
+
+.css-c5v1qu-MuiInputBase-input-MuiFilledInput-input {
+    height:1.1em!important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
 }
