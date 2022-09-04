@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+const geoAPIToken = "pk.eyJ1IjoibG95YXRhIiwiYSI6ImNremxwZDYxMTE0Mnkyd254ems4Nzg1aWIifQ.mLDsHjBUTgEhcBCTsJyU3g"
+
+
 const instance = axios.create({
     baseURL: "http://localhost:8080",
 });
@@ -22,3 +25,5 @@ const instance = axios.create({
 //
 // export const signIn = (formData) => instance.post(`/users/login`, formData);
 export const signUp = (formData) => instance.post(`/accounts/signup`, formData);
+export const navigation = (query) => axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?limit=10&proximity=ip&types=place%2Cpostcode%2Caddress&access_token=${geoAPIToken}`)
+

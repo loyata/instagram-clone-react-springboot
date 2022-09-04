@@ -50,7 +50,7 @@ public class AccountController {
     public Integer index(@RequestBody String content) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         user = objectMapper.readValue(content, User.class);
-        Integer res = userMapper.insertUser(user);
+        Integer res = userMapper.insertUser(user.getUserName(), user.getEmail(), user.getPassword());
 
         logger.info(res.toString());
 

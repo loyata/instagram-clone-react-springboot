@@ -15,14 +15,38 @@ import CustomSlider from "./CustomSlider/CustomSlider";
 import CustomSliderSingleDirection from "./CustomSliderSingleDirection/CustomSliderSingleDirection";
 
 import * as htmlToImage from 'html-to-image'
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
-import download from "downloadjs"
 
 import {useSelector, useDispatch} from "react-redux";
 import {updateStateOuter} from "../../redux/navbarStatusSlice"
 
+import {Buffer} from 'buffer';
+import {Avatar} from "@mui/material";
+import {AiOutlineSmile} from "react-icons/ai";
+import {GoLocation} from "react-icons/go";
+
+import {navigation} from "../../api";
+import {GrClose} from "react-icons/gr";
+import Picker from 'emoji-picker-react'
+
+const AWS = require('aws-sdk')
+
+
+
+const S3_BUCKET ='loyata.images';
+const REGION ='us-east-1';
+const ACCESS_KEY ='AKIAYYQLTSE2EYA5JA2I';
+const SECRET_ACCESS_KEY ='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';
+
+AWS.config.update({ accessKeyId: ACCESS_KEY, secretAccessKey: SECRET_ACCESS_KEY, region: REGION });
+
+const s3 = new AWS.S3();
+
 
 const NewPost = () => {
+
+
+
+
 
 
     const imgRef = useRef(null);
@@ -114,6 +138,40 @@ const NewPost = () => {
         'temperature_opacity': 0
     });
 
+    /**
+     * final stage
+     */
+    const [captionStage, setCaptionStage] = useState(false);
+    const [captionContent, setCaptionContent] = useState('');
+    const [showEmoji, setShowEmoji] = useState(false);
+    const [locationContent, setLocationContent] = useState('');
+    const [locationFocus, setLocationFocus] = useState(false)
+    const [timer, setTimer] = useState(0);
+    const [locationResult, setLocationResult] = useState([]);
+    const [disableLocation, setDisableLocation] = useState(false)
+
+    // const testLocationResult = ['Toronto, Ontario, Canada', 'Toronto Street, Ottawa, Ontario K1S 0N3, Canada', 'Toronto, Ohio, United States', 'Toronto, South Dakota, United States', 'Toronto, Iowa, United States', 'Toronto, Kansas, United States', 'Toronto Mbugani, Tanga, Tanzania', 'Toronto Street, Kingston, Ontario K7L 4A9, Canada', 'Toronto Road, Colborne, Ontario K0K 1S0, Canada', 'Toronto Road, Port Hope, Ontario L1A 3V5, Canada']
+
+
+    useEffect(()=>{
+        if(locationFocus && locationContent.length >= 3){
+            const temp = setInterval(() => {
+                setTimer(timer => timer + 1)
+            },1000)
+            return () => clearInterval(temp);
+        }
+    })
+
+    useEffect(()=>{
+        if(timer === 2){
+            navigation(locationContent).then(data=>{
+                setLocationResult(data.data.features.map(feature => feature.place_name))
+            }).catch(error => console.log(error))
+        }
+    },[timer])
+
+
+
     useEffect(() => {
         let brightness, contrast, saturate, opacity, vignette, temperature_opacity;
 
@@ -142,25 +200,17 @@ const NewPost = () => {
         document.addEventListener("click", () => {
             setShowIconAMenu(false);
             setShowIconBMenu(false);
+            setShowEmoji(false);
         });
-    }, [])
+    },[])
 
     // Update maxLeft when a new image is uploaded
     useEffect(() => {
         if(file)  {
-
-
-            const currImg = document.getElementById("target");
             const container = document.getElementsByClassName("newPost_crop")[0];
-
             setCurrContainerSize([container.clientWidth, container.clientHeight])
         }
     },[file])
-
-
-    // useEffect(() => {
-    //     console.log(adjValues)
-    // },[adjValues])
 
 
     const calculateMaxShift = () => {
@@ -226,8 +276,34 @@ const NewPost = () => {
 
 
     const uploadImage = () => {
-        htmlToImage.toPng(imgParentRef.current).then(function (dataUrl) {
-            download(dataUrl, "res.png")
+        htmlToImage.toPng(imgParentRef.current).then(async function (dataUrl) {
+            // download(dataUrl, "res.png")
+            // console.log(dataUrl)
+            const base64 = dataUrl
+
+            const base64Data = new Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+            const type = base64.split(';')[0].split('/')[1];
+            const userId = 1;
+            const params = {
+                Bucket: S3_BUCKET,
+                Key: `${userId}.${type}`, // type is not required
+                Body: base64Data,
+                ACL: 'public-read',
+                ContentEncoding: 'base64', // required
+                ContentType: `image/${type}`, // required. Notice the back ticks
+
+            }
+            let location = '';
+            let key = '';
+            try {
+                const {Location, Key} = await s3.upload(params).promise();
+                location = Location;
+                key = Key;
+            } catch (error) {
+                console.log(error)
+            }
+            console.log(location, key)
+
         })
     }
 
@@ -236,17 +312,10 @@ const NewPost = () => {
         if(stage === 0){
             dispatch(updateStateOuter());
         }
-
         setShowDiscardCard(true)
 
 
     }
-
-
-    // useEffect(() => {
-    //     console.log(showDiscardCard)
-    // },[showDiscardCard])
-
 
     return (
         <div style={{position:"relative"}} onClick={e=> e.nativeEvent.stopImmediatePropagation()}>
@@ -275,7 +344,9 @@ const NewPost = () => {
                         </div>
                     </div>
                 </div>
-                <div className="newPost_create" style={{display:`${stage === 1 ? "block" : "none"}`}} onClick={e=> {e.stopPropagation()}}>
+                <div className="newPost_create" style={{display:`${stage === 1 ? "block" : "none"}`}} onClick={e=> {
+                    e.stopPropagation();
+                }}>
                       <div className="newPost_title newPost_title_crop">
                           <BsArrowLeft className="newPost_bs" onClick={() => {
                                 setShowDiscardCard(true)
@@ -292,7 +363,7 @@ const NewPost = () => {
 
                           <div className="newPost_iconAMenu"
                                style={{display:`${showIconAMenu ? "block" : "none"}`}}
-                               onClick={e=>e.nativeEvent.stopImmediatePropagation()}
+                               onClick={e => e.stopPropagation()}
                           >
                               <ul className="newPost_iconAMenu_ul">
                                   <li
@@ -387,7 +458,7 @@ const NewPost = () => {
                               </ul>
                           </div>
 
-                          <div className="newPost_Slider" onClick={e=>e.nativeEvent.stopImmediatePropagation()} style={{display:`${showIconBMenu ? "block" : "none"}`}}>
+                          <div className="newPost_Slider" onClick={e=>e.stopPropagation()} style={{display:`${showIconBMenu ? "block" : "none"}`}}>
                               <div style={{width:"100%", height:"100%", display:"flex"}}>
                                   <div className="newPost_SliderLeft" style={{width:`${sliderMove + 10}px`}}>
                                       <hr id={"leftHr"}/>
@@ -424,9 +495,9 @@ const NewPost = () => {
                           </div>
 
                           <div className="newPost_icon newPost_iconA" onClick={(e) => {
+                              e.stopPropagation();
                               setShowIconAMenu(!showIconAMenu);
                               setShowIconBMenu(false)
-                              e.nativeEvent.stopImmediatePropagation();
                               setRatio(Math.floor(imgRef.current.naturalHeight / imgRef.current.naturalWidth * 100))
                           }}>
                               <BsArrowsAngleExpand />
@@ -434,7 +505,7 @@ const NewPost = () => {
 
                           <div className="newPost_icon newPost_iconB" onClick={
                               (e) => {
-                                  e.nativeEvent.stopImmediatePropagation();
+                                  e.stopPropagation();
                                   setShowIconBMenu(!showIconBMenu);
                                   setShowIconAMenu(false);
                               }
@@ -449,9 +520,14 @@ const NewPost = () => {
                           <div
                               className="newPost_imgContainer"
                               ref={imgParentRef}
+                              onClick={() => {
+                                  setShowIconAMenu(false);
+                                  setShowIconBMenu(false);
+                              }}
                               style={{
                               width:`${imageStatus.containerWidth}`,
                               height:`${imageStatus.containerHeight}`,
+
                           }}
                           >
                               <img
@@ -473,21 +549,35 @@ const NewPost = () => {
 
                       </div>
                   </div>
-                <div className="newPost_edit" style={{display:`${stage === 2 ? "block" : "none"}`}} onClick={e=> {e.stopPropagation()}}>
+
+                <div className="newPost_edit" style={{display:`${stage === 2 ? "block" : "none"}`}} onClick={e=> {
+                    setShowEmoji(false);
+                    setShowIconAMenu(false);
+                    setShowIconBMenu(false);
+                    e.stopPropagation()
+                }}>
                     <div className="newPost_title newPost_title_crop">
                         <BsArrowLeft className="newPost_bs" onClick={() => {
-                            setAdjValues({
-                                'Brightness': 0,
+                            if(captionStage) setCaptionStage(false);
+                            else {
+                                setAdjValues({
+                                    'Brightness': 0,
                                     'Contrast': 0,
                                     'Saturation': 0,
                                     'Temperature': 0,
                                     'Fade': 0,
                                     'Vignette': 0
-                            })
-                            setStage(1)
+                                })
+                                setStage(1)
+                            }
                         }}/>
-                        <span>Edit</span>
-                        <span className="newPost_next" onClick={uploadImage}>Next</span>
+                        <span>{captionStage? "Create new Post": "Edit"}</span>
+                        <span className="newPost_next" onClick={()=>{
+                            if(!captionStage) setCaptionStage(true)
+                            else{
+                                alert("等待上传完成, 显示动画, 并修改navbar的state, 如果在自己的展示界面还需要更新")
+                            }
+                        }}>{captionStage? "Share": "Next"}</span>
                     </div>
                     <div className="newPost_editPhoto">
                         <div className="newPost_editPhoto_left">
@@ -495,6 +585,10 @@ const NewPost = () => {
                                 id="containerDisplay"
                                 className={`newPost_imgContainer ${allFilters[filter].toLowerCase()}`}
                                 ref={imgParentRef}
+                                onClick={() => {
+                                    setShowIconAMenu(false);
+                                    setShowIconBMenu(false);
+                                }}
                                 style={{
                                     width:`${imageStatus.containerWidth}`,
                                     height:`${imageStatus.containerHeight}`,
@@ -526,47 +620,139 @@ const NewPost = () => {
 
                             </div>
                         </div>
-                        <div className="newPost_editPhoto_right">
-                            <div className="newPost_editPhoto_right_selectors">
-                                <div
-                                    className={`newPost_editPhoto_right_selector${adjustment === 0 ? " newPost_highlight" : ""}`}
-                                    onClick={() => setAdjustment(0)}
-                                >Filters</div>
-                                <div
-                                    className={`newPost_editPhoto_right_selector${adjustment === 1 ? " newPost_highlight" : ""}`}
-                                    onClick={() => setAdjustment(1)}
-                                >Adjustments</div>
-                            </div>
-                            <div>
-                                {
-                                    adjustment === 0 ?
-                                    <div className="newPost_filters" >
-                                    {
-                                        allFilters.map((singleFilter, id) => (
-                                            <div
-                                                className={`newPost_filter${filter === id ? " newPost_filter_highlight" : ""}`}
-                                                key={id}
-                                                onClick={() => setFilter(id)}
-                                            >
-                                                <div className={`${singleFilter.toLowerCase()}`}>
-                                                    <img src={balloon} width="100%" draggable="false"/>
-                                                </div>
-                                                <div>{singleFilter}</div>
-                                            </div>
-                                        ))
-                                    }
-                                </div >:
-                                        <div className="newPost_adjustments" >
-                                            {
-                                                allAdjustments.slice(0, allAdjustments.length - 1).map((adjName, index) => (
-                                                    <CustomSlider key={index} adjName={adjName} adjValues={adjValues} setAdjValues={setAdjValues}/>
-                                                ))
-                                            }
-                                            <CustomSliderSingleDirection adjName={allAdjustments[allAdjustments.length - 1]} adjValues={adjValues} setAdjValues={setAdjValues}/>
+                        {
+                            captionStage?
+                                <div className="newPost_editPhoto_caption">
+                                    <div className="newPost_captionContainer">
+                                        <div className="newPost_avatar">
+                                            <Avatar sx={{width:"30px", height:"30px"}}/>
+                                            <div><b>user_name</b></div>
                                         </div>
-                                }
-                            </div>
-                        </div>
+
+                                        <textarea
+                                            placeholder="Write a caption..."
+                                            onChange={event => setCaptionContent(event.target.value)}
+                                            value={captionContent}
+                                        />
+
+                                        <div className="newPost_count">
+                                            <div className="newPost_smile">
+                                                <AiOutlineSmile onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setShowEmoji(!showEmoji);
+                                                }}/>
+                                                <div style={{position:"absolute", display:`${showEmoji?'block':'none'}`}} onClick={e=>e.stopPropagation()}>
+                                                    <Picker onEmojiClick={(event, emojiObject) => {
+                                                        setCaptionContent(captionContent => captionContent += emojiObject.emoji);
+                                                    }}/>
+                                                </div>
+                                                 </div>
+                                             <div style={{fontSize:"0.8rem"}}>{`${captionContent.length}/2,200`}</div>
+                                        </div>
+                                    </div>
+                                    <div className="newPost_location">
+                                        {
+                                            disableLocation?
+                                                <div className="newPost_locationDisabled">
+                                                    {locationContent}
+                                                </div>
+                                                :
+                                                <input
+                                                    placeholder="Add location"
+                                                    type="text"
+                                                    value={locationContent}
+                                                    onChange={e => {
+                                                        setLocationContent(e.target.value);
+                                                        setTimer(0);
+                                                    }}
+                                                    onFocus={() => setLocationFocus(true)}
+                                                    onBlur={() =>{
+                                                        setLocationFocus(false);
+                                                        setTimer(0);
+                                                    }}
+
+                                                />
+                                        }
+                                        <div className="GoLocation">
+                                            {locationContent.length !== 0 ?
+                                                <GrClose onClick={() => {
+                                                    setLocationContent('');
+                                                    setDisableLocation(false)
+                                                }}/>
+                                                :
+                                                <GoLocation/>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="newPost_remain">
+                                        {locationContent !== '' && disableLocation === false ?
+                                            <div className="newPost_searchResults">
+                                                <ul className="newPost_location_ul">
+                                                    {
+                                                        locationResult.map(
+                                                            (result, index) =>
+                                                                <li
+                                                                    className="newPost_location_li"
+                                                                    key={index}
+                                                                    onClick={() => {
+                                                                        setLocationContent(locationResult[index]);
+                                                                        setDisableLocation(true)
+                                                                    }}
+                                                                >
+                                                                    {result}
+                                                                </li>
+                                                        )
+                                                    }
+                                                </ul>
+                                            </div>
+                                            :
+                                            <div/>
+                                        }
+                                    </div>
+                                </div>
+                                :
+                                <div className="newPost_editPhoto_right">
+                                    <div className="newPost_editPhoto_right_selectors">
+                                        <div
+                                            className={`newPost_editPhoto_right_selector${adjustment === 0 ? " newPost_highlight" : ""}`}
+                                            onClick={() => setAdjustment(0)}
+                                        >Filters</div>
+                                        <div
+                                            className={`newPost_editPhoto_right_selector${adjustment === 1 ? " newPost_highlight" : ""}`}
+                                            onClick={() => setAdjustment(1)}
+                                        >Adjustments</div>
+                                    </div>
+                                    <div>
+                                        {
+                                            adjustment === 0 ?
+                                                <div className="newPost_filters" >
+                                                    {
+                                                        allFilters.map((singleFilter, id) => (
+                                                            <div
+                                                                className={`newPost_filter${filter === id ? " newPost_filter_highlight" : ""}`}
+                                                                key={id}
+                                                                onClick={() => setFilter(id)}
+                                                            >
+                                                                <div className={`${singleFilter.toLowerCase()}`}>
+                                                                    <img src={balloon} width="100%" draggable="false"/>
+                                                                </div>
+                                                                <div>{singleFilter}</div>
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </div >:
+                                                <div className="newPost_adjustments" >
+                                                    {
+                                                        allAdjustments.slice(0, allAdjustments.length - 1).map((adjName, index) => (
+                                                            <CustomSlider key={index} adjName={adjName} adjValues={adjValues} setAdjValues={setAdjValues}/>
+                                                        ))
+                                                    }
+                                                    <CustomSliderSingleDirection adjName={allAdjustments[allAdjustments.length - 1]} adjValues={adjValues} setAdjValues={setAdjValues}/>
+                                                </div>
+                                        }
+                                    </div>
+                                </div>
+                        }
                     </div>
                 </div>
             </div>

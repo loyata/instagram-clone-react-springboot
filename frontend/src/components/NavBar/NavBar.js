@@ -48,9 +48,9 @@ const NavBar = () => {
     } )
 
 
-    useEffect(() => {
-        console.log(navbarCache)
-    },[navbarStatus, navbarCache])
+    // useEffect(() => {
+    //     console.log(navbarCache)
+    // },[navbarStatus, navbarCache])
 
 
 
