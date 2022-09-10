@@ -1,0 +1,60 @@
+.ci_container{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 0.2rem 0;
+}
+
+.ci_ph{
+    position: absolute;
+    color: rgb(163,163,163);
+    font-weight: 500;
+}
+
+.ci_input{
+    flex: 1 1 0;
+    height: 40px;
+    border: 1px solid rgb(219,219,219);
+
+    border-right: none;
+    background-color: rgb(252,252,252);
+    border-radius: 4px 0 0 4px;
+    display: flex;
+    align-items: center;
+}
+
+.ci_input > input{
+    background-color: transparent;
+    border: 0px solid;
+    width: 100%;
+    color: rgb(75,75,75);
+    margin-left: 0.5rem;
+}
+
+.ci_adorn{
+    height: 40px;
+    border: 1px solid rgb(219,219,219);
+    border-left: none;
+    background-color: rgb(252,252,252);
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: center;
+}
+
+.ci_icon{
+    font-size: 1.4rem;
+    margin: 0 0.5rem;
+    transform:translate(0, 0.1rem)
+}
+
+.showPass{
+    font-weight: 550;
+    color: black;
+    margin-right: 0.5rem;
+    user-select: none;
+}
+
+.showPass:hover{
+    cursor: pointer;
+}

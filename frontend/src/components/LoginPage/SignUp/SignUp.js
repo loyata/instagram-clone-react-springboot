@@ -5,19 +5,11 @@ import Divider from "../Divider/Divider";
 import {AiFillFacebook} from "react-icons/ai";
 import appleStore from "../images/appleStore.png";
 import googlePlay from "../images/googlePlay.png";
-import {InsTextField} from "../LoginPage";
-
-
 import {useNavigate} from "react-router-dom";
-
 import "./SignUp.css"
-import UserPool from "../../../UserPool"
-
-import Footer from "../Footer/Footer";
-
-import {InputAdornment} from "@mui/material";
 
 import {signUp} from "../../../api";
+import CustomInput from "../CustomInput/CustomInput";
 
 
 const SignUp = () => {
@@ -32,14 +24,11 @@ const SignUp = () => {
         password:''
     });
 
-    const [showPassword, setShowPassword] = useState(false)
 
-    // useEffect(() =>{
-    //     console.log(signUpInfo)
-    // },[signUpInfo])
+    useEffect(() => {
+        console.log(signUpInfo)
+    },[signUpInfo])
 
-
-    const handleOnchange = (type) => (event) => setSignUpInfo({...signUpInfo, [type]:event.target.value})
 
     const handleSubmit = () => {
 
@@ -66,57 +55,40 @@ const SignUp = () => {
 
                         <Button variant="contained" id="loginButton" size="small"><AiFillFacebook fontSize="1.3rem"/>&nbsp;Log in with Facebook</Button>
 
-                        <Divider text="OR"/>
+                        <div style={{marginBottom:"0.7rem", fontSize:"0.9rem"}}>
+                            <Divider text="OR"/>
+                        </div>
 
 
-                        <InsTextField
-                            label="Email"
-                            variant="filled"
-                            size="small"
-                            className="inputText"
-                            value={signUpInfo.email}
-                            onChange = {handleOnchange('email')}
+                        <CustomInput
+                            placeholder={"Email"}
+                            setSignUpInfo={setSignUpInfo}
+                            signUpInfo={signUpInfo}
+                            setSignUpInfoKey={"email"}
+
                         />
+                        <CustomInput
+                            placeholder={"Full Name"}
+                            setSignUpInfo={setSignUpInfo}
+                            signUpInfo={signUpInfo}
+                            setSignUpInfoKey={"fullName"}
 
-                        <InsTextField
-                            label="Full Name"
-                            variant="filled"
-                            size="small"
-                            margin="dense"
-                            className="inputText"
-                            value={signUpInfo.fullName}
-                            onChange = {handleOnchange('fullName')}
+                            validation={(value) => value.length > 0}
                         />
-
-                        <InsTextField
-                            label="Username"
-                            variant="filled"
-                            size="small"
-                            margin="dense"
-                            className="inputText"
-                            value={signUpInfo.userName}
-                            onChange = {handleOnchange('userName')}
+                        <CustomInput
+                            placeholder={"Username"}
+                            setSignUpInfo={setSignUpInfo}
+                            signUpInfo={signUpInfo}
+                            setSignUpInfoKey={"userName"}
                         />
+                        <CustomInput
+                            placeholder={"Password"}
+                            confidential={true}
+                            signUpInfo={signUpInfo}
+                            setSignUpInfo={setSignUpInfo}
+                            setSignUpInfoKey={"password"}
 
-                        <InsTextField
-                            label="Password"
-                            variant="filled"
-                            type={showPassword?"text":"password"}
-                            size="small"
-                            margin="dense"
-                            className="inputText"
-                            InputProps={signUpInfo.password !== '' ?
-                                {endAdornment:
-                                    <InputAdornment
-                                        position="end"
-                                        style={{userSelect:"none"}}
-                                    >
-                                    <div className="showPass" onClick={() => {setShowPassword(!showPassword)}}>{showPassword? 'hide':'show'}</div>
-                                    </InputAdornment>
-                                }:{}
-                            }
-                            value={signUpInfo.password}
-                            onChange = {handleOnchange('password')}
+                            validation={(value) => value.length > 7}
                         />
 
                         <div className="des2">People who use our service may have uploaded your contact information to Instagram. <a href="https://www.facebook.com/help/instagram/261704639352628">Learn More</a></div>

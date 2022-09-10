@@ -28,6 +28,8 @@ import {navigation} from "../../api";
 import {GrClose} from "react-icons/gr";
 import Picker from 'emoji-picker-react'
 
+
+import { v4 as uuidv4 } from 'uuid';
 /**
  * switch
  */
@@ -349,6 +351,13 @@ const NewPost = () => {
             } catch (error) {
                 console.log(error)
             }
+
+            const postData = {
+                post_identifier:uuidv4()
+
+
+            }
+
             console.log(location, key)
 
         })

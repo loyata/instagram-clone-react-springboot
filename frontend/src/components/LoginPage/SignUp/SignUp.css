@@ -62,11 +62,3 @@ a, a:visited{
     font-weight: 500;
 }
 
-.showPass{
-    font-weight: 550;
-    color: black;
-}
-
-.showPass:hover{
-    cursor: pointer;
-}
