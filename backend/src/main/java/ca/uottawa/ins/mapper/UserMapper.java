@@ -10,12 +10,18 @@ import java.util.List;
 public interface UserMapper {
 
 
-    @Insert("INSERT INTO user(user_name, email, password) values(#{userName}, #{email}, #{password})")
-    int insertUser(String userName, String email, String password);
+    @Insert("INSERT INTO users(user_name, email, password, full_name) values(#{userName}, #{email}, #{password}, #{fullName})")
+    int insertUser(String userName, String email, String password, String fullName);
 
-    @Select("SELECT * FROM user WHERE user_id = #{id}")
+    @Select("SELECT * FROM users WHERE user_id = #{id}")
     User getUserById(Integer id);
 
-    @Select("SELECT * FROM user")
+    @Select("SELECT * FROM users")
     List<User> getAllUsers();
+
+    @Select("SELECT user_name FROM users")
+    List<String> getAllUserNames();
+
+    @Select("SELECT email FROM users")
+    List<String> getAllEmails();
 }

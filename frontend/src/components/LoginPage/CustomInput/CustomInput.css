@@ -10,6 +10,7 @@
     position: absolute;
     color: rgb(163,163,163);
     font-weight: 500;
+    user-select: none;
 }
 
 .ci_input{

@@ -5,7 +5,7 @@ import "./Footer.css"
 
 const Footer = () => {
     return (
-        <div>
+        <div style={{marginTop:"3rem"}}>
                 <div className="allTags">
                 <span className="tag">Meta</span>
                 <span className="tag">About</span>

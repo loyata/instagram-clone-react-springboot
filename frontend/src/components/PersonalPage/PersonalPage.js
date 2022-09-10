@@ -8,10 +8,8 @@ import Footer from "../LoginPage/Footer/Footer";
 const PersonalPage = () => {
     return (
         <div style={{minHeight:"100vh"}}>
-            <NavBar/>
+            {/*<NavBar/>*/}
             <PersonalContent/>
-
-
         </div>
     );
 };

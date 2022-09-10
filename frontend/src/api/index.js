@@ -25,5 +25,10 @@ const instance = axios.create({
 //
 // export const signIn = (formData) => instance.post(`/users/login`, formData);
 export const signUp = (formData) => instance.post(`/accounts/signup`, formData);
+export const logIn = (formData) => instance.post(`/accounts/login`, formData);
+
+export const checkUserName = (userName) => instance.get(`/accounts/validate/username/${userName}`)
+export const checkEmail = (email) => instance.get(`/accounts/validate/email/${email}`)
+
 export const navigation = (query) => axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?limit=10&proximity=ip&types=place%2Cpostcode%2Caddress&access_token=${geoAPIToken}`)
 

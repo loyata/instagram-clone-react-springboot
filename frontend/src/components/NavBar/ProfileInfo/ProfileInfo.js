@@ -3,13 +3,24 @@ import "./ProfileInfo.css"
 import {FaRegUserCircle} from "react-icons/fa";
 import {BsGearWide, BsBookmark} from "react-icons/bs";
 import {HiSwitchHorizontal} from "react-icons/hi";
+import {useNavigate} from "react-router-dom";
 
 
 const ProfileInfo = () => {
 
+    const userName = 'alex_loyata'
+
+    const navigate = useNavigate();
+
     const handleClick = (name) => {
         return () => {
-            alert(`Navigating to ${name}`)
+            if(name === 'Profile') navigate(`/${userName}`)
+            else if(name === 'Saved') navigate(`/${userName}/saved`)
+            else if(name === 'Logout') {
+                localStorage.clear();
+                navigate('/')
+            }
+            else alert(`Navigating to ${name}`)
         }
     }
 

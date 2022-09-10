@@ -1,5 +1,4 @@
-import React from 'react';
-import {Grid, Typography} from "@mui/material";
+import React, {useEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { alpha, styled } from '@mui/material/styles';
@@ -17,39 +16,51 @@ import useWindowDimensions from "../../utilities/useWindowDimension";
 
 import "./LoginPage.css"
 import PhonePicture from "./PhonePicture/PhonePicture";
-
-export const InsTextField = styled((props) => (
-    <TextField InputProps={{ disableUnderline: true }} {...props} />
-))(({ theme }) => ({
-    '& .MuiFilledInput-root': {
-        border: '1px solid #e2e2e1',
-        overflow: 'hidden',
-        borderRadius: 4,
-        // fontSize:'0.5rem',
-        backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
-        transition: theme.transitions.create([
-            'border-color',
-            'background-color',
-            'box-shadow',
-        ]),
-        '&:hover': {
-            backgroundColor: 'transparent',
-        },
-        '&.Mui-focused': {
-            backgroundColor: 'transparent',
-            boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
-            borderColor: theme.palette.primary.main,
-        },
-    },
-
-}));
+import CustomInput from "./CustomInput/CustomInput";
+import {checkEmail} from "../../api";
+import {logIn} from "../../api";
+import {useNavigate} from "react-router-dom";
 
 
 const LoginPage = () => {
 
     const { width } = useWindowDimensions();
 
+    const navigate = useNavigate();
 
+    const [loginInfo, setLoginInfo] = useState({
+        email:'',
+        password:''
+    });
+
+    const [errMsg, setErrMsg] = useState('')
+
+    const [success, setSuccess] = useState(false)
+
+    const handleSubmit = async (e) => {
+
+        setErrMsg('')
+        try {
+            const response = await logIn(loginInfo);
+
+            if(response.data === "NO_SUCH_ACCOUNT") setErrMsg("The username you entered doesn't belong to an account. Please check your username and try again.")
+            else if(response.data === "WRONG PASSWORD") setErrMsg("Sorry, your password was incorrect. Please double-check your password.")
+            else {
+                localStorage.setItem('token', response.data);
+                alert("login successfully")
+                window.location.reload();
+            }
+        }catch (e){
+            console.log(e)
+        }
+
+
+        // setLoginInfo({
+        //     emailOrUsername:'',
+        //     password:''
+        // })
+        // setSuccess(true)
+    }
 
     return (
         <div>
@@ -61,29 +72,37 @@ const LoginPage = () => {
                     <div className="upperCard">
                         <img src={insLogo} className="insLogo"/>
 
-                        <InsTextField
-                            label="Phone number, username, or email"
-                            id="reddit-input"
-                            variant="filled"
-                            size="small"
-
-                            className="inputText"
+                        <CustomInput
+                            placeholder={"Email or Username"}
+                            setSignUpInfo={setLoginInfo}
+                            signUpInfo={loginInfo}
+                            SignUpKey={"email"}
+                            signUpValidate={null}
                         />
 
-                        <InsTextField
-                            label="Password"
-                            id="reddit-input"
-                            variant="filled"
-                            size="small"
-                            margin="dense"
-                            className="inputText"
+                        <CustomInput
+                            placeholder={"password"}
+                            confidential={true}
+                            setSignUpInfo={setLoginInfo}
+                            signUpInfo={loginInfo}
+                            SignUpKey={"password"}
+                            signUpValidate={null}
                         />
 
-                        <Button variant="contained" id="loginButton" size="small">Log In</Button>
+                        <Button variant="contained"
+                                id="loginButton"
+                                size="small"
+                                disabled={loginInfo.email.length === 0 || loginInfo.password.length === 0 }
+                                onClick={handleSubmit}
+                        >Log In</Button>
                         <Divider text="or"/>
 
                         <div className="facebook">
                             <Button><AiFillFacebook fontSize="1.3rem"/>&nbsp;Log in with Facebook</Button>
+                        </div>
+
+                        <div className="err_msg" style={{width:"80%", fontSize:"0.9rem", color:"red", textAlign:"center", padding:"1rem"}}>
+                            {errMsg}
                         </div>
 
                         <div className="forgetPassword">
@@ -91,7 +110,7 @@ const LoginPage = () => {
                         </div>
                     </div>
                     <div className="bottomCard">
-                        <div>Don't have an account? Sign up</div>
+                        <div>Don't have an account? <a style={{color:"rgb(119,178,242)"}} href="/accounts/emailsignup">Sign up</a></div>
                     </div>
                     <div className="appDownload">
                         <div className="getTheApp">Get the app.</div>

@@ -13,7 +13,7 @@
 
 
 .cardMain{
-    width: 23%;
+    width: 350px;
     min-width: 200px;
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@
     background: white;
 
     width: 100%;
-    height: 70%;
+    /*height: 70%;*/
 
     display: flex;
     flex-direction: column;
@@ -54,11 +54,10 @@
 .bottomCard{
 
     margin-top: 8px;
+    padding: 1.5rem;
     border: 1px solid rgb(234,234,234);
     background: white;
     width: 100%;
-    height: 10%;
-
     font-size: 0.9em;
 
     display: flex;
@@ -101,8 +100,8 @@
 
 .forgetPassword{
     font-size: 0.8em;
-    margin-top: 1rem;
     color: rgb(20,54,103);
+    margin-bottom: 1rem;
 }
 .forgetPassword:hover{
     cursor: pointer;
@@ -116,33 +115,16 @@
     font-weight: 500;
 }
 
-/*.css-1mog9k0-MuiFormLabel-root-MuiInputLabel-root{*/
-/*    font-size: 0.8rem!important;*/
-/*}*/
-
-/*.css-c5v1qu-MuiInputBase-input-MuiFilledInput-input{*/
-/*    padding: 10px 0 5px 7px!important;*/
-
-/*}*/
-
-/*.css-1pw81iq-MuiInputBase-root-MuiFilledInput-root{*/
-/*    font-size: 0.8rem!important;*/
-/*    transform: translate(0px, 6px)!important;*/
-/*}*/
 
 
-.css-11qr2p8-MuiButtonBase-root-MuiButton-root {
-    font-size: 0.9rem!important;
-    font-weight: 800!important;
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root{
     text-transform: none!important;
+    font-weight: 600!important;
 }
 
-/*.css-1e6y48t-MuiButtonBase-root-MuiButton-root {*/
-/*    text-transform: none!important;*/
-/*}*/
-
-.css-c5v1qu-MuiInputBase-input-MuiFilledInput-input {
-    height:1.1em!important;
+.css-11qr2p8-MuiButtonBase-root-MuiButton-root{
+    text-transform: none!important;
+    font-weight: 650!important;
 }
 
 input:-webkit-autofill,
