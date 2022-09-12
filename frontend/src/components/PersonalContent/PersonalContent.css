@@ -27,8 +27,37 @@
     padding: 5px 9px;
     border-radius: 4px;
     font-weight: 700;
-    margin-left: 1.5rem;
+    margin-left: 1rem;
     margin-right: 0.6rem;
+    text-align: center;
+    width: 90px;
+}
+
+.personalContent_button2{
+    font-size: 0.9rem;
+    border: 1px solid rgb(219,219,219);
+    padding: 5px 9px;
+    border-radius: 4px;
+    font-weight: 700;
+    width: 90px;
+    text-align: center;
+    margin-left: 0.5rem;
+    margin-right: 0.6rem;
+    background-color: rgb(65,147,239);
+    color: white;
+}
+
+.personalContent_dot{
+    transform: translate(5px, 4px);
+}
+
+.personalContent_dot:hover{
+    cursor: pointer;
+}
+
+.personalContent_button2:hover{
+    cursor: pointer;
+    user-select: none;
 }
 
 .personalContent_button:hover{

@@ -1,8 +1,9 @@
 .mainContent_container{
     /*border: 1px solid black;*/
-    min-height: 100vh;
+    min-height: calc(100vh - 62px);
     display: flex;
     justify-content: center;
+    transform:translate(0, 62px);
 }
 
 .mainContent_left{

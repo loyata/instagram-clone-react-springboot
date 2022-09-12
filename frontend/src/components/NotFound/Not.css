@@ -1,0 +1,16 @@
+.Not_container{
+    background-color: rgb(250,250,250);
+    height: calc(100vh - 62px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: rgb(146, 146, 146);
+    font-weight: 500;
+}

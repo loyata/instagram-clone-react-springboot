@@ -1,10 +1,16 @@
 package ca.uottawa.ins.controller;
 
+import ca.uottawa.ins.mapper.PostMapper;
 import ca.uottawa.ins.mapper.UserMapper;
+import ca.uottawa.ins.mapper.FollowMapper;
+import ca.uottawa.ins.model.Follow;
+import ca.uottawa.ins.model.Image;
+import ca.uottawa.ins.model.Post;
 import ca.uottawa.ins.model.User;
 import ca.uottawa.ins.service.UserService;
 import ca.uottawa.ins.service.impl.UserServiceImpl;
 import ca.uottawa.ins.utils.JWTUtil;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,18 +38,37 @@ public class AccountController {
     private UserMapper userMapper;
 
     @Autowired
+    private PostMapper postMapper;
+
+    @Autowired
+    private FollowMapper followMapper;
+
+    @Autowired
     public User user;
 
+    @Autowired
+    public Image image;
+
+    @Autowired
+    public Post post;
+
+    @Autowired
+    public Follow follow;
 
 
-    @GetMapping("/users")
-    public Object getAllUsers(){
-        return userServiceImpl.getAllUsers();
-    }
 
-    @GetMapping("/users/{id}")
-    public Object getUserById(@PathVariable("id") Integer id){
-        return userMapper.getUserById(id);
+
+//    @GetMapping("/users")
+//    public Object getAllUsers(){
+//        return userServiceImpl.getAllUsers();
+//    }
+
+
+
+
+    @GetMapping("/users/username/{username}")
+    public Object getUserByName(@PathVariable("username") String username){
+        return userMapper.getUserByName(username);
     }
 
 
@@ -62,6 +87,20 @@ public class AccountController {
     }
 
 
+    @CrossOrigin
+    @GetMapping("/posts/user/{userId}")
+    public Object getPostsById(@PathVariable("userId") Integer userId){
+        List<Post> allPosts = postMapper.getPostsById(userId);
+        return allPosts;
+    }
+
+    @CrossOrigin
+    @GetMapping("/posts/username/{userId}")
+    public Object getPostsByName(@PathVariable("userName") String userName){
+        List<Post> allPosts = postMapper.getPostsByName(userName);
+        return allPosts;
+    }
+
 
 
     @RequestMapping("/test")
@@ -70,9 +109,27 @@ public class AccountController {
     }
 
 
+    @JsonIgnoreProperties
+    @PostMapping("/follows/follow")
+    public Integer follow(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        follow = objectMapper.readValue(content, Follow.class);
+        followMapper.insertFollow(follow.getFollowerId(), follow.getFolloweeId(), follow.getFollowTimestamp());
+        return 1;
+    }
+
+    @PostMapping("/follows/unfollow")
+    public Integer unfollow(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        follow = objectMapper.readValue(content, Follow.class);
+        followMapper.deleteFollow(follow.getFollowerId(), follow.getFolloweeId());
+        return 1;
+    }
+
+
     @CrossOrigin
     @PostMapping("/accounts/signup")
-    public Integer signup(@RequestBody String content) throws JsonProcessingException {
+    public String signup(@RequestBody String content) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         user = objectMapper.readValue(content, User.class);
 
@@ -80,10 +137,33 @@ public class AccountController {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
 
-        Integer res = userMapper.insertUser(user.getUserName(), user.getEmail(), user.getPassword(), user.getFullName());
+        String token = JWTUtil.sign(user.getUserName(), user.getUserId());
 
+        userMapper.insertUser(user.getUserName(), user.getEmail(), user.getPassword(), user.getFullName());
+
+        return token;
+    }
+
+    @CrossOrigin
+    @PostMapping("/accounts/avatar")
+    public Integer avatar(@RequestBody String content) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        image = objectMapper.readValue(content, Image.class);
+        Integer res = userMapper.updateAvatar(image.getUserName(), image.getImageUrl());
         return res;
     }
+
+    @CrossOrigin
+    @PostMapping("/posts/new")
+    public Integer newPost(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        post = objectMapper.readValue(content, Post.class);
+        logger.info(post.toString());
+        Integer res = postMapper.insertPost(post.getPostIdentifier(), post.getImageUrl(), post.getUserId(), post.getPostDate(), post.getPostLocation(), post.getPostCaption(), post.getPostAlt(), post.getPostComments(), post.getPostLikes(), post.isAllowComment(), post.isAllowLike());
+        return res;
+    }
+
+
 
     @CrossOrigin
     @PostMapping("/accounts/login")
@@ -98,6 +178,7 @@ public class AccountController {
 
         String encodedPassword = "";
         String userName = "";
+        Integer id = -1;
 
         logger.info(emailOrPassword);
 
@@ -106,6 +187,7 @@ public class AccountController {
                 if(user.getUserName().equals(emailOrPassword)){
                     encodedPassword = user.getPassword();
                     userName = user.getUserName();
+                    id = user.getUserId();
                     break;
                 }
             }
@@ -115,6 +197,7 @@ public class AccountController {
                 if(user.getEmail().equals(emailOrPassword)){
                     encodedPassword = user.getPassword();
                     userName = user.getUserName();
+                    id = user.getUserId();
                     break;
                 }
             }
@@ -125,7 +208,7 @@ public class AccountController {
         boolean result = passwordEncoder.matches(user.getPassword(), encodedPassword);
         if(!result) return "WRONG PASSWORD";
 
-        String token = JWTUtil.sign(userName);
+        String token = JWTUtil.sign(userName, id);
 
         return token;
     }

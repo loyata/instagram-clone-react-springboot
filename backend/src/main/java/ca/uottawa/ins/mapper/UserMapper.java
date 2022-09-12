@@ -16,6 +16,9 @@ public interface UserMapper {
     @Select("SELECT * FROM users WHERE user_id = #{id}")
     User getUserById(Integer id);
 
+    @Select("SELECT * FROM users WHERE user_name = #{name}")
+    User getUserByName(String name);
+
     @Select("SELECT * FROM users")
     List<User> getAllUsers();
 
@@ -24,4 +27,7 @@ public interface UserMapper {
 
     @Select("SELECT email FROM users")
     List<String> getAllEmails();
+
+    @Update("UPDATE users SET avatar = #{imageUrl} WHERE user_name = #{userName}")
+    int updateAvatar(String userName, String imageUrl);
 }

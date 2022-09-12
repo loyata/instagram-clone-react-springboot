@@ -45,6 +45,7 @@ export const navbarStatusSlice = createSlice({
             }
             //close
             else{
+                console.log("close")
 
                 state.navbarStatus = {...navbarStatusDefault, [state.navbarCache]:true};
                 state.navbarCache = '';

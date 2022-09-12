@@ -21,7 +21,7 @@ const MainContent = () => {
                         <FriendCard/>
                         <PostCard/>
                         <PostCard/>
-                        <PostCard/>
+                        {/*<PostCard/>*/}
                     </div>
 
                     {

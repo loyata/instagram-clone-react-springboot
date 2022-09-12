@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './App.css';
 import LoginPage from "./components/LoginPage/LoginPage";
 import SignUp from "./components/LoginPage/SignUp/SignUp";
@@ -11,13 +11,17 @@ import MessagePage from "./components/MessagePage/MessagePage";
 
 import {Routes, Route} from "react-router-dom";
 import NotFound from "./components/NotFound/NotFound";
+import Settings from "./components/Settings/Settings";
+import jwt_decode from "jwt-decode";
 
+import {useDispatch} from "react-redux";
 
 
 function App() {
 
-    const token = localStorage.getItem('token')
-    console.log(token)
+
+    const token = localStorage.getItem("token")
+
 
   return (
     <div className="App">
@@ -26,7 +30,7 @@ function App() {
             <Route path="/accounts/emailsignup" element={<SignUp/>}/>
             <Route path="*" element={<NotFound/>}/>
         </Routes>
-        {/*<LoginPage/>*/}
+
         {/*<SignUp/>*/}
         {/*<HomePage/>*/}
         {/*<PersonalPage/>*/}

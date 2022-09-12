@@ -4,18 +4,24 @@ import {FaRegUserCircle} from "react-icons/fa";
 import {BsGearWide, BsBookmark} from "react-icons/bs";
 import {HiSwitchHorizontal} from "react-icons/hi";
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 
 const ProfileInfo = () => {
 
-    const userName = 'alex_loyata'
+    const userInfo = useSelector(state => state.user);
+
+    const userName = userInfo.userName
 
     const navigate = useNavigate();
 
     const handleClick = (name) => {
         return () => {
-            if(name === 'Profile') navigate(`/${userName}`)
+            if(name === 'Profile') {
+                navigate(`/${userName}`)
+            }
             else if(name === 'Saved') navigate(`/${userName}/saved`)
+            else if(name === 'Settings') navigate(`/accounts/edit`)
             else if(name === 'Logout') {
                 localStorage.clear();
                 navigate('/')

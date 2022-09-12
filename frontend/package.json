@@ -17,6 +17,7 @@
     "downloadjs": "^1.4.7",
     "emoji-picker-react": "^3.6.1",
     "html-to-image": "^1.10.8",
+    "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-aws-s3": "^1.5.0",
     "react-dom": "^18.2.0",

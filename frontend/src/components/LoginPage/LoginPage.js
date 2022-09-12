@@ -47,7 +47,6 @@ const LoginPage = () => {
             else if(response.data === "WRONG PASSWORD") setErrMsg("Sorry, your password was incorrect. Please double-check your password.")
             else {
                 localStorage.setItem('token', response.data);
-                alert("login successfully")
                 window.location.reload();
             }
         }catch (e){

@@ -22,10 +22,12 @@ import SearchResult from "./SearchResult/SearchResult";
 import useWindowDimensions from "../../utilities/useWindowDimension";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import ReportInfo from "./ReportInfo/ReportInfo";
+import jwt_decode from "jwt-decode";
+import {getUserByName} from "../../api";
 
 
 
-const NavBar = () => {
+const NavBar = ({open, setOpen}) => {
 
     const { width } = useWindowDimensions();
     const [searchContent, setSearchContent] = useState("");
@@ -34,6 +36,17 @@ const NavBar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {navbarStatus, navbarCache} = useSelector(state => state.navbarStatus);
+
+
+    const userInfo = useSelector(state => state.user);
+
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        const {username} = jwt_decode(token)
+
+    },[])
+
 
     const handleSearchInputChange = (e) => {
         setSearchContent(e.target.value);
@@ -98,7 +111,7 @@ const NavBar = () => {
 
                 <Grid item xs={3} className="navBar_avatar" onClick={e=>e.nativeEvent.stopImmediatePropagation()}>
 
-                    {navbarStatus.homepage ? <BsHouseDoorFill className="navBar_Click"/> :
+                    {navbarStatus.homepage ? <BsHouseDoorFill onClick={() => {navigate("/")}} className="navBar_Click"/> :
                         <BsHouseDoor className="navBar_Click" onClick={()=>{
                             dispatch(updateStateSimple('homepage'));
 
@@ -131,10 +144,12 @@ const NavBar = () => {
                     </div>
 
                     <div style={{position:"relative"}}>
-                        <Avatar src="" sx={{height:"28px", width:"28px"}} style={navbarStatus.profile ? {border:"1px solid white",outline:"1px solid black"}:{}} className="navBar_Click" onClick={(e) => {
-                            dispatch(updateStateComplex('profile'))
+                        <Avatar src={userInfo.avatar} sx={{height:"28px", width:"28px"}} style={navbarStatus.profile ? {border:"1px solid white",outline:"1px solid black"}:{}} className="navBar_Click"
+                                onClick={(e) => {
+                                    setOpen(!open)
+                                    dispatch(updateStateComplex('profile'))
                         }}/>
-                        {navbarStatus.profile ?  <ProfileInfo/>: <div/>}
+                        {navbarStatus.profile && open ?  <ProfileInfo/>: <div/>}
                     </div>
                 </Grid>
 

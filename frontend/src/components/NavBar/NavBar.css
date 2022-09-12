@@ -1,8 +1,11 @@
 .navbar{
-    height: 8vh;
+    height: 62px;
     background-color: white;
     border-bottom: 1px solid rgb(219,219,219);
     user-select: none;
+
+    position: fixed;
+    z-index: 13
 }
 
 .select{

@@ -5,7 +5,7 @@ import Divider from "../Divider/Divider";
 import {AiFillFacebook} from "react-icons/ai";
 import appleStore from "../images/appleStore.png";
 import googlePlay from "../images/googlePlay.png";
-import {useNavigate} from "react-router-dom";
+import {Navigate, Redirect, useNavigate} from "react-router-dom";
 import "./SignUp.css"
 
 import {signUp, checkUserName, checkEmail} from "../../../api";
@@ -44,6 +44,8 @@ const SignUp = () => {
     const [passwordWarning, setPasswordWarning] = useState('')
     const [signUpSuccess, setSignUpSuccess] = useState(false);
 
+    const [redirectNow, setRedirectNow] = useState(false)
+
     const canSubmit = signUpInfo.email !== '' &&
             signUpInfo.fullName !== '' &&
             signUpInfo.userName !== '' &&
@@ -58,9 +60,16 @@ const SignUp = () => {
 
         try {
             const response = await signUp(signUpInfo)
-            console.log(response.data)
-            if(response.data === 1) setSignUpSuccess(true)
-            alert("redirect")
+            if(response.data) {
+                setSignUpSuccess(true)
+                // localStorage.setItem('token', response.data);
+
+                setTimeout(()=>{
+                    console.log("this is timeout")
+                    navigate("../../")
+                },6000)
+
+            }
         } catch (e) {
             console.log(e)
         }
@@ -171,12 +180,13 @@ const SignUp = () => {
 
 
                         </div>:
+
                         <div className="upperCardSignUp">
                             <img src={insLogo} className="insLogo"/>
                             <div style={{fontSize:"5rem"}}>
                                 <BsCheckCircle/>
                             </div>
-
+                            {/*{redirectNow? <Navigate to={"../../" } /> : <div style={{margin:"1rem"}}>Success</div>}*/}
                             <div style={{margin:"1rem"}}>Success</div>
                         </div>
                     }

@@ -8,8 +8,12 @@ import {BsChat, BsEmojiSmileUpsideDown, BsHeart, BsThreeDots} from "react-icons/
 import {IoPaperPlaneOutline} from "react-icons/io5";
 import {RiBookmarkLine} from "react-icons/ri";
 import {GrClose} from "react-icons/gr"
+import {useSelector} from "react-redux";
 
-const Display = () => {
+const Display = ({setDisplay}) => {
+
+
+    const userInfo = useSelector(state => state.user);
 
     const posts = [
         {
@@ -21,15 +25,21 @@ const Display = () => {
     const [commentInput, setCommentInput] = useState("");
 
     return (
-        <div className="display_container">
+        <div className="display_container" onClick={() => {
+            setDisplay(false)
+        }}>
 
             <div className="display_close"><GrClose/></div>
 
-            <div className="display_nav">
+            <div className="display_nav" onClick={(e) => {
+                e.stopPropagation();
+            }}>
                 <AiOutlineLeft/>
             </div>
 
-            <div className="display_card">
+            <div className="display_card" onClick={(e) => {
+                e.stopPropagation();
+            }}>
 
                 <div className="display_card_left">
                     <img src={posts[0].img} width="100%"/>
@@ -124,7 +134,9 @@ const Display = () => {
                 </div>
             </div>
 
-            <div className="display_nav">
+            <div className="display_nav" onClick={(e) => {
+                e.stopPropagation();
+            }}>
                 <AiOutlineRight/>
             </div>
 

@@ -56,12 +56,13 @@ public class JWTUtil {
      * @param username 用户名
      * @return 加密的token
      */
-    public static String sign(String username) {
+    public static String sign(String username, Integer userId) {
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         Algorithm algorithm = Algorithm.HMAC256(SECRET);
         // 附带username信息
         return JWT.create()
                 .withClaim("username", username)
+                .withClaim("userId", userId)
                 .withExpiresAt(date)
                 .sign(algorithm);
     }

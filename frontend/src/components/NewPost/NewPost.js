@@ -28,6 +28,8 @@ import {navigation} from "../../api";
 import {GrClose} from "react-icons/gr";
 import Picker from 'emoji-picker-react'
 
+import {createPost} from "../../api";
+
 
 import { v4 as uuidv4 } from 'uuid';
 /**
@@ -39,6 +41,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import jwt_decode from "jwt-decode";
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
     width: 28,
@@ -95,6 +98,8 @@ const NewPost = () => {
     const imgRef = useRef(null);
     const imgParentRef = useRef(null);
     const imgFilterRef = useRef(null)
+
+    const userInfo = useSelector(state => state.user);
 
     const [file, setFile] = useState(null); // current image to load
     const dispatch = useDispatch();
@@ -198,7 +203,13 @@ const NewPost = () => {
     const [hideLikeAndView, setHideLikeAndView] = useState(false);
     const [disableComment, setDisableComment] = useState(false);
 
+    const [userName, setUserName] = useState('')
 
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        const {userId} = jwt_decode(token)
+        setUserName(userId)
+    },[])
     // const testLocationResult = ['Toronto, Ontario, Canada', 'Toronto Street, Ottawa, Ontario K1S 0N3, Canada', 'Toronto, Ohio, United States', 'Toronto, South Dakota, United States', 'Toronto, Iowa, United States', 'Toronto, Kansas, United States', 'Toronto Mbugani, Tanga, Tanzania', 'Toronto Street, Kingston, Ontario K7L 4A9, Canada', 'Toronto Road, Colborne, Ontario K0K 1S0, Canada', 'Toronto Road, Port Hope, Ontario L1A 3V5, Canada']
 
 
@@ -335,7 +346,7 @@ const NewPost = () => {
             const userId = 1;
             const params = {
                 Bucket: S3_BUCKET,
-                Key: `${userId}.${type}`, // type is not required
+                Key: uuidv4(), // type is not required
                 Body: base64Data,
                 ACL: 'public-read',
                 ContentEncoding: 'base64', // required
@@ -347,18 +358,32 @@ const NewPost = () => {
             try {
                 const {Location, Key} = await s3.upload(params).promise();
                 location = Location;
-                key = Key;
+                key = Key.split('-')[Key.split('-').length - 1];
             } catch (error) {
                 console.log(error)
             }
 
             const postData = {
-                post_identifier:uuidv4()
-
-
+                postIdentifier:uuidv4().split('-')[uuidv4().split('-').length - 1],
+                imageUrl:location,
+                userId:userInfo.userId,
+                postDate:new Date().toISOString(),
+                postLocation:locationContent,
+                postCaption:captionContent,
+                postAlt:accessContent,
+                postComments:0,
+                postLikes:0,
+                allowComment:disableComment,
+                allowLike:hideLikeAndView
             }
 
-            console.log(location, key)
+            console.log(postData)
+
+            createPost(postData).then((res) => {
+                console.log(res.data)
+            }).catch((e)=>{
+                console.log(e)
+            })
 
         })
     }
@@ -628,10 +653,16 @@ const NewPost = () => {
                             }
                         }}/>
                         <span>{captionStage? "Create New Post": "Edit"}</span>
-                        <span className="newPost_next" onClick={()=>{
+                        <span className="newPost_next" onClick={(e)=>{
                             if(!captionStage) setCaptionStage(true)
                             else{
-                                alert("等待上传完成, 显示动画, 并修改navbar的state, 如果在自己的展示界面还需要更新")
+                                // alert("等待上传完成, 显示动画, 并修改navbar的state, 如果在自己的展示界面还需要更新")
+                                uploadImage();
+                                alert("Successful")
+                                setShowDiscardCard(false);
+                                dispatch(updateStateOuter());
+                                setFile(null)
+                                e.nativeEvent.stopImmediatePropagation();
                             }
                         }}>{captionStage? "Share": "Next"}</span>
                     </div>
@@ -681,8 +712,8 @@ const NewPost = () => {
                                 <div className="newPost_editPhoto_caption">
                                     <div className="newPost_captionContainer">
                                         <div className="newPost_avatar">
-                                            <Avatar sx={{width:"30px", height:"30px"}}/>
-                                            <div><b>user_name</b></div>
+                                            <Avatar sx={{width:"30px", height:"30px"}} src={userInfo.avatar}/>
+                                            <div><b>{userInfo.userName}</b></div>
                                         </div>
 
                                         <textarea

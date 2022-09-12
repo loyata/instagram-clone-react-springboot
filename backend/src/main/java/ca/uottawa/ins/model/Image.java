@@ -8,11 +8,9 @@ import org.springframework.stereotype.Component;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class Follow {
-    private Integer followId;
-    private Integer followerId;
-    private Integer followeeId;
-    private String followTimestamp;
-
+public class Image {
+    private Integer userId;
+    private String userName;
+    private String imageUrl;
+    private String imageKey;
 }
