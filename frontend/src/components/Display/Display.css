@@ -64,7 +64,6 @@
 .display_comment{
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
     padding: 1rem;
     gap:1rem
 }

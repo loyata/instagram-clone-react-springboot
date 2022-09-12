@@ -71,6 +71,7 @@ const HomePage = () => {
             <Routes>
                 <Route path="/" element={<MainContent/>}/>
                 <Route path="/:userName" element={<PersonalPage display={display} setDisplay={setDisplay}/>}/>
+                {/*<Route path="/p/:postIdentifier" element={<PersonalPage display={display} setDisplay={setDisplay}/>}/>*/}
                 <Route path="/accounts/edit" element={<Settings/>}/>
                 <Route path="/direct/*" element={<MessagePage/>}/>
             </Routes>

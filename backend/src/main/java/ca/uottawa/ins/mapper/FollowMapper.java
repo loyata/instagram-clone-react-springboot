@@ -1,6 +1,5 @@
 package ca.uottawa.ins.mapper;
 import ca.uottawa.ins.model.Follow;
-import ca.uottawa.ins.model.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 

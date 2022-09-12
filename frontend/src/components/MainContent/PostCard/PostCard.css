@@ -40,6 +40,10 @@
     gap: 0.8rem;
 }
 
+.postCard_iconLeft:hover{
+    cursor: pointer;
+}
+
 .postCard_like{
     display: flex;
     padding: 0.7rem;
@@ -59,12 +63,20 @@ hr{
 
 .postCard_commentInput{
     border: none;
-    width: 80%;
+    width: 180%;
+    height: auto;
+    transform: translate(0, -35%);
 }
 
 .postCard_commentEmoji{
     display: flex;
     gap: 0.5rem;
+    position:relative;
+    align-items: center;
+}
+
+.postCard_commentEmoji{
+    cursor: pointer;
 }
 
 .postCard_commentButtonCanPost{

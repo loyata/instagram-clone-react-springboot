@@ -1,12 +1,7 @@
 package ca.uottawa.ins.controller;
 
-import ca.uottawa.ins.mapper.PostMapper;
-import ca.uottawa.ins.mapper.UserMapper;
-import ca.uottawa.ins.mapper.FollowMapper;
-import ca.uottawa.ins.model.Follow;
-import ca.uottawa.ins.model.Image;
-import ca.uottawa.ins.model.Post;
-import ca.uottawa.ins.model.User;
+import ca.uottawa.ins.mapper.*;
+import ca.uottawa.ins.model.*;
 import ca.uottawa.ins.service.UserService;
 import ca.uottawa.ins.service.impl.UserServiceImpl;
 import ca.uottawa.ins.utils.JWTUtil;
@@ -44,6 +39,12 @@ public class AccountController {
     private FollowMapper followMapper;
 
     @Autowired
+    private CommentMapper commentMapper;
+
+    @Autowired
+    private LikeMapper likeMapper;
+
+    @Autowired
     public User user;
 
     @Autowired
@@ -54,6 +55,12 @@ public class AccountController {
 
     @Autowired
     public Follow follow;
+
+    @Autowired
+    public Comment comment;
+
+    @Autowired
+    public Like like;
 
 
 
@@ -151,6 +158,57 @@ public class AccountController {
         follow = objectMapper.readValue(content, Follow.class);
         followMapper.deleteFollow(follow.getFollowerId(), follow.getFolloweeId());
         return 1;
+    }
+
+
+
+    @PostMapping("/likes/like")
+    public Integer like(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        like = objectMapper.readValue(content, Like.class);
+
+        logger.info(like.toString());
+
+        likeMapper.insertLike(like.getUserId(), like.getUserName(), like.getUserAvatar(), like.getPostId(), like.getLikeTimestamp());
+        return 1;
+    }
+
+    @PostMapping("/likes/unlike")
+    public Integer unlike(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        like = objectMapper.readValue(content, Like.class);
+        likeMapper.deleteLike(like.getUserId(),like.getPostId());
+        return 1;
+    }
+
+    @CrossOrigin
+    @PostMapping("/likes/check")
+    public boolean checkLike(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        like = objectMapper.readValue(content, Like.class);
+        List<Like> res = likeMapper.checkIsLiking(like.getUserId(),like.getPostId());
+        return res.size() != 0 ;
+    }
+
+
+
+
+    @PostMapping("/comments/new")
+    public Integer newComment(@RequestBody String content) throws JsonProcessingException{
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        comment = objectMapper.readValue(content, Comment.class);
+
+        logger.info(comment.toString());
+        commentMapper.insertComment(comment.getPostId(), comment.getCommenterId(), comment.getCommentContent(), comment.getCommentTimestamp(), comment.getCommenterName(), comment.getCommenterAvatar());
+        return 1;
+    }
+
+    @CrossOrigin
+    @GetMapping("/comments/postid/{postId}")
+    public Object fetchCommentsByPostId(@PathVariable("postId") Integer postId){
+        List<Comment> allComments = commentMapper.fetchCommentsByPostId(postId);
+        return allComments;
     }
 
 

@@ -39,10 +39,24 @@ export const getPostsByName = (userName) => instance.get(`/posts/username/${user
 
 export const followUser = (formData) => instance.post(`/follows/follow`, formData)
 export const unfollowUser = (formData) => instance.post(`/follows/unfollow`, formData)
-
 export const getFollowersById = (userId) => instance.get(`/follows/followers/${userId}`)
 export const getFolloweesById = (userId) => instance.get(`/follows/followees/${userId}`)
 export const checkIsFollowing = (formData) => instance.post(`/follows/check`, formData)
+
+
+export const likePost = (formData) => instance.post(`/likes/like`, formData)
+export const unlikePost = (formData) => instance.post(`/likes/unlike`, formData)
+export const checkIsLiked = (formData) => instance.post(`/likes/check`, formData)
+// export const getLikesByPostId = (userId) => instance.get(`/follows/followers/${userId}`)
+
+export const TagPost = (formData) => instance.post(`/tags/tag`, formData)
+export const unTagPost = (formData) => instance.post(`/tags/untag`, formData)
+export const checkIsTagged = (formData) => instance.post(`/tags/check`, formData)
+
+
+
+export const comment = (formData) => instance.post(`/comments/new`, formData)
+export const fetchCommentsByPostId = (postId) => instance.get(`/comments/postid/${postId}`)
 
 export const navigation = (query) => axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?limit=10&proximity=ip&types=place%2Cpostcode%2Caddress&access_token=${geoAPIToken}`)
 

@@ -9,9 +9,11 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Follow {
-    private Integer followId;
-    private Integer followerId;
-    private Integer followeeId;
-    private String followTimestamp;
+public class Like {
+    private Integer likeId;
+    private Integer userId;
+    private String userName;
+    private String userAvatar;
+    private Integer postId;
+    private String likeTimestamp;
 }

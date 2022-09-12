@@ -5,7 +5,7 @@ import {BsGearWide} from "react-icons/bs"
 
 import {BsGrid3X3, BsBookmarkStar, BsFileEarmarkPerson, BsFillChatFill, BsFillHeartFill} from "react-icons/bs"
 import {AiFillHeart} from "react-icons/ai"
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
     checkIsFollowing,
     followUser,
@@ -25,7 +25,7 @@ import Footer from "../LoginPage/Footer/Footer";
 import {HiOutlineDotsHorizontal} from "react-icons/hi";
 import {BsPersonCheckFill} from "react-icons/bs";
 
-
+import {updatePost} from "../../redux/postSlice";
 
 
 
@@ -33,6 +33,7 @@ const PersonalContent = ({setDisplay, userName}) => {
 
     const [tag, setTag] = useState(0);
 
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
@@ -107,9 +108,6 @@ const PersonalContent = ({setDisplay, userName}) => {
     },[userName, userInfo, follow])
 
 
-    const handleImageOnClick = () => {
-        setDisplay(true)
-    }
 
     if(userType === 2) return <NotFound/>;
 
@@ -123,7 +121,7 @@ const PersonalContent = ({setDisplay, userName}) => {
                                 <div>{userName}</div>
 
                                 {userType === 0 ?
-                                    <div>
+                                    <div style={{display:"flex"}}>
                                         <div className="personalContent_button" onClick={() => {
                                             navigate("/accounts/edit")
                                         }}>Edit Profile</div>
@@ -209,7 +207,11 @@ const PersonalContent = ({setDisplay, userName}) => {
                                     alt={item.postAlt}
                                     loading="lazy"
                                     className="personalContent_imageItem"
-                                    onClick={handleImageOnClick}
+                                    onClick={() => {
+                                        setDisplay(true)
+                                        if(userType === 0) dispatch(updatePost({...item, ...userInfo}));
+                                        else dispatch(updatePost({...item, ...otherUser}));
+                                    }}
                                 />
                                 <div className="personalContent_iconDetails" >
                                     <span className="personalContent_ht"><BsFillHeartFill style={{marginTop:"2px"}}/>&nbsp;{Number(item.postLikes)}</span>
