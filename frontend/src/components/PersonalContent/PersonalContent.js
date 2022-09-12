@@ -6,7 +6,16 @@ import {BsGearWide} from "react-icons/bs"
 import {BsGrid3X3, BsBookmarkStar, BsFileEarmarkPerson, BsFillChatFill, BsFillHeartFill} from "react-icons/bs"
 import {AiFillHeart} from "react-icons/ai"
 import {useSelector} from "react-redux";
-import {followUser, getPostsById, getPostsByName, getUserByName, unfollowUser} from "../../api";
+import {
+    checkIsFollowing,
+    followUser,
+    getFolloweesById,
+    getFollowersById,
+    getPostsById,
+    getPostsByName,
+    getUserByName,
+    unfollowUser
+} from "../../api";
 import {useNavigate} from "react-router-dom";
 import Display from "../Display/Display";
 
@@ -14,7 +23,7 @@ import {checkUserName} from "../../api";
 import NotFound from "../NotFound/NotFound";
 import Footer from "../LoginPage/Footer/Footer";
 import {HiOutlineDotsHorizontal} from "react-icons/hi";
-import {RiUserFollowFill} from "react-icons/ri";
+import {BsPersonCheckFill} from "react-icons/bs";
 
 
 
@@ -53,6 +62,16 @@ const PersonalContent = ({setDisplay, userName}) => {
                 getPostsById(userInfo.userId).then((res)=>{
                     setAllPosts(res.data)
                 })
+
+
+                getFollowersById(userInfo.userId).then(res => {
+                    setFollowers(res.data.map(follower => follower.followerId))
+                })
+
+                getFolloweesById(userInfo.userId).then(res => {
+                    setFollowings(res.data.map(followee => followee.followerId))
+                })
+
             }
             else{
                 const response = await checkUserName(userName.toLowerCase())
@@ -67,19 +86,26 @@ const PersonalContent = ({setDisplay, userName}) => {
                     getPostsById(userId).then((res)=>{
                         setAllPosts(res.data)
                     })
+
+
+                    getFollowersById(userId).then(res => {
+                        setFollowers(res.data.map(follower => follower.followerId))
+                    })
+
+                    getFolloweesById(userId).then(res => {
+                        setFollowings(res.data.map(followee => followee.followerId))
+                    })
+
+                    checkIsFollowing({followerId:userInfo.userId, followeeId:userId}).then((res) => {
+                        setFollow(res.data)
+                    })
+
                 }
             }
         }
         if (userInfo.userName) checkUserNameAsync();
-    },[userName, userInfo])
+    },[userName, userInfo, follow])
 
-
-    // useEffect(() => {
-    //     getPostsById(userInfo.userId).then((res)=>{
-    //         console.log(res.data)
-    //         setAllPosts(res.data)
-    //     })
-    // },[userInfo])
 
     const handleImageOnClick = () => {
         setDisplay(true)
@@ -129,7 +155,9 @@ const PersonalContent = ({setDisplay, userName}) => {
                                                          const res = await unfollowUser(formData);
                                                      }
                                                 }>
-                                                    <RiUserFollowFill/>
+                                                    <div style={{transform:"translate(0, 4px) scale(1.5)"}}>
+                                                        <BsPersonCheckFill/>
+                                                    </div>
                                                 </div>
                                         }
                                         <div className="personalContent_dot">
@@ -141,8 +169,8 @@ const PersonalContent = ({setDisplay, userName}) => {
                             </div>
                             <div className="personalContent_line2">
                                 <div><b>{allPosts.length}</b> posts</div>
-                                <div><b>{0}</b> followers</div>
-                                <div><b>{0}</b> following</div>
+                                <div><b>{followers.length}</b> followers</div>
+                                <div><b>{followings.length}</b> following</div>
                             </div>
                             <div className="personalContent_line3">{userType === 0 ? userInfo.fullName : otherUser.fullName}</div>
                         </div>

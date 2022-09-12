@@ -87,12 +87,31 @@ public class AccountController {
     }
 
 
+    @GetMapping("/follows/followers/{userId}")
+    public Object getFollowersById(@PathVariable("userId") Integer userId){
+        List<Follow> allFollowers = followMapper.getAllFollowers(userId);
+
+        return allFollowers;
+    }
+
+    @GetMapping("/follows/followees/{userId}")
+    public Object getFolloweesById(@PathVariable("userId") Integer userId){
+        logger.info(userId.toString());
+        List<Follow> allFollowees = followMapper.getAllFollowees(userId);
+        return allFollowees;
+    }
+
+
+
+
     @CrossOrigin
     @GetMapping("/posts/user/{userId}")
     public Object getPostsById(@PathVariable("userId") Integer userId){
         List<Post> allPosts = postMapper.getPostsById(userId);
         return allPosts;
     }
+
+
 
     @CrossOrigin
     @GetMapping("/posts/username/{userId}")
@@ -109,13 +128,21 @@ public class AccountController {
     }
 
 
-    @JsonIgnoreProperties
     @PostMapping("/follows/follow")
     public Integer follow(@RequestBody String content) throws JsonProcessingException{
         ObjectMapper objectMapper = new ObjectMapper();
         follow = objectMapper.readValue(content, Follow.class);
         followMapper.insertFollow(follow.getFollowerId(), follow.getFolloweeId(), follow.getFollowTimestamp());
         return 1;
+    }
+
+    @PostMapping("/follows/check")
+    public boolean checkIsFollowing(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        follow = objectMapper.readValue(content, Follow.class);
+        logger.info(follow.toString());
+        List<Follow> res = followMapper.checkIsFollowing(follow.getFollowerId(), follow.getFolloweeId());
+        return res.size() == 1;
     }
 
     @PostMapping("/follows/unfollow")
@@ -162,6 +189,7 @@ public class AccountController {
         Integer res = postMapper.insertPost(post.getPostIdentifier(), post.getImageUrl(), post.getUserId(), post.getPostDate(), post.getPostLocation(), post.getPostCaption(), post.getPostAlt(), post.getPostComments(), post.getPostLikes(), post.isAllowComment(), post.isAllowLike());
         return res;
     }
+
 
 
 

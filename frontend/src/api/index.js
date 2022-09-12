@@ -40,5 +40,9 @@ export const getPostsByName = (userName) => instance.get(`/posts/username/${user
 export const followUser = (formData) => instance.post(`/follows/follow`, formData)
 export const unfollowUser = (formData) => instance.post(`/follows/unfollow`, formData)
 
+export const getFollowersById = (userId) => instance.get(`/follows/followers/${userId}`)
+export const getFolloweesById = (userId) => instance.get(`/follows/followees/${userId}`)
+export const checkIsFollowing = (formData) => instance.post(`/follows/check`, formData)
+
 export const navigation = (query) => axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?limit=10&proximity=ip&types=place%2Cpostcode%2Caddress&access_token=${geoAPIToken}`)
 
