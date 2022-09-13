@@ -75,13 +75,13 @@ const PersonalContent = ({setDisplay, userName, display}) => {
 
             }
             else{
-                const response = await checkUserName(userName.toLowerCase())
+                const response = await checkUserName(userName)
                 if(response.data === true) {
                     setUserType(2);
                 }
                 else {
                     setUserType(1);
-                    const user = await getUserByName(userName.toLowerCase())
+                    const user = await getUserByName(userName)
                     setOtherUser(user.data)
                     const userId = user.data.userId
                     getPostsById(userId).then((res)=>{

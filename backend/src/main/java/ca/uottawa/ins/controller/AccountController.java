@@ -149,6 +149,12 @@ public class AccountController {
         return randomPosts;
     }
 
+    @GetMapping("/posts/identifier/{identifier}")
+    public Object getPostByIdentifier(@PathVariable("identifier") String identifier){
+        List<Post> post = postMapper.getPostByIdentifier(identifier);
+        return post.get(0);
+    }
+
 
 
     @RequestMapping("/test")

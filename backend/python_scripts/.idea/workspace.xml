@@ -4,6 +4,9 @@
     <list default="true" id="4865fcb5-b698-4df1-942d-bc6ea3343bd3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/PostMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/PostMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/api/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,31 +98,15 @@
       <option name="presentableId" value="Default" />
       <updated>1662936369540</updated>
       <workItem from="1662936371413" duration="1171000" />
-      <workItem from="1663035592524" duration="5773000" />
+      <workItem from="1663035592524" duration="9611000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/user_generator.py</url>
-          <line>13</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/user_generator.py</url>
-          <line>28</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/python_scripts$index.coverage" NAME="index Coverage Results" MODIFIED="1662936932270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/python_scripts$user_generator.coverage" NAME="user_generator Coverage Results" MODIFIED="1663041677175" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/python_scripts$user_generator.coverage" NAME="user_generator Coverage Results" MODIFIED="1663045655367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

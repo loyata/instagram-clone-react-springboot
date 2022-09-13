@@ -27,6 +27,9 @@ public interface PostMapper {
     @Select("SELECT * FROM posts WHERE user_name = #{userName}")
     List<Post> getPostsByName(String userName);
 
+    @Select("SELECT * FROM posts WHERE post_identifier = #{identifier}")
+    List<Post> getPostByIdentifier(String identifier);
+
     @Select("SELECT posts.user_id, post_id, post_likes, avatar as user_avatar, user_name, post_location, image_url, post_date, post_likes " +
             "FROM posts, users " +
             "WHERE posts.user_id = users.user_id " +

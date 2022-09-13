@@ -36,6 +36,7 @@ export const checkEmail = (email) => instance.get(`/accounts/validate/email/${em
 export const getUserByName = (userName) => instance.get(`/users/username/${userName}`)
 export const getUserById = (userId) => instance.get(`/users/userid/${userId}`)
 export const getPostsById = (userId) => instance.get(`/posts/user/${userId}`)
+export const getPostByIdentifier = (identifier) => instance.get(`/posts/identifier/${identifier}`)
 export const getPostsByName = (userName) => instance.get(`/posts/username/${userName}`)
 export const getSamplePosts = (limit) => instance.get(`/posts/random/${limit}`);
 
