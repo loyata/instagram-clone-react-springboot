@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4865fcb5-b698-4df1-942d-bc6ea3343bd3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/TagMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/model/DetailedPost.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/model/Tag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/python_scripts.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/scripts/create_users.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instagram-scraper.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/LikeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/LikeMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/PostMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/PostMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/api/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/Display/Display.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/Display/Display.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/FriendCard/FriendCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/FriendCard/FriendCard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/FriendCard/FriendCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/FriendCard/FriendCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/MainContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/MainContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/PostCard/PostCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/PostCard/PostCard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/PostCard/PostCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/PostCard/PostCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/SuggestionCard/SuggestionCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/SuggestionCard/SuggestionCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/NavBar/NavBar.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/NavBar/NavBar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/NavBar/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/NavBar/NavBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/PersonalContent/PersonalContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/PersonalContent/PersonalContent.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="2Edrb2pp0L9EVcQ6SQvz8HNJ0Vf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+  </component>
+  <component name="RunManager" selected="Python.user_generator">
+    <configuration name="index" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="python_scripts" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/index.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="user_generator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="python_scripts" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/user_generator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.user_generator" />
+        <item itemvalue="Python.index" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4865fcb5-b698-4df1-942d-bc6ea3343bd3" name="Changes" comment="" />
+      <created>1662936369540</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1662936369540</updated>
+      <workItem from="1662936371413" duration="1171000" />
+      <workItem from="1663035592524" duration="3453000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/python_scripts$index.coverage" NAME="index Coverage Results" MODIFIED="1662936932270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/python_scripts$user_generator.coverage" NAME="user_generator Coverage Results" MODIFIED="1663038872184" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>

@@ -30,56 +30,7 @@ const SuggestionCard = () => {
                 </div>
                 <button className="suggestionCard_followButton">Follow</button>
             </div>
-            <div className="suggestionCard_suggestions">
-                <div className="suggestionCard_names">
-                    <Avatar sx={{height:"35px", width:"35px"}}/>
-                    <span className="suggestionCard_id">
-                        <div>username</div>
-                        <div style={{color:"rgb(160,160,160)", fontSize:"0.8em"}}>Followed by ??? + ? more</div>
-                </span>
-                </div>
-                <button className="suggestionCard_followButton">Follow</button>
-            </div>
-            <div className="suggestionCard_suggestions">
-                <div className="suggestionCard_names">
-                    <Avatar sx={{height:"35px", width:"35px"}}/>
-                    <span className="suggestionCard_id">
-                        <div>username</div>
-                        <div style={{color:"rgb(160,160,160)", fontSize:"0.8em"}}>Followed by ??? + ? more</div>
-                </span>
-                </div>
-                <button className="suggestionCard_followButton">Follow</button>
-            </div>
-            <div className="suggestionCard_suggestions">
-                <div className="suggestionCard_names">
-                    <Avatar sx={{height:"35px", width:"35px"}}/>
-                    <span className="suggestionCard_id">
-                        <div>username</div>
-                        <div style={{color:"rgb(160,160,160)", fontSize:"0.8em"}}>Followed by ??? + ? more</div>
-                </span>
-                </div>
-                <button className="suggestionCard_followButton">Follow</button>
-            </div>
-            <div className="suggestionCard_suggestions">
-                <div className="suggestionCard_names">
-                    <Avatar sx={{height:"35px", width:"35px"}}/>
-                    <span className="suggestionCard_id">
-                        <div>username</div>
-                        <div style={{color:"rgb(160,160,160)", fontSize:"0.8em"}}>Followed by ??? + ? more</div>
-                </span>
-                </div>
-                <button className="suggestionCard_followButton">Follow</button>
-            </div>
-            <div className="suggestionCard_suggestions">
-                <div className="suggestionCard_names">
-                    <Avatar sx={{height:"35px", width:"35px"}}/>
-                    <span className="suggestionCard_id">
-                        <div>username</div>
-                        <div style={{color:"rgb(160,160,160)", fontSize:"0.8em"}}>Followed by ??? + ? more</div>
-                </span>
-                </div>
-                <button className="suggestionCard_followButton">Follow</button>
-            </div>
+
 
         </div>
     );

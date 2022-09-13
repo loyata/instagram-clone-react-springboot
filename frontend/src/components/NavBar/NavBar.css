@@ -91,3 +91,7 @@ input:focus{
 .navBar_Click:hover{
     cursor: pointer;
 }
+
+.navbar_logo:hover{
+    cursor: pointer;
+}

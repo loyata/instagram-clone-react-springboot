@@ -46,7 +46,12 @@
 
 .postCard_like{
     display: flex;
-    padding: 0.7rem;
+    padding: 0.2rem;
+    font-size: 0.9rem;
+}
+
+.tag:hover{
+    cursor: pointer;
 }
 
 hr{
@@ -59,13 +64,14 @@ hr{
     justify-content: space-between;
     align-items: center;
     padding: 0.6rem;
+    width: 100%;
 }
 
 .postCard_commentInput{
     border: none;
-    width: 180%;
+
     height: auto;
-    transform: translate(0, -35%);
+    /*transform: translate(0, -35%);*/
 }
 
 .postCard_commentEmoji{

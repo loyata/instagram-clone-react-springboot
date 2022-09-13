@@ -29,7 +29,7 @@ import {updatePost} from "../../redux/postSlice";
 
 
 
-const PersonalContent = ({setDisplay, userName}) => {
+const PersonalContent = ({setDisplay, userName, display}) => {
 
     const [tag, setTag] = useState(0);
 
@@ -105,7 +105,7 @@ const PersonalContent = ({setDisplay, userName}) => {
             }
         }
         if (userInfo.userName) checkUserNameAsync();
-    },[userName, userInfo, follow])
+    },[userName, userInfo, follow, display])
 
 
 
@@ -214,7 +214,7 @@ const PersonalContent = ({setDisplay, userName}) => {
                                     }}
                                 />
                                 <div className="personalContent_iconDetails" >
-                                    <span className="personalContent_ht"><BsFillHeartFill style={{marginTop:"2px"}}/>&nbsp;{Number(item.postLikes)}</span>
+                                    <span className="personalContent_ht"><BsFillHeartFill style={{marginTop:"2px"}}/>&nbsp;{item.postLikes}</span>
                                     <span className="personalContent_ct"><BsFillChatFill/>&nbsp;{item.postComments}</span>
                                 </div>
                             </ImageListItem>

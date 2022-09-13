@@ -17,6 +17,9 @@ public interface LikeMapper {
     @Delete("DELETE FROM likes WHERE user_id = #{userId} and post_id = #{postId}")
     int deleteLike(Integer userId, Integer postId);
 
+    @Select("SELECT * FROM likes WHERE post_id = #{postId}")
+    List<Like> getAllLikes(Integer postId);
+
     @Select("SELECT * FROM likes WHERE user_id = #{userId} and post_id = #{postId}")
     List<Like> checkIsLiking(Integer userId, Integer postId);
 

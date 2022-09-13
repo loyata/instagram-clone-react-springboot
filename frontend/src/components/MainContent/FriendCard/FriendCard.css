@@ -11,13 +11,25 @@
     gap: 1rem;
     overflow-x: scroll;
     overflow-y: hidden;
+    min-height: 130px;
 }
 
 .friendCard_person{
     padding-left: 0.6rem;
     margin-top: 0.4rem;
-
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+}
+
+.friendCard_person:hover{
+    cursor: pointer;
+}
+
+.friendCard_text{
+    font-size: 0.85rem;
+    width: 75px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 }

@@ -72,7 +72,10 @@ const NavBar = ({open, setOpen}) => {
             <Grid container className="navbar">
                 <Grid item xs={3.5} className="select" >
                     {/*https://www.positronx.io/react-detect-outside-click-to-hide-dropdown-element-tutorial/*/}
-                        <img src={ins_logo} height="60%" />&nbsp;
+                        <img src={ins_logo} height="60%" className="navbar_logo" onClick={() => {
+                            dispatch(updateStateSimple('homepage'));
+                            navigate("/");
+                        }}/>&nbsp;
 
                         <BsChevronDown
                             onClick={(e) => {
@@ -114,7 +117,6 @@ const NavBar = ({open, setOpen}) => {
                     {navbarStatus.homepage ? <BsHouseDoorFill onClick={() => {navigate("/")}} className="navBar_Click"/> :
                         <BsHouseDoor className="navBar_Click" onClick={()=>{
                             dispatch(updateStateSimple('homepage'));
-
                             navigate("/");
                     }}/>}
 

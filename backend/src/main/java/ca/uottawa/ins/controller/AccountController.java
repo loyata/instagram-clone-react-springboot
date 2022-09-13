@@ -45,6 +45,9 @@ public class AccountController {
     private LikeMapper likeMapper;
 
     @Autowired
+    private TagMapper tagMapper;
+
+    @Autowired
     public User user;
 
     @Autowired
@@ -62,6 +65,12 @@ public class AccountController {
     @Autowired
     public Like like;
 
+    @Autowired
+    public Tag tag;
+
+    @Autowired
+    public DetailedPost detailedPost;
+
 
 
 
@@ -73,11 +82,17 @@ public class AccountController {
 
 
 
+    @CrossOrigin
     @GetMapping("/users/username/{username}")
     public Object getUserByName(@PathVariable("username") String username){
         return userMapper.getUserByName(username);
     }
 
+    @CrossOrigin
+    @GetMapping("/users/userid/{userId}")
+    public Object getUserById(@PathVariable("userId") Integer userId){
+        return userMapper.getUserById(userId);
+    }
 
 
     @GetMapping("/accounts/validate/username/{username}")
@@ -127,6 +142,13 @@ public class AccountController {
         return allPosts;
     }
 
+    @CrossOrigin
+    @GetMapping("/posts/random/{limit}")
+    public Object getRandomPosts(@PathVariable("limit") Integer limit){
+        List<DetailedPost> randomPosts = postMapper.getRandomPosts(limit);
+        return randomPosts;
+    }
+
 
 
     @RequestMapping("/test")
@@ -166,10 +188,8 @@ public class AccountController {
     public Integer like(@RequestBody String content) throws JsonProcessingException{
         ObjectMapper objectMapper = new ObjectMapper();
         like = objectMapper.readValue(content, Like.class);
-
-        logger.info(like.toString());
-
         likeMapper.insertLike(like.getUserId(), like.getUserName(), like.getUserAvatar(), like.getPostId(), like.getLikeTimestamp());
+        postMapper.increaseLikes(like.getPostId());
         return 1;
     }
 
@@ -178,10 +198,19 @@ public class AccountController {
         ObjectMapper objectMapper = new ObjectMapper();
         like = objectMapper.readValue(content, Like.class);
         likeMapper.deleteLike(like.getUserId(),like.getPostId());
+        postMapper.decreaseLikes(like.getPostId());
         return 1;
     }
 
     @CrossOrigin
+    @GetMapping("/likes/postid/{postId}")
+    public Object getLikesById(@PathVariable("postId") Integer postId){
+        List<Like> allLikes = likeMapper.getAllLikes(postId);
+        return allLikes;
+    }
+
+
+
     @PostMapping("/likes/check")
     public boolean checkLike(@RequestBody String content) throws JsonProcessingException{
         ObjectMapper objectMapper = new ObjectMapper();
@@ -189,6 +218,48 @@ public class AccountController {
         List<Like> res = likeMapper.checkIsLiking(like.getUserId(),like.getPostId());
         return res.size() != 0 ;
     }
+
+
+
+    @PostMapping("/tags/tag")
+    public Integer tag(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        tag = objectMapper.readValue(content, Tag.class);
+
+        logger.info(tag.toString());
+
+        tagMapper.insertTag(tag.getUserId(), tag.getPostId(), tag.getTagTimestamp());
+        return 1;
+    }
+
+    @PostMapping("/tags/untag")
+    public Integer untag(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        tag = objectMapper.readValue(content, Tag.class);
+        tagMapper.deleteTag(tag.getUserId(),tag.getPostId());
+        return 1;
+    }
+
+
+    @PostMapping("/tags/check")
+    public boolean checkTag(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        tag = objectMapper.readValue(content, Tag.class);
+        List<Tag> res = tagMapper.checkIsTagging(tag.getUserId(),tag.getPostId());
+        return res.size() != 0 ;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -200,6 +271,9 @@ public class AccountController {
         comment = objectMapper.readValue(content, Comment.class);
 
         logger.info(comment.toString());
+
+        postMapper.increaseComments(comment.getPostId());
+
         commentMapper.insertComment(comment.getPostId(), comment.getCommenterId(), comment.getCommentContent(), comment.getCommentTimestamp(), comment.getCommenterName(), comment.getCommenterAvatar());
         return 1;
     }
@@ -224,7 +298,7 @@ public class AccountController {
 
         String token = JWTUtil.sign(user.getUserName(), user.getUserId());
 
-        userMapper.insertUser(user.getUserName(), user.getEmail(), user.getPassword(), user.getFullName());
+        userMapper.insertUser(user.getUserName(), user.getEmail(), user.getPassword(), user.getFullName(), user.getAvatar());
 
         return token;
     }

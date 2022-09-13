@@ -34,8 +34,10 @@ export const checkUserName = (userName) => instance.get(`/accounts/validate/user
 export const checkEmail = (email) => instance.get(`/accounts/validate/email/${email}`)
 
 export const getUserByName = (userName) => instance.get(`/users/username/${userName}`)
+export const getUserById = (userId) => instance.get(`/users/userid/${userId}`)
 export const getPostsById = (userId) => instance.get(`/posts/user/${userId}`)
 export const getPostsByName = (userName) => instance.get(`/posts/username/${userName}`)
+export const getSamplePosts = (limit) => instance.get(`/posts/random/${limit}`);
 
 export const followUser = (formData) => instance.post(`/follows/follow`, formData)
 export const unfollowUser = (formData) => instance.post(`/follows/unfollow`, formData)
@@ -47,9 +49,9 @@ export const checkIsFollowing = (formData) => instance.post(`/follows/check`, fo
 export const likePost = (formData) => instance.post(`/likes/like`, formData)
 export const unlikePost = (formData) => instance.post(`/likes/unlike`, formData)
 export const checkIsLiked = (formData) => instance.post(`/likes/check`, formData)
-// export const getLikesByPostId = (userId) => instance.get(`/follows/followers/${userId}`)
+export const getLikesByPostId = (postId) => instance.get(`/likes/postid/${postId}`)
 
-export const TagPost = (formData) => instance.post(`/tags/tag`, formData)
+export const tagPost = (formData) => instance.post(`/tags/tag`, formData)
 export const unTagPost = (formData) => instance.post(`/tags/untag`, formData)
 export const checkIsTagged = (formData) => instance.post(`/tags/check`, formData)
 
