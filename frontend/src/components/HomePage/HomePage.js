@@ -16,6 +16,7 @@ import {getUserByName} from "../../api";
 import Display from "../Display/Display";
 import SwitchAccounts from "../MainContent/SwitchAccounts/SwitchAccounts";
 import Explore from "../Explore/Explore";
+import SeeAll from "../MainContent/SeeAll/SeeAll";
 
 const HomePage = () => {
 
@@ -43,6 +44,9 @@ const HomePage = () => {
     },[])
 
     const [scrollPosition, setScrollPosition] = useState(0);
+
+    const [friendsSuggestion, setFriendsSuggestion] = useState([]);
+
     const handleScroll = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
@@ -98,11 +102,19 @@ const HomePage = () => {
             <NavBar open={open} setOpen={setOpen}/>
 
             <Routes>
-                <Route path="/" element={<MainContent display={display} setDisplay={setDisplay} setSwitchAccount={setSwitchAccount}/>}/>
+                <Route path="/" element={
+                    <MainContent
+                        display={display}
+                        setDisplay={setDisplay}
+                        setSwitchAccount={setSwitchAccount}
+                        friendsSuggestion={friendsSuggestion}
+                        setFriendsSuggestion={setFriendsSuggestion}
+                />}/>
                 <Route path="/:userName/*" element={<PersonalPage display={display} setDisplay={setDisplay}/>}/>
                 <Route path="/accounts/edit" element={<Settings/>}/>
                 <Route path="/direct/*" element={<MessagePage/>}/>
-                <Route path="/explore/*" element={<Explore/>}/>
+                <Route path="/explore" element={<Explore/>}/>
+                <Route path="/explore/people" element={<SeeAll friendSuggestion={friendsSuggestion}/>}/>
             </Routes>
 
             {/*<MainContent/>*/}

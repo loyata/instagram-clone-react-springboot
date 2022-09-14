@@ -1,0 +1,39 @@
+.seeAll_ct{
+    min-height: calc(100vh - 62px);
+    width: 100%;
+    background-color: rgb(250,250,250);
+    display: flex;
+    justify-content: center;
+    transform: translate(0, 62px);
+}
+
+.seeAll_list{
+    background-color: white;
+    width: 600px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+.seeAll_suggestions{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.seeAll_followButton{
+    border: 1px solid rgb(237,237,237);
+    border-radius: 6px;
+    padding:0.35rem 1.2rem;
+    background: transparent;
+    color: rgb(65,147,239);
+    font-weight: bolder;
+    text-align: right;
+}
+
+.seeAll_followButton{
+    cursor: pointer;
+}

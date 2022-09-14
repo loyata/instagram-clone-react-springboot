@@ -2,43 +2,55 @@ import React, {useEffect, useState} from 'react';
 import "./SuggestionCard.css"
 import Avatar from "@mui/material/Avatar";
 import {followUser, getMutualFollowsByUserId, getRandomUsers, unfollowUser} from "../../../api";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+
+import {updateSuggestion} from "../../../redux/suggestionSlice";
+
+
+export const setText = function(mutual){
+    if(mutual.length == 1) return <div style={{textOverflow:"ellipsis", overflow:"hidden"}}>Followed by <b>{mutual[0].userName}</b></div>
+    else if(mutual.length == 2) return <div style={{textOverflow:"ellipsis", overflow:"hidden"}}>Followed by <b>{mutual[0].userName}</b>, <b>{mutual[1].userName}</b></div>
+    else return <div style={{textOverflow:"ellipsis", overflow:"hidden"}}>Followed by <b>{mutual[0].userName}</b>, <b>{mutual[1].userName}</b> +{mutual.length - 2} more</div>
+}
 
 const SuggestionCard = () => {
 
+    const dispatch = useDispatch()
+
 
     const [friendsSuggestion, setFriendsSuggestion] = useState([]);
+
     const [partialFriendsSuggestion, setPartialFriendsSuggestion] = useState([]);
     const userInfo = useSelector(state => state.user);
 
     const navigate = useNavigate();
 
 
-    const getRandomSuggestions = async (num) => {
+    const getRandomSuggestions = async () => {
         const res = await getMutualFollowsByUserId(userInfo.userId)
         if(res.data.length > 0) {
             setFriendsSuggestion(res.data.map(suggest => ({...suggest, followed:false})))
+            dispatch(updateSuggestion(res.data.map(suggest => ({...suggest, followed:false}))))
             setPartialFriendsSuggestion(res.data.slice(0, 5).map(suggest => ({...suggest, followed:false})))
         }
     }
 
     useEffect(() => {
-        if(userInfo.userId) getRandomSuggestions(5);
-    },[userInfo])
+        if(userInfo.userId) getRandomSuggestions();
+    },[userInfo, friendsSuggestion])
 
 
-    const setText = (mutual) => {
-        if(mutual.length == 1) return <div style={{textOverflow:"ellipsis", overflow:"hidden"}}>Followed by <b>{mutual[0].userName}</b></div>
-        else if(mutual.length == 2) return <div style={{textOverflow:"ellipsis", overflow:"hidden"}}>Followed by <b>{mutual[0].userName}</b>, <b>{mutual[1].userName}</b></div>
-        else return <div style={{textOverflow:"ellipsis", overflow:"hidden"}}>Followed by <b>{mutual[0].userName}</b>, <b>{mutual[1].userName}</b> +{mutual.length - 2} more</div>
-    }
+
+
 
     return (
         <div className="suggestionCard_container">
             <div className="suggestionCard_title">
                 <div style={{color:"rgb(142,142,142)", fontWeight:"bolder"}}>Suggestions For You</div>
-                <button className="suggestionCard_seeAllButton">See All</button>
+                <button className="suggestionCard_seeAllButton" onClick={() =>{
+                    navigate("/explore/people")
+                }}>See All</button>
             </div>
 
             {partialFriendsSuggestion.map((suggestion, index) => (
@@ -91,3 +103,4 @@ const SuggestionCard = () => {
 };
 
 export default SuggestionCard;
+
