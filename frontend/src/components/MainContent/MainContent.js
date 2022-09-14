@@ -39,10 +39,6 @@ const MainContent = ({display, setDisplay, setSwitchAccount, friendsSuggestion, 
         }
     }, [])
 
-    useEffect(()=>{
-        console.log(posts)
-    },[posts])
-
 
     return (
         <div>

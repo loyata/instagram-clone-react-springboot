@@ -1,6 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "./Explore.css"
 import {ImageList, ImageListItem} from "@mui/material";
+import {getSamplePosts, getUserById} from "../../api";
+import {useDispatch} from "react-redux";
+import {updateStateSimple} from "../../redux/navbarStatusSlice";
+import {updatePost} from "../../redux/postSlice";
 
 
 function srcset(image, size, rows = 1, cols = 1) {
@@ -12,146 +16,86 @@ function srcset(image, size, rows = 1, cols = 1) {
     };
 }
 
-const itemData = [
-    {
-        img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-        title: 'Breakfast',
-        rows: 2,
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-        title: 'Burger',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-        title: 'Camera',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-        title: 'Coffee',
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-        title: 'Hats',
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
-        title: 'Honey',
-        author: '@arwinneil',
-        rows: 2,
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
-        title: 'Basketball',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
-        title: 'Fern',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
-        title: 'Mushrooms',
-        rows: 2,
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
-        title: 'Tomato basil',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
-        title: 'Sea star',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
-        title: 'Bike',
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-        title: 'Breakfast',
-        rows: 2,
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-        title: 'Burger',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-        title: 'Camera',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-        title: 'Coffee',
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-        title: 'Hats',
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
-        title: 'Honey',
-        author: '@arwinneil',
-        rows: 2,
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
-        title: 'Basketball',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
-        title: 'Fern',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
-        title: 'Mushrooms',
-        rows: 2,
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
-        title: 'Tomato basil',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
-        title: 'Sea star',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
-        title: 'Bike',
-        cols: 2,
-    },
-];
 
 
-const Explore = () => {
+const Explore = ({display, setDisplay}) => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(updateStateSimple('explore'))
+    },[])
+
+
+    const randomNumber = [
+        {rows: 2, cols: 2},
+        {rows: 1, cols: 1},
+        {rows: 1, cols: 1},
+        {rows: 1, cols: 2},
+        {rows: 1, cols: 2},
+        {rows: 2, cols: 2},
+        {rows: 1, cols: 1},
+        {rows: 1, cols: 1},
+        {rows: 2, cols: 2},
+        {rows: 1, cols: 1},
+        {rows: 1, cols: 1},
+        {rows: 1, cols: 2},
+    ]
+
+    const [posts, setPosts] = useState([]);
+
+    const getRandomPosts = async () => {
+        const res = await getSamplePosts(24);
+        setPosts(posts => posts.concat(
+            res.data.map(
+                p => ({...p, rows:Math.floor(Math.random()*2 + 1), cols:Math.floor(Math.random()*2 + 1)}))))
+    }
+
+    useEffect(() => {
+        getRandomPosts();
+    },[])
+
+
+    useEffect(() => {
+        function handleScrollEvent() {
+            if ((window.innerHeight + window.scrollY) + 250 >= document.getElementById("il").offsetHeight) {
+                getRandomPosts();
+            }
+        }
+        window.addEventListener('scroll', handleScrollEvent)
+        return () => {
+            window.removeEventListener('scroll', handleScrollEvent);
+        }
+    }, [])
+
+
+
     return (
         <div className="explore_ct">
-            <ImageList
-                // sx={{ width: 500, height: 450 }}
-                variant="quilted"
-                cols={6}
-                rowHeight={121}
-                gap={24}
-            >
-                {itemData.map((item) => (
-                    <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
-                        <img
-                            {...srcset(item.img, 121, item.rows, item.cols)}
-                            alt={item.title}
-                            loading="lazy"
-                        />
-                    </ImageListItem>
-                ))}
-            </ImageList>
+            <div style={{maxWidth:"70vw"}}>
+                <ImageList
+                    variant="quilted"
+                    cols={3}
+                    rowHeight={320}
+                    gap={24}
+                    id="il"
+                >
+                    {posts.map((item, index) => (
+                        <ImageListItem key={index} cols={item.cols || 1} rows={item.rows || 1}>
+                            <img
+                                {...srcset(item.imageUrl, 320, item.cols, item.rows)}
+                                alt={item.postAlt}
+                                loading="lazy"
+                                onClick={async () => {
+                                    const res = await getUserById(item.userId)
+                                    dispatch(updatePost({...item, ...res.data}));
+                                    setDisplay(true);
+                                }}
+                            />
+                        </ImageListItem>
+                    ))}
+                </ImageList>
+            </div>
         </div>
     );
 };

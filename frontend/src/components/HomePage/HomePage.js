@@ -113,7 +113,7 @@ const HomePage = () => {
                 <Route path="/:userName/*" element={<PersonalPage display={display} setDisplay={setDisplay}/>}/>
                 <Route path="/accounts/edit" element={<Settings/>}/>
                 <Route path="/direct/*" element={<MessagePage/>}/>
-                <Route path="/explore" element={<Explore/>}/>
+                <Route path="/explore" element={<Explore display={display} setDisplay={setDisplay}/>}/>
                 <Route path="/explore/people" element={<SeeAll friendSuggestion={friendsSuggestion}/>}/>
             </Routes>
 
