@@ -76,7 +76,7 @@ const HomePage = () => {
             // position:"relative",
         }}>
             {navbarStatus.newPost ?
-                <div style={{position:"absolute",width:"100%", zIndex:15}}>
+                <div style={{position:"absolute",width:"100%", zIndex:15, transform:`translate(0, ${scrollPosition}px)`}}>
                     <NewPost/>
                 </div>
                 :

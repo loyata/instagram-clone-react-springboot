@@ -9,10 +9,14 @@ export const suggestionSlice = createSlice({
     reducers:{
         updateSuggestion:(state, action) => {
             state.suggestions = action.payload;
+        },
+        updateSuggestionFollow: (state, action)=>{
+            const {index, st} = action.payload;
+            state.suggestions[index]['followed'] = !st;
         }
     }
 
 })
 
-export const {updateSuggestion} = suggestionSlice.actions;
+export const {updateSuggestion, updateSuggestionFollow} = suggestionSlice.actions;
 export default suggestionSlice.reducer;

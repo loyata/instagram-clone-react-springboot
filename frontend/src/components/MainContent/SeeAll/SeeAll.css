@@ -3,7 +3,8 @@
     width: 100%;
     background-color: rgb(250,250,250);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     transform: translate(0, 62px);
 }
 

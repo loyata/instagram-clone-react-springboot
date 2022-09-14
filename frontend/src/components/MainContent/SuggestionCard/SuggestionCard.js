@@ -5,7 +5,7 @@ import {followUser, getMutualFollowsByUserId, getRandomUsers, unfollowUser} from
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
-import {updateSuggestion} from "../../../redux/suggestionSlice";
+import {updateSuggestion, updateSuggestionFollow} from "../../../redux/suggestionSlice";
 
 
 export const setText = function(mutual){
@@ -18,10 +18,11 @@ const SuggestionCard = () => {
 
     const dispatch = useDispatch()
 
-
+    const {suggestions} = useSelector(state => state.suggestion)
     const [friendsSuggestion, setFriendsSuggestion] = useState([]);
 
-    const [partialFriendsSuggestion, setPartialFriendsSuggestion] = useState([]);
+
+
     const userInfo = useSelector(state => state.user);
 
     const navigate = useNavigate();
@@ -30,15 +31,14 @@ const SuggestionCard = () => {
     const getRandomSuggestions = async () => {
         const res = await getMutualFollowsByUserId(userInfo.userId)
         if(res.data.length > 0) {
-            setFriendsSuggestion(res.data.map(suggest => ({...suggest, followed:false})))
+            // setFriendsSuggestion(res.data.map(suggest => ({...suggest, followed:false})))
             dispatch(updateSuggestion(res.data.map(suggest => ({...suggest, followed:false}))))
-            setPartialFriendsSuggestion(res.data.slice(0, 5).map(suggest => ({...suggest, followed:false})))
         }
     }
 
     useEffect(() => {
         if(userInfo.userId) getRandomSuggestions();
-    },[userInfo, friendsSuggestion])
+    },[userInfo])
 
 
 
@@ -53,7 +53,7 @@ const SuggestionCard = () => {
                 }}>See All</button>
             </div>
 
-            {partialFriendsSuggestion.map((suggestion, index) => (
+            {suggestions.slice(0,5).map((suggestion, index) => (
                 <div className="suggestionCard_suggestions" key={index}>
                     <div className="suggestionCard_names">
                         <Avatar sx={{height:"35px", width:"35px"}} src={suggestion.userAvatar} onClick={() => navigate(`/${suggestion.userName}`)}/>
@@ -64,9 +64,8 @@ const SuggestionCard = () => {
                     </div>
                     <div onClick={() =>
                         {
-                            let temp = partialFriendsSuggestion.slice()
-                            temp[index]['followed'] = !temp[index]['followed']
-                            setPartialFriendsSuggestion(temp)
+                            const payload = {index, st:suggestions[index]['followed']}
+                            dispatch(updateSuggestionFollow(payload));
                         }
                     }
                     >

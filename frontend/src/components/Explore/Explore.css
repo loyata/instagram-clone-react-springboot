@@ -2,10 +2,10 @@
     height: calc(100vh - 62px);
     width: 100%;
     background-color: rgb(250,250,250);
-    border: 2px solid gold;
-    font-size: 10rem;
     display: flex;
     justify-content: center;
-    align-items: center;
-    transform: translate(0, 62px);
+    align-items: flex-start;
+    transform: translate(0, 92px);
+
+
 }

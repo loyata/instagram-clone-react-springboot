@@ -16,23 +16,33 @@ const MainContent = ({display, setDisplay, setSwitchAccount, friendsSuggestion, 
     const {width} = useWindowDimensions();
     const [posts, setPosts] = useState([]);
 
-    const [showEmoji, setShowEmoji] = useState(false)
-
-    const getRandomPosts = async (num) => {
+    const getRandomPosts = async () => {
         const res = await getSamplePosts(10);
-
-        setPosts(res.data)
+        setPosts(posts => posts.concat(res.data))
     }
 
     useEffect(() => {
         getRandomPosts();
     },[])
 
-    // useEffect(() => {
-    //     document.addEventListener("click", () => {
-    //         setShowEmoji(false)
-    //     });
-    // },[])
+
+    useEffect(() => {
+        function handleScrollEvent() {
+            if ((window.innerHeight + window.scrollY) +5 >= document.body.offsetHeight) {
+                getRandomPosts();
+            }
+
+        }
+        window.addEventListener('scroll', handleScrollEvent)
+        return () => {
+            window.removeEventListener('scroll', handleScrollEvent);
+        }
+    }, [])
+
+    useEffect(()=>{
+        console.log(posts)
+    },[posts])
+
 
     return (
         <div>
