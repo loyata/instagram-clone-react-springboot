@@ -39,6 +39,24 @@ const HomePage = () => {
         });
     },[])
 
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
+
+    // useEffect(() => {
+    //     console.log(scrollPosition)
+    // },[scrollPosition])
+
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
 
     /*
@@ -59,7 +77,7 @@ const HomePage = () => {
             }
 
             {display ?
-                <div style={{position:"absolute",width:"100%", zIndex:15}}>
+                <div style={{position:"absolute",width:"100%", zIndex:15, transform:`translate(0, ${scrollPosition}px)`}}>
                     <Display display={display} setDisplay={setDisplay}/>
                 </div>
                 :
@@ -69,7 +87,7 @@ const HomePage = () => {
             <NavBar open={open} setOpen={setOpen}/>
 
             <Routes>
-                <Route path="/" element={<MainContent/>}/>
+                <Route path="/" element={<MainContent display={display} setDisplay={setDisplay}/>}/>
                 <Route path="/:userName" element={<PersonalPage display={display} setDisplay={setDisplay}/>}/>
                 {/*<Route path="/p/:postIdentifier" element={<PersonalPage display={display} setDisplay={setDisplay}/>}/>*/}
                 <Route path="/accounts/edit" element={<Settings/>}/>

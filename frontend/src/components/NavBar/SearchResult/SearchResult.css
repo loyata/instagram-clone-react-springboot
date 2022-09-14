@@ -3,18 +3,24 @@
     height: 56vh;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    overflow-y:scroll;
+    overflow-y:auto;
     position:absolute;
     top:8vh;
     left:110px;
     z-index: 3;
+    border-radius: 8px;
 }
 
 .searchResult_list{
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+.searchResult_list:hover{
+    cursor: pointer;
+    background-color: rgba(250,250,250);
 }
 
 .searchResult_name{

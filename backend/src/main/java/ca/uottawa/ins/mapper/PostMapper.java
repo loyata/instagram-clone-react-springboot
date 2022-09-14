@@ -37,6 +37,13 @@ public interface PostMapper {
             "LIMIT 5")
     List<DetailedPost> getRandomPosts(Integer limit);
 
+    @Select("SELECT b.* FROM (" +
+            "SELECT * FROM saves WHERE saves.user_id = #{userId}" +
+            ") a, posts b " +
+            "WHERE " +
+            "a.post_id = b.post_id")
+    List<Post> getSavedPostsByUserId(Integer userId);
+
     @Update("UPDATE posts SET post_comments = post_comments + 1 WHERE post_id = #{postId}")
     int increaseComments(Integer postId);
 

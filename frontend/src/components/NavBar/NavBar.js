@@ -97,15 +97,15 @@ const NavBar = ({open, setOpen}) => {
                         <Grid item xs={3.5} className="navBar_search">
                             {
                                 searchContent === '' ?
-                                    <input type="text" placeholder=" 🔍 Search" className="navBar_inputFull" value={searchContent} onChange={handleSearchInputChange} onClick={e => e.nativeEvent.stopImmediatePropagation()}/>
+                                    <input type="text" placeholder=" Search" className="navBar_inputFull" value={searchContent} onChange={handleSearchInputChange} onClick={e => e.nativeEvent.stopImmediatePropagation()}/>
                                     :
                                     <>
-                                        <input type="text" placeholder=" 🔍 Search" className="navBar_input" value={searchContent} onChange={handleSearchInputChange} onClick={e => e.nativeEvent.stopImmediatePropagation()}/>
+                                        <input type="text" placeholder=" Search" className="navBar_input" value={searchContent} onChange={handleSearchInputChange} onClick={e => e.nativeEvent.stopImmediatePropagation()}/>
                                         <div className="navBar_inputText">
                                             <TiDelete className="navBar_inputDelete" onClick={() => setSearchContent("")}/>
                                         </div>
 
-                                        <SearchResult/>
+                                        <SearchResult content={searchContent} setSearchContent={setSearchContent}/>
                                     </>
                             }
                         </Grid>

@@ -16,13 +16,13 @@ import TimeAgo from "javascript-time-ago";
 import en from 'javascript-time-ago/locale/en'
 import {
     checkIsLiked,
-    checkIsTagged,
+    checkIsSaved,
     comment,
     fetchCommentsByPostId,
     followUser, getLikesByPostId,
-    likePost, tagPost,
+    likePost, savePost,
     unlikePost,
-    unTagPost
+    unSavePost
 } from "../../api";
 import {useNavigate} from "react-router-dom";
 
@@ -45,7 +45,8 @@ const Display = ({setDisplay}) => {
 
     const [liked, setLiked] = useState(false);
     const [allLikes, setAllLikes] = useState([]);
-    const [tagged, setTagged] = useState(false);
+
+    const [saved, setSaved] = useState(false);
 
     const navigate = useNavigate();
 
@@ -65,12 +66,12 @@ const Display = ({setDisplay}) => {
         }
     }
 
-    const checkLikeAndTag = async () => {
+    const checkLikeAndSave = async () => {
         if(postInfo.postId){
             const res = await checkIsLiked({userId: userInfo.userId, postId: postInfo.postId});
-            const res2 = await checkIsTagged({userId: userInfo.userId, postId: postInfo.postId});
+            const res2 = await checkIsSaved({userId: userInfo.userId, postId: postInfo.postId});
             setLiked(res.data);
-            setTagged(res2.data);
+            setSaved(res2.data);
         }
     }
 
@@ -80,8 +81,8 @@ const Display = ({setDisplay}) => {
     },[])
 
     useEffect(() => {
-        checkLikeAndTag();
-    },[postInfo, liked, tagged, allLikes])
+        checkLikeAndSave();
+    },[postInfo, liked, saved, allLikes])
 
 
     const showOtherLikes = () => {
@@ -97,8 +98,8 @@ const Display = ({setDisplay}) => {
             const rd = Math.floor(Math.random() * len);
             return (
                 <div className="postCard_like">
-                    <Avatar src={allLikes[rd].userAvatar} sx={{width:"1.2rem", height: "1.2rem"}}/>&nbsp;
-                    <span>Liked by <b>{allLikes[rd].userName}</b> and <b>others</b></span>
+                    <Avatar src={allLikes[0].userAvatar} sx={{width:"1.2rem", height: "1.2rem"}}/>&nbsp;
+                    <span>Liked by <b>{allLikes[0].userName}</b> and <b>others</b></span>
                 </div>
             )
         }
@@ -154,7 +155,7 @@ const Display = ({setDisplay}) => {
 
                                         <div style={{fontSize:"0.9rem"}}><b>{postInfo.userName}</b>&nbsp;{postInfo.postCaption}</div>
                                         <div className="display_reply">
-                                            <div>{timeAgo.format(new Date(postInfo.postDate))}</div>
+                                            {/*<div>{timeAgo.format(new Date(postInfo.postDate))}</div>*/}
                                         </div>
                                     </div>
                                 </div>
@@ -168,7 +169,7 @@ const Display = ({setDisplay}) => {
                                     <div className="display_all">
                                         <div style={{fontSize:"0.9rem"}}><b>{comment.commenterName}</b>&nbsp;{comment.commentContent}</div>
                                         <div className="display_reply">
-                                            <div>{timeAgo.format(new Date(comment.commentTimestamp))}</div>
+                                            {/*<div>{timeAgo.format(new Date(comment.commentTimestamp))}</div>*/}
                                         </div>
                                     </div>
                                 </div>
@@ -219,25 +220,25 @@ const Display = ({setDisplay}) => {
 
                             {/*<BsThreeDots style={{fontSize:"1.2rem", position:"absolute", left:"50%"}}/>*/}
 
-                            <div className="tag"
+                            <div className="save"
                                 onClick={() => {
-                                setTagged(!tagged)
+                                setSaved(!saved)
                             }}>
-                                {tagged?
+                                {saved?
                                     <div onClick={async () => {
                                         const formData = {
                                             userId: userInfo.userId,
                                             postId: postInfo.postId,
                                         }
-                                        await unTagPost(formData)
+                                        await unSavePost(formData)
                                     }
                                     }><RiBookmarkFill/></div> : <div onClick={async () => {
                                         const formData = {
                                             userId: userInfo.userId,
                                             postId: postInfo.postId,
-                                            tagTimestamp: new Date().toISOString()
+                                            saveTimestamp: new Date().toISOString()
                                         }
-                                        await tagPost(formData)
+                                        await savePost(formData)
                                     }}><RiBookmarkLine/></div>}
                             </div>
 
@@ -245,13 +246,8 @@ const Display = ({setDisplay}) => {
                         </div>
 
 
-
-                        {/*<div className="postCard_like">*/}
-                        {/*    <Avatar sx={{width:"1.2rem", height: "1.2rem"}}/>&nbsp;*/}
-                        {/*    <span>Liked by xxx and others</span>*/}
-                        {/*</div>*/}
                         {showOtherLikes()}
-                        <span style={{fontSize:"0.5rem", padding:"0 0.7rem 0.7rem 0.7rem", color:"rgb(158,158,158)",fontWeight:"bold"}}>{timeAgo.format(new Date(postInfo.postDate))}</span>
+                        {/*<span style={{fontSize:"0.5rem", padding:"0 0.7rem 0.7rem 0.7rem", color:"rgb(158,158,158)",fontWeight:"bold"}}>{timeAgo.format(new Date(postInfo.postDate))}</span>*/}
                         <hr/>
                         <div className="postCard_comment">
                             <div className="postCard_commentEmoji">

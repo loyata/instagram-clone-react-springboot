@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,6 +49,9 @@ public class AccountController {
     private TagMapper tagMapper;
 
     @Autowired
+    private SaveMapper saveMapper;
+
+    @Autowired
     public User user;
 
     @Autowired
@@ -69,7 +73,16 @@ public class AccountController {
     public Tag tag;
 
     @Autowired
+    public Save save;
+
+    @Autowired
     public DetailedPost detailedPost;
+
+    @Autowired
+    public MutualFriend mutualFriend;
+
+    @Autowired
+    public MutualResult mutualResult;
 
 
 
@@ -92,6 +105,43 @@ public class AccountController {
     @GetMapping("/users/userid/{userId}")
     public Object getUserById(@PathVariable("userId") Integer userId){
         return userMapper.getUserById(userId);
+    }
+
+//    queryUser
+    @CrossOrigin
+    @GetMapping("/users/query/{query}")
+    public Object queryUser(@PathVariable("query") String query){
+        return userMapper.queryUsers("%" + query + "%");
+    }
+
+
+    @CrossOrigin
+    @GetMapping("/users/random/{num}")
+    public Object getRandomUsers(@PathVariable("num") Integer num){
+        return userMapper.getRandomUsers(num);
+    }
+
+//    getMutualFollowsByUserId
+    @CrossOrigin
+    @GetMapping("/follows/mutual/{userId}")
+    public Object getMutualFollowsByUserId(@PathVariable("userId") Integer userId){
+        List<User> queryUsers = userMapper.getQueryObjects(userId);
+
+
+        List<MutualResult> res = new ArrayList<>();
+        for(int i = 0; i < queryUsers.size(); i++){
+            List<MutualFriend> temp = userMapper.getMutualFriends(userId, queryUsers.get(i).getUserId());
+            if(temp.size() != 0){
+                MutualResult mutualResult = new MutualResult();
+                mutualResult.setUserId(queryUsers.get(i).getUserId());
+                mutualResult.setUserAvatar(queryUsers.get(i).getAvatar());
+                mutualResult.setUserName(queryUsers.get(i).getUserName());
+                mutualResult.setMutualNumber(temp.size());
+                mutualResult.setMutual(temp);
+                res.add(mutualResult);
+            }
+        }
+        return res;
     }
 
 
@@ -154,6 +204,13 @@ public class AccountController {
         List<Post> post = postMapper.getPostByIdentifier(identifier);
         return post.get(0);
     }
+
+//    export const getSavedPostsByUserId = (userId) => instance.get(`/posts/saved/userid/${userId}`)
+    @GetMapping("/posts/saved/userid/{userId}")
+    public Object getSavedPostsByUserId(@PathVariable("userId") Integer userId){
+        List<Post> allPosts = postMapper.getSavedPostsByUserId(userId);
+        return allPosts;
+}
 
 
 
@@ -226,7 +283,6 @@ public class AccountController {
     }
 
 
-
     @PostMapping("/tags/tag")
     public Integer tag(@RequestBody String content) throws JsonProcessingException{
         ObjectMapper objectMapper = new ObjectMapper();
@@ -255,6 +311,34 @@ public class AccountController {
         return res.size() != 0 ;
     }
 
+
+
+
+    @PostMapping("/saves/save")
+    public Integer save(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        save = objectMapper.readValue(content, Save.class);
+        logger.info(save.toString());
+        saveMapper.insertSave(save.getUserId(), save.getPostId(), save.getSaveTimestamp());
+        return 1;
+    }
+
+    @PostMapping("/saves/unsave")
+    public Integer unsave(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        save = objectMapper.readValue(content, Save.class);
+        saveMapper.deleteSave(save.getUserId(),save.getPostId());
+        return 1;
+    }
+
+
+    @PostMapping("/saves/check")
+    public boolean checkSave(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        save = objectMapper.readValue(content, Save.class);
+        List<Save> res = saveMapper.checkIsSaving(save.getUserId(),save.getPostId());
+        return res.size() != 0 ;
+    }
 
 
 

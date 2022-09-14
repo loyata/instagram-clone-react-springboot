@@ -12,11 +12,11 @@ import {
     getFolloweesById,
     getFollowersById,
     getPostsById,
-    getPostsByName,
+    getPostsByName, getSavedPostsByUserId,
     getUserByName,
     unfollowUser
 } from "../../api";
-import {useNavigate} from "react-router-dom";
+import {Routes, useNavigate} from "react-router-dom";
 import Display from "../Display/Display";
 
 import {checkUserName} from "../../api";
@@ -42,6 +42,7 @@ const PersonalContent = ({setDisplay, userName, display}) => {
     const [otherUser, setOtherUser] = useState({});
 
     const [allPosts, setAllPosts] = useState([]);
+    const [allSavedPosts, setAllSavedPosts] = useState([]);
 
     const [follow, setFollow] = useState(false);
 
@@ -62,6 +63,10 @@ const PersonalContent = ({setDisplay, userName, display}) => {
                 setUserType(0);
                 getPostsById(userInfo.userId).then((res)=>{
                     setAllPosts(res.data)
+                })
+
+                getSavedPostsByUserId(userInfo.userId).then((res)=>{
+                    setAllSavedPosts(res.data)
                 })
 
 
@@ -88,6 +93,9 @@ const PersonalContent = ({setDisplay, userName, display}) => {
                         setAllPosts(res.data)
                     })
 
+                    getSavedPostsByUserId(userId).then((res)=>{
+                        setAllSavedPosts(res.data)
+                    })
 
                     getFollowersById(userId).then(res => {
                         setFollowers(res.data.map(follower => follower.followerId))
@@ -198,28 +206,57 @@ const PersonalContent = ({setDisplay, userName, display}) => {
                     </div>
 
 
-                    <ImageList sx={{ width: "100%"}} cols={3} gap={24}>
-                        {allPosts.map((item) => (
-                            <ImageListItem key={item.imageUrl} style={{position:"relative"}}>
-                                <img
-                                    src={`${item.imageUrl}?fit=crop&auto=format`}
-                                    srcSet={`${item.imageUrl}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                    alt={item.postAlt}
-                                    loading="lazy"
-                                    className="personalContent_imageItem"
-                                    onClick={() => {
-                                        setDisplay(true)
-                                        if(userType === 0) dispatch(updatePost({...item, ...userInfo}));
-                                        else dispatch(updatePost({...item, ...otherUser}));
-                                    }}
-                                />
-                                <div className="personalContent_iconDetails" >
-                                    <span className="personalContent_ht"><BsFillHeartFill style={{marginTop:"2px"}}/>&nbsp;{item.postLikes}</span>
-                                    <span className="personalContent_ct"><BsFillChatFill/>&nbsp;{item.postComments}</span>
-                                </div>
-                            </ImageListItem>
-                        ))}
-                    </ImageList>
+                    {tag === 0 ?
+                        <ImageList sx={{ width: "100%"}} cols={3} gap={24}>
+                            {allPosts.map((item) => (
+                                <ImageListItem key={item.imageUrl} style={{position:"relative"}}>
+                                    <img
+                                        src={`${item.imageUrl}?fit=crop&auto=format`}
+                                        srcSet={`${item.imageUrl}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                        alt={item.postAlt}
+                                        loading="lazy"
+                                        className="personalContent_imageItem"
+                                        onClick={() => {
+                                            setDisplay(true)
+                                            if(userType === 0) dispatch(updatePost({...item, ...userInfo}));
+                                            else dispatch(updatePost({...item, ...otherUser}));
+                                        }}
+                                    />
+                                    <div className="personalContent_iconDetails" >
+                                        <span className="personalContent_ht"><BsFillHeartFill style={{marginTop:"2px"}}/>&nbsp;{item.postLikes}</span>
+                                        <span className="personalContent_ct"><BsFillChatFill/>&nbsp;{item.postComments}</span>
+                                    </div>
+                                </ImageListItem>
+                            ))}
+                        </ImageList>
+                        :
+                        <ImageList sx={{ width: "100%"}} cols={3} gap={24}>
+                            {allSavedPosts.map((item) => (
+                                <ImageListItem key={item.imageUrl} style={{position:"relative"}}>
+                                    <img
+                                        src={`${item.imageUrl}?fit=crop&auto=format`}
+                                        srcSet={`${item.imageUrl}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                        alt={item.postAlt}
+                                        loading="lazy"
+                                        className="personalContent_imageItem"
+                                        onClick={() => {
+                                            setDisplay(true)
+                                            if(userType === 0) dispatch(updatePost({...item, ...userInfo}));
+                                            else dispatch(updatePost({...item, ...otherUser}));
+                                        }}
+                                    />
+                                    <div className="personalContent_iconDetails" >
+                                        <span className="personalContent_ht"><BsFillHeartFill style={{marginTop:"2px"}}/>&nbsp;{item.postLikes}</span>
+                                        <span className="personalContent_ct"><BsFillChatFill/>&nbsp;{item.postComments}</span>
+                                    </div>
+                                </ImageListItem>
+                            ))}
+                        </ImageList>
+
+                    }
+                    {/*<Routes>*/}
+                    {/*    <Route></Route>*/}
+                    {/*</Routes>*/}
 
 
 

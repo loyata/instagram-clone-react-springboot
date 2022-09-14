@@ -21,7 +21,7 @@ const instance = axios.create({
 // export const deletePost = id => instance.delete(`/posts/${id}`);
 // export const comment = (value, id) => instance.post(`/posts/${id}/commentPost`, {value});
 // export const likePost = id => instance.patch(`/posts/${id}/like`);
-// export const fetchPostsFromQuery = query => instance.get(`/posts/search?searchQuery=${query.search || 'none'}&tags=${query.tags}`);
+// export const fetchPostsFromQuery = query => instance.get(`/posts/search?searchQuery=${query.search || 'none'}&saves=${query.saves}`);
 //
 // export const signIn = (formData) => instance.post(`/users/login`, formData);
 export const signUp = (formData) => instance.post(`/accounts/signup`, formData);
@@ -35,16 +35,24 @@ export const checkEmail = (email) => instance.get(`/accounts/validate/email/${em
 
 export const getUserByName = (userName) => instance.get(`/users/username/${userName}`)
 export const getUserById = (userId) => instance.get(`/users/userid/${userId}`)
+export const queryUser = (query) => instance.get(`/users/query/${query}`)
+
+export const getRandomUsers = (num) => instance.get(`/users/random/${num}`)
+
+
+
 export const getPostsById = (userId) => instance.get(`/posts/user/${userId}`)
 export const getPostByIdentifier = (identifier) => instance.get(`/posts/identifier/${identifier}`)
 export const getPostsByName = (userName) => instance.get(`/posts/username/${userName}`)
 export const getSamplePosts = (limit) => instance.get(`/posts/random/${limit}`);
+export const getSavedPostsByUserId = (userId) => instance.get(`/posts/saved/userid/${userId}`)
 
 export const followUser = (formData) => instance.post(`/follows/follow`, formData)
 export const unfollowUser = (formData) => instance.post(`/follows/unfollow`, formData)
 export const getFollowersById = (userId) => instance.get(`/follows/followers/${userId}`)
 export const getFolloweesById = (userId) => instance.get(`/follows/followees/${userId}`)
 export const checkIsFollowing = (formData) => instance.post(`/follows/check`, formData)
+export const getMutualFollowsByUserId = (userId) => instance.get(`follows/mutual/${userId}`)
 
 
 export const likePost = (formData) => instance.post(`/likes/like`, formData)
@@ -52,9 +60,14 @@ export const unlikePost = (formData) => instance.post(`/likes/unlike`, formData)
 export const checkIsLiked = (formData) => instance.post(`/likes/check`, formData)
 export const getLikesByPostId = (postId) => instance.get(`/likes/postid/${postId}`)
 
+
 export const tagPost = (formData) => instance.post(`/tags/tag`, formData)
 export const unTagPost = (formData) => instance.post(`/tags/untag`, formData)
 export const checkIsTagged = (formData) => instance.post(`/tags/check`, formData)
+
+export const savePost = (formData) => instance.post(`/saves/save`, formData)
+export const unSavePost = (formData) => instance.post(`/saves/unsave`, formData)
+export const checkIsSaved = (formData) => instance.post(`/saves/check`, formData)
 
 
 

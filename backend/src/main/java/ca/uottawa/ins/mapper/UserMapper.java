@@ -1,4 +1,5 @@
 package ca.uottawa.ins.mapper;
+import ca.uottawa.ins.model.MutualFriend;
 import ca.uottawa.ins.model.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
@@ -19,8 +20,14 @@ public interface UserMapper {
     @Select("SELECT * FROM users WHERE user_name = #{name}")
     User getUserByName(String name);
 
+    @Select("SELECT * FROM users ORDER BY RAND() LIMIT #{num}")
+    List<User> getRandomUsers(Integer num);
+
     @Select("SELECT * FROM users")
     List<User> getAllUsers();
+
+    @Select("SELECT * FROM users WHERE user_name LIKE #{query}")
+    List<User> queryUsers(String query);
 
     @Select("SELECT user_name FROM users")
     List<String> getAllUserNames();
@@ -30,4 +37,19 @@ public interface UserMapper {
 
     @Update("UPDATE users SET avatar = #{imageUrl} WHERE user_name = #{userName}")
     int updateAvatar(String userName, String imageUrl);
+
+
+    @Select("SELECT u.user_id, u.user_name, u.avatar\n" +
+            "FROM\n" +
+            "(\n" +
+            "SELECT followee_id \n" +
+            "FROM follows f1 WHERE f1.follower_id = #{userId1} \n" +
+            "AND f1.followee_id IN (SELECT followee_id FROM follows f2 WHERE f2.follower_id = #{userId2})\n" +
+            ") t1, users u\n" +
+            "WHERE t1.followee_id = u.user_id")
+    List<MutualFriend> getMutualFriends(Integer userId1, Integer userId2);
+
+
+    @Select("SELECT * FROM users WHERE user_id != #{self}")
+    List<User> getQueryObjects(Integer self);
 }

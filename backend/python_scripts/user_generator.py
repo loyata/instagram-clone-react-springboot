@@ -6,10 +6,15 @@ import json
 import random
 import uuid
 
+from datetime import datetime
+
 faker = Faker()
 
+
 def generate(num_user):
-    r = requests.get("https://api.unsplash.com/photos/random?client_id=LewwQkA3HsCrfG-Ebo-8bvRoUkoCt-q_HCOkwieYwSs&orientation=portrait&count=" + str(num_user))
+    r = requests.get(
+        "https://api.unsplash.com/photos/random?client_id=LewwQkA3HsCrfG-Ebo-8bvRoUkoCt-q_HCOkwieYwSs&orientation=portrait&count=" + str(
+            num_user))
     obj = json.loads(r.text)
     all_users = []
     all_posts = []
@@ -19,22 +24,28 @@ def generate(num_user):
         print('Generating User ' + str(i) + ' ...')
         formData = {}
         name = faker.name()
-        userName = name.split(' ')[0][0].lower() + '_' + name.split(' ')[1]
+        userName = name.split(' ')[0] + '_' + name.split(' ')[1] + '_' + str(random.randint(1000, 9999))
         formData['fullName'] = name
         formData['userName'] = userName
-        formData['password'] = userName + '_password'
+        formData['password'] = name.split(' ')[0] + '_' + name.split(' ')[1] + '@password'
         formData['avatar'] = obj[i]['urls']['small_s3']
-        formData['email'] = faker.email()
+        formData['email'] = userName + '@example.com'
 
         requests.post('http://localhost:8080/accounts/signup', json.dumps(formData))
 
-
         user = requests.get('http://localhost:8080/users/username/' + userName)
 
-        userId = json.loads(user.text)['userId']
-        all_users.append(userId)
+        try:
+            userId = json.loads(user.text)['userId']
+            userName = json.loads(user.text)['userName']
+            userAvatar = json.loads(user.text)['avatar']
+        except:
+            print()
+        all_users.append([userId, userName, userAvatar])
         current_user_photo_num = random.randint(10, 30)
-        r2 = requests.get("https://api.unsplash.com/photos/random?client_id=LewwQkA3HsCrfG-Ebo-8bvRoUkoCt-q_HCOkwieYwSs&orientation=landscape&count=" + str(current_user_photo_num))
+        r2 = requests.get(
+            "https://api.unsplash.com/photos/random?client_id=LewwQkA3HsCrfG-Ebo-8bvRoUkoCt-q_HCOkwieYwSs&orientation=landscape&count=" + str(
+                current_user_photo_num))
         obj2 = json.loads(r2.text)
         time.sleep(1)
 
@@ -72,38 +83,41 @@ def generate(num_user):
             except:
                 print('no post_id')
 
-
-
-
-
+    print("generating fake follows...")
     for k in all_users:
         for n in random.sample(all_users, random.randint(5, 15)):
             follow_form_data = {
-                'followerId': k,
-                'followeeId': n
+                'followerId': k[0],
+                'followeeId': n[0],
+                'followTimestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
             }
-            if k != n:
+            if k[0] != n[0]:
                 requests.post('http://localhost:8080/follows/follow', json.dumps(follow_form_data))
 
-
+    print("generating fake likes...")
     for k in all_users:
-        for n in random.sample(all_posts, random.randint(10, len(all_posts)//3)):
+        for n in random.sample(all_posts, random.randint(10, len(all_posts) // 3)):
             like_form_data = {
-                'userId': k,
-                'postId': n
+                'userId': k[0],
+                'postId': n,
+                'userName': k[1],
+                'userAvatar': k[2],
+                'likeTimestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
             }
             requests.post('http://localhost:8080/likes/like', json.dumps(like_form_data))
 
+    print("generating fake saves...")
     for k in all_users:
         for n in random.sample(all_posts, random.randint(1, len(all_posts) // 6)):
-            tag_form_data = {
-                'userId': k,
-                'postId': n
+            save_form_data = {
+                'userId': k[0],
+                'postId': n,
+                'saveTimestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
             }
-            requests.post('http://localhost:8080/tags/tag', json.dumps(tag_form_data))
+            requests.post('http://localhost:8080/saves/save', json.dumps(save_form_data))
+
+    print("done")
 
 
-generate(20)
-
-
-
+if __name__ == '__main__':
+    generate(20)  # how many fake users you want to generate

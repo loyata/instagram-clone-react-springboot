@@ -17,23 +17,25 @@ import TimeAgo from "javascript-time-ago";
 import en from 'javascript-time-ago/locale/en'
 
 import links from "./images/links.png"
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {
-    checkIsLiked, checkIsTagged,
+    checkIsLiked, checkIsSaved,
     fetchCommentsByPostId,
     getLikesByPostId,
     likePost,
-    tagPost,
+    savePost,
     unlikePost,
-    unTagPost
+    unSavePost
 } from "../../../api";
 import {AiOutlineSmile} from "react-icons/ai";
+import {updatePost} from "../../../redux/postSlice";
 
-const PostCard = ({postInfo}) => {
+const PostCard = ({postInfo, setDisplay}) => {
 
     const [commentInput, setCommentInput] = useState("");
     const [showEmoji, setShowEmoji] = useState(false)
+    const dispatch = useDispatch()
 
     TimeAgo.setDefaultLocale(en.locale)
     TimeAgo.addLocale(en)
@@ -47,7 +49,7 @@ const PostCard = ({postInfo}) => {
 
     const [liked, setLiked] = useState(false);
     const [allLikes, setAllLikes] = useState([]);
-    const [tagged, setTagged] = useState(false);
+    const [saved, setSaved] = useState(false);
 
     const navigate = useNavigate();
 
@@ -62,17 +64,16 @@ const PostCard = ({postInfo}) => {
     const fetchLikes = async ()=>{
         if(postInfo.postId){
             const res = await getLikesByPostId(postInfo.postId)
-            console.log(res.data)
             setAllLikes(res.data)
         }
     }
 
-    const checkLikeAndTag = async () => {
+    const checkLikeAndSave = async () => {
         if(postInfo.postId){
             const res = await checkIsLiked({userId: userInfo.userId, postId: postInfo.postId});
-            const res2 = await checkIsTagged({userId: userInfo.userId, postId: postInfo.postId});
+            const res2 = await checkIsSaved({userId: userInfo.userId, postId: postInfo.postId});
             setLiked(res.data);
-            setTagged(res2.data);
+            setSaved(res2.data);
         }
     }
 
@@ -82,8 +83,8 @@ const PostCard = ({postInfo}) => {
     },[])
 
     useEffect(() => {
-        checkLikeAndTag();
-    },[postInfo, liked, tagged, allLikes])
+        checkLikeAndSave();
+    },[postInfo, liked, saved, allLikes])
 
 
     const showOtherLikes = () => {
@@ -99,8 +100,8 @@ const PostCard = ({postInfo}) => {
             const rd = Math.floor(Math.random() * len);
             return (
                 <div className="postCard_like">
-                    <Avatar src={allLikes[rd].userAvatar} sx={{width:"1.2rem", height: "1.2rem"}}/>&nbsp;
-                    <span>Liked by <b>{allLikes[rd].userName}</b> and <b>others</b></span>
+                    <Avatar src={allLikes[0].userAvatar} sx={{width:"1.2rem", height: "1.2rem"}}/>&nbsp;
+                    <span>Liked by <b>{allLikes[0].userName}</b> and <b>others</b></span>
                 </div>
             )
         }
@@ -113,14 +114,19 @@ const PostCard = ({postInfo}) => {
                 <div className="postCard_names">
                     <Avatar sx={{height:"35px", width:"35px"}} src={postInfo.userAvatar}/>
                     <span style={{marginLeft:"0.2rem"}}>
-                        <div style={{fontSize:"16px", fontWeight:"bold"}}>{postInfo.userName}</div>
+                        <div style={{fontSize:"16px", fontWeight:"bold"}} className="postCard_username" onClick={() => {
+                            navigate(`/${postInfo.userName}`)
+                        }}>{postInfo.userName}</div>
                         <div style={{fontSize:"12px"}}>{postInfo.postLocation || 'unknown location'}</div>
                     </span>
                 </div>
                 <BsThreeDots style={{fontSize:"1.2rem"}}/>
             </div>
 
-            <img src={postInfo.imageUrl} width="100%"/>
+            <img src={postInfo.imageUrl} width="100%" className="postCard_image" onClick={() => {
+                setDisplay(true)
+                dispatch(updatePost({...postInfo, avatar: postInfo.userAvatar}));
+            }}/>
 
             <div className="postCard_icon">
                 <div className="postCard_iconLeft">
@@ -157,25 +163,25 @@ const PostCard = ({postInfo}) => {
 
                 <BsThreeDots style={{fontSize:"1.2rem", position:"absolute", left:"50%"}}/>
 
-                <div className="tag"
+                <div className="save"
                      onClick={() => {
-                         setTagged(!tagged)
+                         setSaved(!saved)
                      }}>
-                    {tagged?
+                    {saved?
                         <div onClick={async () => {
                             const formData = {
                                 userId: userInfo.userId,
                                 postId: postInfo.postId,
                             }
-                            await unTagPost(formData)
+                            await unSavePost(formData)
                         }
                         }><RiBookmarkFill/></div> : <div onClick={async () => {
                             const formData = {
                                 userId: userInfo.userId,
                                 postId: postInfo.postId,
-                                tagTimestamp: new Date().toISOString()
+                                saveTimestamp: new Date().toISOString()
                             }
-                            await tagPost(formData)
+                            await savePost(formData)
                         }}><RiBookmarkLine/></div>}
                 </div>
 
@@ -217,7 +223,6 @@ const PostCard = ({postInfo}) => {
                         }}>POST</button>
                 }
 
-                {/*<img src={"https://s3.us-west-2.amazonaws.com/images.unsplash.com/small/photo-1660723703502-63b975b3799c"}/>*/}
             </div>
         </div>
     );

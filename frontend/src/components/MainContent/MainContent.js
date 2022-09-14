@@ -11,7 +11,7 @@ import useWindowDimensions from "../../utilities/useWindowDimension";
 import {getSamplePosts} from "../../api";
 import {updateStateOuter} from "../../redux/navbarStatusSlice";
 
-const MainContent = () => {
+const MainContent = ({display, setDisplay}) => {
 
     const {width} = useWindowDimensions();
     const [posts, setPosts] = useState([]);
@@ -40,7 +40,7 @@ const MainContent = () => {
                 <div className="mainContent_container">
                     <div className="mainContent_left">
                         <FriendCard/>
-                        {posts.map((post,index) => <PostCard key={index} postInfo={post}/>)}
+                        {posts.map((post,index) => <PostCard key={index} postInfo={post} display={display} setDisplay={setDisplay}/>)}
                     </div>
 
                     {

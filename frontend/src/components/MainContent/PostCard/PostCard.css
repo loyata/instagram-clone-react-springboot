@@ -25,6 +25,14 @@
     gap:0.3rem
 }
 
+.postCard_username{
+    cursor: pointer;
+}
+
+.postCard_image{
+    cursor: pointer;
+}
+
 .postCard_icon{
     width: 100%;
     font-size: 1.5rem;
@@ -50,7 +58,7 @@
     font-size: 0.9rem;
 }
 
-.tag:hover{
+.save:hover{
     cursor: pointer;
 }
 

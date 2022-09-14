@@ -23,11 +23,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
+}
+
+.suggestionCard_userName{
+    cursor: pointer;
 }
 
 .suggestionCard_names{
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .suggestionCard_id{
@@ -47,6 +53,7 @@
     background: transparent;
     color: rgb(65,147,239);
     font-weight: bolder;
+    text-align: right;
 }
 
 .suggestionCard_followButton:hover, .suggestionCard_seeAllButton:hover{
