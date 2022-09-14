@@ -14,6 +14,8 @@ import jwt_decode from "jwt-decode";
 import {update} from "../../redux/userSlice";
 import {getUserByName} from "../../api";
 import Display from "../Display/Display";
+import SwitchAccounts from "../MainContent/SwitchAccounts/SwitchAccounts";
+import Explore from "../Explore/Explore";
 
 const HomePage = () => {
 
@@ -32,6 +34,7 @@ const HomePage = () => {
     const {navbarStatus} = useSelector(state => state.navbarStatus);
     const [open, setOpen] = useState(false);
     const [display, setDisplay] = useState(false);
+    const [switchAccount, setSwitchAccount] = useState(false);
 
     useEffect(() => {
         document.addEventListener("click", () => {
@@ -84,14 +87,22 @@ const HomePage = () => {
                 <div/>
             }
 
+            {switchAccount ?
+                <div style={{position:"absolute",width:"100%", zIndex:15, transform:`translate(0, ${scrollPosition}px)`}}>
+                    <SwitchAccounts switchAccount={switchAccount} setSwitchAccount={setSwitchAccount}/>
+                </div>
+                :
+                <div/>
+            }
+
             <NavBar open={open} setOpen={setOpen}/>
 
             <Routes>
-                <Route path="/" element={<MainContent display={display} setDisplay={setDisplay}/>}/>
-                <Route path="/:userName" element={<PersonalPage display={display} setDisplay={setDisplay}/>}/>
-                {/*<Route path="/p/:postIdentifier" element={<PersonalPage display={display} setDisplay={setDisplay}/>}/>*/}
+                <Route path="/" element={<MainContent display={display} setDisplay={setDisplay} setSwitchAccount={setSwitchAccount}/>}/>
+                <Route path="/:userName/*" element={<PersonalPage display={display} setDisplay={setDisplay}/>}/>
                 <Route path="/accounts/edit" element={<Settings/>}/>
                 <Route path="/direct/*" element={<MessagePage/>}/>
+                <Route path="/explore/*" element={<Explore/>}/>
             </Routes>
 
             {/*<MainContent/>*/}

@@ -11,7 +11,7 @@ import useWindowDimensions from "../../utilities/useWindowDimension";
 import {getSamplePosts} from "../../api";
 import {updateStateOuter} from "../../redux/navbarStatusSlice";
 
-const MainContent = ({display, setDisplay}) => {
+const MainContent = ({display, setDisplay, setSwitchAccount}) => {
 
     const {width} = useWindowDimensions();
     const [posts, setPosts] = useState([]);
@@ -20,7 +20,7 @@ const MainContent = ({display, setDisplay}) => {
 
     const getRandomPosts = async (num) => {
         const res = await getSamplePosts(10);
-        console.log(res.data)
+
         setPosts(res.data)
     }
 
@@ -48,7 +48,7 @@ const MainContent = ({display, setDisplay}) => {
                             <div/>
                             :
                             <div className="mainContent_right">
-                                <Profile/>
+                                <Profile setSwitchAccount={setSwitchAccount}/>
                                 <SuggestionCard/>
                                 <MainFooter/>
                             </div>

@@ -25,6 +25,10 @@
     gap:0.3rem
 }
 
+.postCard_names:hover{
+    cursor: pointer;
+}
+
 .postCard_username{
     cursor: pointer;
 }

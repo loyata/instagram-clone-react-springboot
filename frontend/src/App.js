@@ -15,6 +15,7 @@ import Settings from "./components/Settings/Settings";
 import jwt_decode from "jwt-decode";
 
 import {useDispatch} from "react-redux";
+import SwitchAccounts from "./components/MainContent/SwitchAccounts/SwitchAccounts";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         {/*<Display/>*/}
         {/*<NewPost/>*/}
         {/*<MessagePage/>*/}
+        {/*<SwitchAccounts/>*/}
     </div>
 
   );

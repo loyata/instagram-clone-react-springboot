@@ -16,7 +16,7 @@ import {
     getUserByName,
     unfollowUser
 } from "../../api";
-import {Routes, useNavigate} from "react-router-dom";
+import {Routes, useNavigate, Route, useLocation} from "react-router-dom";
 import Display from "../Display/Display";
 
 import {checkUserName} from "../../api";
@@ -25,13 +25,20 @@ import Footer from "../LoginPage/Footer/Footer";
 import {HiOutlineDotsHorizontal} from "react-icons/hi";
 import {BsPersonCheckFill} from "react-icons/bs";
 
-import {updatePost} from "../../redux/postSlice";
 
+import PersonalPosts from "./PersonalPosts/PersonalPosts";
+
+
+import {closeShowProfile, updateProfile, updateStateSimple} from "../../redux/navbarStatusSlice";
 
 
 const PersonalContent = ({setDisplay, userName, display}) => {
 
     const [tag, setTag] = useState(0);
+
+    const location = useLocation();
+    const {from, pathname} = location;
+
 
     const dispatch = useDispatch();
 
@@ -56,6 +63,11 @@ const PersonalContent = ({setDisplay, userName, display}) => {
      * 2 no such user in the database
      */
     const [userType, setUserType] = useState(0);
+
+    useEffect(() => {
+        dispatch(updateStateSimple('profile'));
+        dispatch(closeShowProfile());
+    },[])
 
     useEffect(() => {
         const checkUserNameAsync = async () => {
@@ -185,11 +197,19 @@ const PersonalContent = ({setDisplay, userName, display}) => {
                     <div className="personalContent_selectionTool">
                         <hr className="personalContent_divider"/>
                         <div className="personalContent_selection">
-                            <div className={"personalContent_tag".concat(tag === 0 ? " selected":"")} onClick={() => {setTag(0);}}>
+                            <div className={"personalContent_tag".concat(tag === 0 ? " selected":"")} onClick={() => {
+                                setTag(0);
+                                navigate(`/${userName}`)
+
+                            }}>
                                 <BsGrid3X3/>&nbsp;&nbsp;
                                 <div>POSTS</div>
                             </div>
-                            <div className={"personalContent_tag".concat(tag === 1 ? " selected":"")} onClick={() => {setTag(1);}}>
+                            <div className={"personalContent_tag".concat(tag === 1 ? " selected":"")} onClick={() => {
+                                setTag(1);
+                                navigate(`/${userName}/saved`)
+
+                            }}>
                                 <BsBookmarkStar/>&nbsp;&nbsp;
                                 <div>SAVED</div>
                             </div>
@@ -206,57 +226,10 @@ const PersonalContent = ({setDisplay, userName, display}) => {
                     </div>
 
 
-                    {tag === 0 ?
-                        <ImageList sx={{ width: "100%"}} cols={3} gap={24}>
-                            {allPosts.map((item) => (
-                                <ImageListItem key={item.imageUrl} style={{position:"relative"}}>
-                                    <img
-                                        src={`${item.imageUrl}?fit=crop&auto=format`}
-                                        srcSet={`${item.imageUrl}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                        alt={item.postAlt}
-                                        loading="lazy"
-                                        className="personalContent_imageItem"
-                                        onClick={() => {
-                                            setDisplay(true)
-                                            if(userType === 0) dispatch(updatePost({...item, ...userInfo}));
-                                            else dispatch(updatePost({...item, ...otherUser}));
-                                        }}
-                                    />
-                                    <div className="personalContent_iconDetails" >
-                                        <span className="personalContent_ht"><BsFillHeartFill style={{marginTop:"2px"}}/>&nbsp;{item.postLikes}</span>
-                                        <span className="personalContent_ct"><BsFillChatFill/>&nbsp;{item.postComments}</span>
-                                    </div>
-                                </ImageListItem>
-                            ))}
-                        </ImageList>
-                        :
-                        <ImageList sx={{ width: "100%"}} cols={3} gap={24}>
-                            {allSavedPosts.map((item) => (
-                                <ImageListItem key={item.imageUrl} style={{position:"relative"}}>
-                                    <img
-                                        src={`${item.imageUrl}?fit=crop&auto=format`}
-                                        srcSet={`${item.imageUrl}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                        alt={item.postAlt}
-                                        loading="lazy"
-                                        className="personalContent_imageItem"
-                                        onClick={() => {
-                                            setDisplay(true)
-                                            if(userType === 0) dispatch(updatePost({...item, ...userInfo}));
-                                            else dispatch(updatePost({...item, ...otherUser}));
-                                        }}
-                                    />
-                                    <div className="personalContent_iconDetails" >
-                                        <span className="personalContent_ht"><BsFillHeartFill style={{marginTop:"2px"}}/>&nbsp;{item.postLikes}</span>
-                                        <span className="personalContent_ct"><BsFillChatFill/>&nbsp;{item.postComments}</span>
-                                    </div>
-                                </ImageListItem>
-                            ))}
-                        </ImageList>
-
-                    }
-                    {/*<Routes>*/}
-                    {/*    <Route></Route>*/}
-                    {/*</Routes>*/}
+                    <Routes>
+                        <Route path="/" element={<PersonalPosts allPosts={allPosts} setDisplay={setDisplay} userType={userType} userInfo={userInfo} otherUser={otherUser}/>}/>
+                        <Route path="/saved" element={<PersonalPosts allPosts={allSavedPosts} setDisplay={setDisplay} userType={userType} userInfo={userInfo} otherUser={otherUser}/>}/>
+                    </Routes>
 
 
 

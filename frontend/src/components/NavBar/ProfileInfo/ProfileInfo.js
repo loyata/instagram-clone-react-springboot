@@ -4,29 +4,35 @@ import {FaRegUserCircle} from "react-icons/fa";
 import {BsGearWide, BsBookmark} from "react-icons/bs";
 import {HiSwitchHorizontal} from "react-icons/hi";
 import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
-
+import {useDispatch, useSelector} from "react-redux";
+import {updateStateSimple, closeShowProfile} from "../../../redux/navbarStatusSlice"
 
 const ProfileInfo = () => {
 
+    const {navbarStatus, navbarCache} = useSelector(state => state.navbarStatus);
+
+    const dispatch = useDispatch();
+
     const userInfo = useSelector(state => state.user);
 
-    const userName = userInfo.userName
+    const userName = userInfo.userName;
 
     const navigate = useNavigate();
 
     const handleClick = (name) => {
         return () => {
             if(name === 'Profile') {
-                navigate(`/${userName}`)
+                navigate(`/${userName}`);
+                dispatch(updateStateSimple('profile'));
+                dispatch(closeShowProfile());
             }
-            else if(name === 'Saved') navigate(`/${userName}/saved`)
-            else if(name === 'Settings') navigate(`/accounts/edit`)
+            else if(name === 'Saved') navigate(`/${userName}/saved`);
+            else if(name === 'Settings') navigate(`/accounts/edit`);
             else if(name === 'Logout') {
                 localStorage.clear();
-                navigate('/')
+                window.location.href = '/';
             }
-            else alert(`Navigating to ${name}`)
+            else alert(`Navigating to ${name}`);
         }
     }
 

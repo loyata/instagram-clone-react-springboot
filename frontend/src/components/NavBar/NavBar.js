@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 
 import {useSelector, useDispatch} from "react-redux";
-import {updateStateSimple, updateStateOuter, updateStateComplex} from "../../redux/navbarStatusSlice"
+import {updateStateSimple, updateStateOuter, updateStateComplex, updateProfile} from "../../redux/navbarStatusSlice"
 
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 import "./NavBar.css"
 
@@ -35,7 +35,9 @@ const NavBar = ({open, setOpen}) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {navbarStatus, navbarCache} = useSelector(state => state.navbarStatus);
+    const {navbarStatus, showProfile, inPersonalPage} = useSelector(state => state.navbarStatus);
+
+
 
 
     const userInfo = useSelector(state => state.user);
@@ -135,6 +137,7 @@ const NavBar = ({open, setOpen}) => {
                     {navbarStatus.explore ? <AiFillCompass className="navBar_Click" style={{fontSize:"1.8rem", fontWeight:"500"}}/> :
                         <AiOutlineCompass className="navBar_Click" style={{fontSize:"1.8rem", fontWeight:"300"}} onClick={e => {
                             dispatch(updateStateSimple('explore'))
+                            navigate("/explore")
                     }}/>}
 
                     <div style={{position:"relative"}}>
@@ -148,10 +151,11 @@ const NavBar = ({open, setOpen}) => {
                     <div style={{position:"relative"}}>
                         <Avatar src={userInfo.avatar} sx={{height:"28px", width:"28px"}} style={navbarStatus.profile ? {border:"1px solid white",outline:"1px solid black"}:{}} className="navBar_Click"
                                 onClick={(e) => {
-                                    setOpen(!open)
-                                    dispatch(updateStateComplex('profile'))
+                                    if(inPersonalPage) dispatch(updateProfile(2))
+                                    else dispatch(updateProfile(1))
                         }}/>
-                        {navbarStatus.profile && open ?  <ProfileInfo/>: <div/>}
+                        {/*{navbarStatus.profile?  <ProfileInfo/>: <div/>}*/}
+                        {showProfile?  <ProfileInfo/>: <div/>}
                     </div>
                 </Grid>
 

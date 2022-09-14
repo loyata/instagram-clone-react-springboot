@@ -44,7 +44,7 @@ const SuggestionCard = () => {
             {partialFriendsSuggestion.map((suggestion, index) => (
                 <div className="suggestionCard_suggestions" key={index}>
                     <div className="suggestionCard_names">
-                        <Avatar sx={{height:"35px", width:"35px"}} src={suggestion.userAvatar}/>
+                        <Avatar sx={{height:"35px", width:"35px"}} src={suggestion.userAvatar} onClick={() => navigate(`/${suggestion.userName}`)}/>
                         <span className="suggestionCard_id">
                         <div style={{fontSize:"0.8rem", fontWeight:"700"}} className="suggestionCard_userName" onClick={() => navigate(`/${suggestion.userName}`)}>{suggestion.userName}</div>
                         <div style={{color:"rgb(160,160,160)", fontSize:"0.75em", fontWeight:"600",whiteSpace:"nowrap", maxWidth:"210px"}}>{setText(suggestion.mutual)}</div>

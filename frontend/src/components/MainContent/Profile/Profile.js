@@ -3,13 +3,15 @@ import "./Profile.css"
 import Avatar from "@mui/material/Avatar";
 import {useSelector} from "react-redux";
 import {getUserByName} from "../../../api";
+import {useNavigate} from "react-router-dom";
 
-const Profile = () => {
+const Profile = ({setSwitchAccount}) => {
 
     const {userName} = useSelector(state => state.user);
 
     const [userInfo, setUserInfo] = useState({});
 
+    const navigate = useNavigate();
 
     useEffect(() => {
         if(userName){
@@ -27,14 +29,20 @@ const Profile = () => {
         <div className="profile_Container">
 
             <div className="profile_names">
-                <Avatar sx={{width:"55px", height:"55px"}} src={userInfo.avatar}/>
+                <Avatar sx={{width:"55px", height:"55px"}} src={userInfo.avatar} onClick={() => {
+                    navigate(`/${userInfo.userName}`)
+                }}/>
                 <span className="profile_id">
-                    <div>{userName}</div>
+                    <div onClick={() => {
+                        navigate(`/${userInfo.userName}`)
+                    }}>{userName}</div>
                     <div style={{color:"rgb(160,160,160)"}}>{userInfo.fullName}</div>
                 </span>
             </div>
 
-            <button className="profile_switchButton">Switch</button>
+            <button className="profile_switchButton" onClick={() => {
+                setSwitchAccount(true)
+            }}>Switch</button>
         </div>
     );
 };

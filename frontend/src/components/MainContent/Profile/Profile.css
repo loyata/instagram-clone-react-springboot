@@ -28,6 +28,10 @@
     align-items: center;
 }
 
+.profile_names:hover{
+    cursor: pointer;
+}
+
 .profile_id{
     margin-left: 1rem;
     display: flex;

@@ -127,11 +127,16 @@ public class AccountController {
     public Object getMutualFollowsByUserId(@PathVariable("userId") Integer userId){
         List<User> queryUsers = userMapper.getQueryObjects(userId);
 
+        List<Follow> allFollowees = followMapper.getAllFollowees(userId);
+        List<Integer> friends = new ArrayList<>();
+        for(Follow f: allFollowees){
+            friends.add(f.getFolloweeId());
+        }
 
         List<MutualResult> res = new ArrayList<>();
         for(int i = 0; i < queryUsers.size(); i++){
             List<MutualFriend> temp = userMapper.getMutualFriends(userId, queryUsers.get(i).getUserId());
-            if(temp.size() != 0){
+            if(temp.size() != 0 && !friends.contains(queryUsers.get(i).getUserId())){
                 MutualResult mutualResult = new MutualResult();
                 mutualResult.setUserId(queryUsers.get(i).getUserId());
                 mutualResult.setUserAvatar(queryUsers.get(i).getAvatar());

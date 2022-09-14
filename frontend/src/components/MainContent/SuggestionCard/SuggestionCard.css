@@ -36,6 +36,10 @@
     width: 100%;
 }
 
+.suggestionCard_names:hover{
+    cursor: pointer;
+}
+
 .suggestionCard_id{
     margin-left: 0.5rem;
     display: flex;

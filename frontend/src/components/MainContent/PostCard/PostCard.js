@@ -112,7 +112,9 @@ const PostCard = ({postInfo, setDisplay}) => {
         <div className="postCard_container">
             <div className="postCard_header">
                 <div className="postCard_names">
-                    <Avatar sx={{height:"35px", width:"35px"}} src={postInfo.userAvatar}/>
+                    <Avatar sx={{height:"35px", width:"35px"}} src={postInfo.userAvatar} onClick={() => {
+                        navigate(`/${postInfo.userName}`)
+                    }}/>
                     <span style={{marginLeft:"0.2rem"}}>
                         <div style={{fontSize:"16px", fontWeight:"bold"}} className="postCard_username" onClick={() => {
                             navigate(`/${postInfo.userName}`)
@@ -161,7 +163,7 @@ const PostCard = ({postInfo, setDisplay}) => {
                     }}/>
                 </div>
 
-                <BsThreeDots style={{fontSize:"1.2rem", position:"absolute", left:"50%"}}/>
+                {/*<BsThreeDots style={{fontSize:"1.2rem", position:"absolute", left:"50%"}}/>*/}
 
                 <div className="save"
                      onClick={() => {

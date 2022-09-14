@@ -38,7 +38,6 @@ const LoginPage = () => {
     const [success, setSuccess] = useState(false)
 
     const handleSubmit = async (e) => {
-
         setErrMsg('')
         try {
             const response = await logIn(loginInfo);
@@ -52,14 +51,9 @@ const LoginPage = () => {
         }catch (e){
             console.log(e)
         }
-
-
-        // setLoginInfo({
-        //     emailOrUsername:'',
-        //     password:''
-        // })
-        // setSuccess(true)
     }
+
+
 
     return (
         <div>
