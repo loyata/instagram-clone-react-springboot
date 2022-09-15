@@ -100,12 +100,12 @@
     height: 72px;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .chat_session_containerContent{
     display: flex;
     /*align-items: center;*/
+
     height: 100%;
     padding: 0.5rem 1rem;
 }
@@ -114,9 +114,16 @@
     background-color: rgba(239,239,239);
 }
 
+.messagePage_right2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex: 1 1 0;
+}
+
 .chat_session_containerContent:hover{
     cursor: pointer;
-    background-color: rgba(239,239,239,0.6);
 }
 
 .messagePage_summary{
@@ -146,7 +153,8 @@
 }
 
 .messagePage_right_down_chat{
-    flex: 1 1 0;
+    height: 530px;
+    overflow-y: auto;
     /*border: 1px solid gold;*/
     display: flex;
     flex-direction: column;
@@ -173,7 +181,7 @@
 }
 
 .box_other{
-    width: 40%;
+    max-width: 40%;
     padding: 0.7rem 1rem;
     min-height: 2rem;
     margin-left: 0.6rem;
@@ -183,7 +191,7 @@
 }
 
 .box_self{
-    width: 40%;
+    max-width: 40%;
     padding: 0.7rem 1rem;
     min-height: 2rem;
     margin-left: 0.6rem;

@@ -61,7 +61,6 @@ const Display = ({setDisplay}) => {
     const fetchLikes = async ()=>{
         if(postInfo.postId){
             const res = await getLikesByPostId(postInfo.postId)
-            console.log(res.data)
             setAllLikes(res.data)
         }
     }
@@ -106,6 +105,8 @@ const Display = ({setDisplay}) => {
 
     }
 
+
+
     return (
         <div className="display_container" onClick={() => {
             setDisplay(false)
@@ -137,7 +138,7 @@ const Display = ({setDisplay}) => {
                                 <Avatar sx={{height:"35px", width:"35px"}} src={postInfo.avatar}/>
                                 <span style={{marginLeft:"0.2rem"}}>
                                 <div style={{fontSize:"16px", fontWeight:"bold"}}>{postInfo.userName}</div>
-                                <div style={{fontSize:"12px"}}>{postInfo.postLocation}</div>
+                                <div style={{fontSize:"12px"}}>{postInfo.postLocation || 'unknown location'}</div>
                             </span>
                             </div>
                             <BsThreeDots style={{fontSize:"1.2rem"}}/>
@@ -148,19 +149,22 @@ const Display = ({setDisplay}) => {
 
                     <div className="display_card_right_middle">
 
-                        <div className="display_comment">
+                        {postInfo.postCaption !== null ?
+                            <div className="display_comment">
                                 <Avatar sx={{height:"35px", width:"35px"}} src={postInfo.avatar}/>
                                 <div>
                                     <div className="display_all">
 
                                         <div style={{fontSize:"0.9rem"}}><b>{postInfo.userName}</b>&nbsp;{postInfo.postCaption}</div>
                                         <div className="display_reply">
-                                            {/*<div>{timeAgo.format(new Date(postInfo.postDate))}</div>*/}
                                         </div>
                                     </div>
                                 </div>
-                            {/*<BsHeart style={{fontSize:"0.8rem", marginTop:"0.8rem", width:"60px"}}/>*/}
-                        </div>
+                            </div>
+                            :
+                            <div/>
+                        }
+
 
                         {comments.map((comment, index) => (
                             <div className="display_comment" key={index}>
@@ -169,7 +173,7 @@ const Display = ({setDisplay}) => {
                                     <div className="display_all">
                                         <div style={{fontSize:"0.9rem"}}><b>{comment.commenterName}</b>&nbsp;{comment.commentContent}</div>
                                         <div className="display_reply">
-                                            {/*<div>{timeAgo.format(new Date(comment.commentTimestamp))}</div>*/}
+                                            <div>{timeAgo.format(new Date(comment.commentTimestamp))}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -247,7 +251,7 @@ const Display = ({setDisplay}) => {
 
 
                         {showOtherLikes()}
-                        {/*<span style={{fontSize:"0.5rem", padding:"0 0.7rem 0.7rem 0.7rem", color:"rgb(158,158,158)",fontWeight:"bold"}}>{timeAgo.format(new Date(postInfo.postDate))}</span>*/}
+                        <span style={{fontSize:"0.5rem", padding:"0 0.7rem 0.7rem 0.7rem", color:"rgb(158,158,158)",fontWeight:"bold"}}>{timeAgo.format(new Date(postInfo.postDate))}</span>
                         <hr/>
                         <div className="postCard_comment">
                             <div className="postCard_commentEmoji">
@@ -264,8 +268,10 @@ const Display = ({setDisplay}) => {
                                     }}/>
                                 </div>
 
-                                <textarea rows={1} value={commentInput} placeholder="Add a comment..." className="postCard_commentInput" onChange={event => setCommentInput(event.target.value)}/>
-                            </div>
+                                <div className="textarea_container">
+                                    <textarea value={commentInput} placeholder="Add a comment..." className="postCard_commentInput" onChange={event => setCommentInput(event.target.value)}/>
+                                </div>
+                                 </div>
                             {
                                 commentInput === ''?
                                     <button className="postCard_commentButtonCannotPost">POST</button>

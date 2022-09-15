@@ -30,7 +30,7 @@ const LoginPage = () => {
 
     const [loginInfo, setLoginInfo] = useState({
         email:'',
-        password:''
+        password:'',
     });
 
     const [errMsg, setErrMsg] = useState('')
@@ -40,7 +40,7 @@ const LoginPage = () => {
     const handleSubmit = async (e) => {
         setErrMsg('')
         try {
-            const response = await logIn(loginInfo);
+            const response = await logIn({...loginInfo, lastLogin:new Date().toISOString()});
 
             if(response.data === "NO_SUCH_ACCOUNT") setErrMsg("The username you entered doesn't belong to an account. Please check your username and try again.")
             else if(response.data === "WRONG PASSWORD") setErrMsg("Sorry, your password was incorrect. Please double-check your password.")

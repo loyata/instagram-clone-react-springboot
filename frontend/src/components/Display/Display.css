@@ -23,8 +23,15 @@
 .display_card{
     width: 84vw;
     height: 94vh;
-    border: 1px solid black;
     display: flex;
+}
+
+.textarea_container{
+    width: 100%;
+    display: inline;
+}
+.textarea_container > textarea{
+    width: inherit;
 }
 
 .display_nav{

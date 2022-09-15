@@ -81,9 +81,14 @@ hr{
 
 .postCard_commentInput{
     border: none;
-
     height: auto;
     /*transform: translate(0, -35%);*/
+}
+
+textarea{
+    vertical-align:top;
+    width: 100%;
+    display: block;
 }
 
 .postCard_commentEmoji{

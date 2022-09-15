@@ -213,8 +213,10 @@ const PostCard = ({postInfo, setDisplay}) => {
                         </div>
                     </div>
 
-                    <input type="text" value={commentInput} placeholder="Add a comment..." className="postCard_commentInput" onChange={event => setCommentInput(event.target.value)}/>
-                </div>
+                    <div>
+                        <input type="text" value={commentInput} placeholder="Add a comment..." className="postCard_commentInput" onChange={event => setCommentInput(event.target.value)}/>
+                    </div>
+                     </div>
                 {
                     commentInput === ''?
                         <button className="postCard_commentButtonCannotPost">POST</button>

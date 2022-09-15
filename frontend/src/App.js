@@ -16,6 +16,7 @@ import jwt_decode from "jwt-decode";
 
 import {useDispatch} from "react-redux";
 import SwitchAccounts from "./components/MainContent/SwitchAccounts/SwitchAccounts";
+import NewMessage from "./components/MessagePage/NewMessage/NewMessage";
 
 
 function App() {
@@ -32,13 +33,6 @@ function App() {
             <Route path="*" element={<NotFound/>}/>
         </Routes>
 
-        {/*<SignUp/>*/}
-        {/*<HomePage/>*/}
-        {/*<PersonalPage/>*/}
-        {/*<Display/>*/}
-        {/*<NewPost/>*/}
-        {/*<MessagePage/>*/}
-        {/*<SwitchAccounts/>*/}
     </div>
 
   );

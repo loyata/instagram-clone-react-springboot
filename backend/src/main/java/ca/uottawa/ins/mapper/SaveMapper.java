@@ -18,5 +18,6 @@ public interface SaveMapper {
     @Select("SELECT * FROM saves WHERE user_id = #{userId} and post_id = #{postId}")
     List<Save> checkIsSaving(Integer userId, Integer postId);
 
+
 }
 

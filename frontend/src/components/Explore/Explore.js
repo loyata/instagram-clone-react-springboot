@@ -40,6 +40,18 @@ const Explore = ({display, setDisplay}) => {
         {rows: 1, cols: 1},
         {rows: 1, cols: 1},
         {rows: 1, cols: 2},
+        {rows: 2, cols: 2},
+        {rows: 1, cols: 1},
+        {rows: 1, cols: 1},
+        {rows: 1, cols: 2},
+        {rows: 1, cols: 2},
+        {rows: 2, cols: 2},
+        {rows: 1, cols: 1},
+        {rows: 1, cols: 1},
+        {rows: 2, cols: 2},
+        {rows: 1, cols: 1},
+        {rows: 1, cols: 1},
+        {rows: 1, cols: 2},
     ]
 
     const [posts, setPosts] = useState([]);
@@ -48,7 +60,7 @@ const Explore = ({display, setDisplay}) => {
         const res = await getSamplePosts(24);
         setPosts(posts => posts.concat(
             res.data.map(
-                p => ({...p, rows:Math.floor(Math.random()*2 + 1), cols:Math.floor(Math.random()*2 + 1)}))))
+                (p, index) => ({...p, ...randomNumber[index]}))))
     }
 
     useEffect(() => {
@@ -75,7 +87,7 @@ const Explore = ({display, setDisplay}) => {
             <div style={{maxWidth:"70vw"}}>
                 <ImageList
                     variant="quilted"
-                    cols={3}
+                    cols={4}
                     rowHeight={320}
                     gap={24}
                     id="il"
@@ -83,7 +95,7 @@ const Explore = ({display, setDisplay}) => {
                     {posts.map((item, index) => (
                         <ImageListItem key={index} cols={item.cols || 1} rows={item.rows || 1}>
                             <img
-                                {...srcset(item.imageUrl, 320, item.cols, item.rows)}
+                                {...srcset(item.imageUrl, 320, item.rows, item.cols)}
                                 alt={item.postAlt}
                                 loading="lazy"
                                 onClick={async () => {
@@ -91,6 +103,7 @@ const Explore = ({display, setDisplay}) => {
                                     dispatch(updatePost({...item, ...res.data}));
                                     setDisplay(true);
                                 }}
+                                className="explore_click"
                             />
                         </ImageListItem>
                     ))}

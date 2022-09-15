@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./MessagePage.css"
 import NavBar from "../NavBar/NavBar";
 import {
@@ -11,137 +11,123 @@ import {
 } from "react-icons/bs";
 import {Avatar} from "@mui/material";
 import {FaRegSmile} from "react-icons/fa";
+import {useDispatch, useSelector} from "react-redux";
+import NewMessage from "./NewMessage/NewMessage";
+import {fetchSessionsById} from "../../api";
 
-const MessagePage = () => {
+import {Routes, Route, useNavigate} from "react-router-dom"
+import Inbox from "./Inbox/Inbox";
+import MessageDetail from "./MessageDetail/MessageDetail";
+import {updateStateSimple} from "../../redux/navbarStatusSlice";
 
-    const [commentInput, setCommentInput] = useState('');
+
+import TimeAgo from "javascript-time-ago";
+import en from 'javascript-time-ago/locale/en'
+
+
+
+const MessagePage = ({setSwitchAccount}) => {
+
+
+    TimeAgo.setDefaultLocale(en.locale)
+    TimeAgo.addLocale(en)
+    const timeAgo = new TimeAgo('en-US')
+
+    const userInfo = useSelector(state => state.user);
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    const getDate = (updateTime) => {
+        const spr = timeAgo.format(new Date(updateTime)).split(' ');
+        return spr[0]+spr[1][0];
+    }
+
+    useEffect(() => {
+        dispatch(updateStateSimple('message'))
+    }, [])
+
+    const [showNewMessage, setShowNewMessage] = useState(false);
+
+    const [sessions, setSessions] = useState([]);
+
+    const [selectedSession, setSelectedSession] = useState(-1);
+
+    const [selectedSessionDetail, setSelectedSessionDetail] = useState({});
+
+
+
+    const fetchSessions = async ()=>{
+        if(userInfo.userId){
+            const res = await fetchSessionsById(userInfo.userId);
+            setSessions(res.data);
+        }
+    }
+
+    useEffect(() => {
+        fetchSessions();
+    },[userInfo.userId])
 
     return (
-        <div style={{height:"90vh", display:"flex", flexDirection:"column"}}>
-            {/*<div>*/}
-            {/*    <NavBar/>*/}
-            {/*</div>*/}
+        <div style={{height:"90vh", display:"flex", flexDirection:"column", position:"relative"}}>
+            <div style={{zIndex:"20", display:`${showNewMessage? 'block' : 'none'}`}}>
+                <NewMessage setShowNewMessage={setShowNewMessage}/>
+            </div>
             <div className="messagePage_container">
                 <div className="messagePage_main">
                     <div className="messagePage_main2">
                         <div className="messagePage_left">
                             <div className="messagePage_left_up">
-                                <div style={{marginLeft:"30%"}}><b>user_name</b></div>&nbsp;
+                                <div style={{marginLeft:"30%"}}><b>{userInfo.userName}</b></div>&nbsp;
                                 <div className="messagePage_change" onClick={() => {
-                                    alert("function:ChangeUser")
+                                    setSwitchAccount(true)
                                 }}><BsChevronDown/></div>
                                 <div className="messagePage_new_msg" onClick={() => {
-                                    alert("function:new msg")
+                                    setShowNewMessage(true)
                                 }}><BsPencilSquare/></div>
                             </div>
                             <div className="messagePage_left_down">
                                 <div className="chat_session_container">
 
-                                    <div className="chat_session_containerContent contentSelected">
-                                        <Avatar sx={{width:"50px", height:"50px"}}/>&nbsp;&nbsp;
-                                        <div style={{display:"flex", flexDirection:"column", justifyContent:"flex-start"}}>
-                                            <div style={{marginTop:"0.3rem"}}>user_name</div>
-                                            <div className="messagePage_summary" >
-                                                <div style={{width:"200px", overflow:"hidden", textOverflow:"ellipsis"}}>
-                                                    This is a test message digest that may overflow the length limit.
+                                    {sessions.map((session, index) =>(
+                                        <div style={{backgroundColor:`${selectedSession === index ? 'rgb(239,239,239)' :'unset'}`}} className="chat_session_containerContent" key={index} onClick={() => {
+                                            setSelectedSession(index);
+                                            setSelectedSessionDetail(session);
+                                            navigate(`/direct/t/${session.sessionId}`)
+                                        }}>
+                                            <Avatar sx={{width:"50px", height:"50px"}} src={session.userAId  !== userInfo.userId ? session.userAAvatar : session.userBAvatar}/>&nbsp;&nbsp;
+                                            {session.messageDigestion === null && session.updateTime === null ?
+                                                <div style={{display:"flex", flexDirection:"column", justifyContent:"center"}}>
+                                                    <div style={{marginTop:"0.3rem"}}>{session.userAId  !== userInfo.userId ? session.userAName : session.userBName || 'userName'}</div>
                                                 </div>
-                                                <span style={{width:"50px"}}>&nbsp;
-                                                    · 14w
+                                                :
+                                                <div style={{display:"flex", flexDirection:"column", justifyContent:"flex-start"}}>
+                                                    <div style={{marginTop:"0.3rem"}}>{session.userAId  !== userInfo.userId ? session.userAName : session.userBName || 'userName'}</div>
+                                                    <div className="messagePage_summary" >
+                                                        <div style={{width:"200px", overflow:"hidden", textOverflow:"ellipsis"}}>
+                                                            {session.messageDigestion}
+                                                        </div>
+                                                        <span style={{width:"50px"}}>&nbsp;
+                                                            · {getDate(session.updateTime)}
                                                 </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="chat_session_containerContent">
-                                        <Avatar sx={{width:"50px", height:"50px"}}/>&nbsp;&nbsp;
-                                        <div style={{display:"flex", flexDirection:"column", justifyContent:"flex-start"}}>
-                                            <div style={{marginTop:"0.3rem"}}>user_name</div>
-                                            <div className="messagePage_summary" >
-                                                <div style={{width:"200px", overflow:"hidden", textOverflow:"ellipsis"}}>
-                                                    This is a test message digest that may overflow the length limit.
+                                                    </div>
                                                 </div>
-                                                <span style={{width:"50px"}}>&nbsp;
-                                                    · 14w
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="chat_session_containerContent">
-                                        <Avatar sx={{width:"50px", height:"50px"}}/>&nbsp;&nbsp;
-                                        <div style={{display:"flex", flexDirection:"column", justifyContent:"flex-start"}}>
-                                            <div style={{marginTop:"0.3rem"}}>user_name</div>
-                                            <div className="messagePage_summary" >
-                                                <div style={{width:"200px", overflow:"hidden", textOverflow:"ellipsis"}}>
-                                                    This is a test message digest that may overflow the length limit.
-                                                </div>
-                                                <span style={{width:"50px"}}>&nbsp;
-                                                    · 14w
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div className="messagePage_right">
-                            <div className="messagePage_right_up">
-                                <div className="messagePage_right_up_left">
-                                    <Avatar sx={{width:"23px", height:"23px"}}/>&nbsp;&nbsp;
-                                    <div>
-                                        <div style={{fontSize:"1.1rem"}}><b>user_name</b></div>
-                                        <div style={{fontSize:"0.8rem", color:"rgb(143,143,143)"}}>Active xx ago</div>
-                                    </div>
-                                </div>
-                                <div className="messagePage_right_up_right">
-                                    <div><BsTelephone/></div>
-                                    <div style={{fontSize:"1.6rem", marginTop:"0.3rem"}}><BsCameraVideo/></div>
-                                    <div><BsInfoCircle/></div>
-                                </div>
-                            </div>
-                            <div className="messagePage_right_down">
-                                <div className="messagePage_right_down_chat">
-
-
-                                    <div className="messagePage_right_down_chatDetail">
-                                        <div className="messagePage_time">December 25, 2019 11:47 am</div>
-                                        <div className="messagePage_self">
-                                            <div className="box_self">
-                                                It seems that it's 26th now😂 but anyway Merry Christmas Esin!
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="messagePage_right_down_chatDetail">
-                                        <div className="messagePage_time">December 25, 2019 11:00 pm</div>
-                                        <div className="messagePage_counterpart">
-                                            <Avatar sx={{width:"25px", height:"25px"}}/>
-                                            <div className="box_other">
-                                                Thanks 😊 happy Xmas to you too!
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="messagePage_right_down_text">
-                                    <div className="messagePage_right_down_border">
-                                        <div className="postCard_comment">
-                                            <div className="postCard_commentEmoji">
-                                                <FaRegSmile style={{fontSize:"1.5rem",fontWeight:"bold"}}/>
-                                                <input type="text" value={commentInput} placeholder="Message..." className="postCard_commentInput" onChange={event => setCommentInput(event.target.value)}/>
-                                            </div>
-                                            {
-                                                commentInput === ''?
-                                                    <button className="postCard_commentButtonCannotPost">Send</button>
-                                                    :
-                                                    <button className="postCard_commentButtonCanPost" onClick={() => {
-                                                        alert(commentInput);
-                                                        setCommentInput("");
-                                                    }}>Send</button>
                                             }
+
+
                                         </div>
-                                    </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
+
+                        <Routes>
+                            <Route path="inbox" element={<Inbox/>}/>
+                            <Route path="t/:sessionId" element={<MessageDetail selectedSessionDetail={selectedSessionDetail}/>}/>
+                        </Routes>
+
+
+
                     </div>
                 </div>
 

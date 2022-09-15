@@ -52,6 +52,12 @@ public class AccountController {
     private SaveMapper saveMapper;
 
     @Autowired
+    private SessionMapper sessionMapper;
+
+    @Autowired
+    private ChatMapper chatMapper;
+
+    @Autowired
     public User user;
 
     @Autowired
@@ -76,6 +82,15 @@ public class AccountController {
     public Save save;
 
     @Autowired
+    public Chat chat;
+
+    @Autowired
+    public Session session;
+
+    @Autowired
+    public DetailedSession detailedSession;
+
+    @Autowired
     public DetailedPost detailedPost;
 
     @Autowired
@@ -85,14 +100,10 @@ public class AccountController {
     public MutualResult mutualResult;
 
 
-
-
-//    @GetMapping("/users")
-//    public Object getAllUsers(){
-//        return userServiceImpl.getAllUsers();
-//    }
-
-
+    @GetMapping("/chats/sessionid/{sessionId}")
+    public Object getLatestSession(@PathVariable("sessionId") String sessionId){
+        return chatMapper.getLatestTime(sessionId);
+    }
 
 
     @CrossOrigin
@@ -178,7 +189,29 @@ public class AccountController {
         return allFollowees;
     }
 
+    @GetMapping("/sessions/userid/{userId}")
+    public Object fetchSessionsByUserId(@PathVariable("userId") Integer userId){
+        List<DetailedSession> sessions = sessionMapper.fetchSessionsById(userId);
+        for(DetailedSession detailedSession: sessions){
+            Chat c = chatMapper.getLatestTime(detailedSession.getSessionId());
+            if(c != null){
+                detailedSession.setMessageDigestion(c.getChatContent());
+                detailedSession.setUpdateTime(c.getChatTimestamp());
+            }
+        }
+        return sessions;
+    }
 
+//    getSessionsBySessionId
+    @GetMapping("/sessions/sessionid/{sessionId}")
+    public Object getSessionsBySessionId(@PathVariable("sessionId") String sessionId){
+        return sessionMapper.getSessionBySessionId(sessionId);
+    }
+
+    @GetMapping("/chats/allchats/{sessionId}")
+    public Object getChatsBySessionId(@PathVariable("sessionId") String sessionId){
+        return chatMapper.getChatsBySessionId(sessionId);
+    }
 
 
     @CrossOrigin
@@ -230,6 +263,17 @@ public class AccountController {
         ObjectMapper objectMapper = new ObjectMapper();
         follow = objectMapper.readValue(content, Follow.class);
         followMapper.insertFollow(follow.getFollowerId(), follow.getFolloweeId(), follow.getFollowTimestamp());
+        return 1;
+    }
+
+
+
+    @PostMapping("/sessions/new")
+    public Integer createSession(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        session = objectMapper.readValue(content, Session.class);
+        sessionMapper.createSession(session.getSessionId(), session.getUserAId(), session.getUserAName(), session.getUserAAvatar(),
+                session.getUserBId(), session.getUserBName(), session.getUserBAvatar(), session.getSessionTimestamp());
         return 1;
     }
 
@@ -380,6 +424,14 @@ public class AccountController {
         return allComments;
     }
 
+//    export const getLoginTime = (userId) => instance.get(`/users/login/${userId}`)
+    @CrossOrigin
+    @GetMapping("/users/login/{userId}")
+    public String getLoginTime(@PathVariable("userId") Integer userId){
+        return userMapper.getLoginTime(userId);
+    }
+
+
 
     @CrossOrigin
     @PostMapping("/accounts/signup")
@@ -427,6 +479,9 @@ public class AccountController {
         user = objectMapper.readValue(content, User.class);
         String emailOrPassword = user.getEmail();
 
+        String lastLoginTime = user.getLastLogin();
+
+
         List<User> allUsers = userMapper.getAllUsers();
         List<String> allUserNames = userMapper.getAllUserNames();
         List<String> allEmails = userMapper.getAllEmails();
@@ -463,6 +518,7 @@ public class AccountController {
         boolean result = passwordEncoder.matches(user.getPassword(), encodedPassword);
         if(!result) return "WRONG PASSWORD";
 
+        userMapper.updateLoginTime(lastLoginTime, userName);
         String token = JWTUtil.sign(userName, id);
 
         return token;

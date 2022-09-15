@@ -36,7 +36,7 @@ export const checkEmail = (email) => instance.get(`/accounts/validate/email/${em
 export const getUserByName = (userName) => instance.get(`/users/username/${userName}`)
 export const getUserById = (userId) => instance.get(`/users/userid/${userId}`)
 export const queryUser = (query) => instance.get(`/users/query/${query}`)
-
+export const getLoginTime = (userId) => instance.get(`/users/login/${userId}`)
 export const getRandomUsers = (num) => instance.get(`/users/random/${num}`)
 
 
@@ -68,6 +68,12 @@ export const checkIsTagged = (formData) => instance.post(`/tags/check`, formData
 export const savePost = (formData) => instance.post(`/saves/save`, formData)
 export const unSavePost = (formData) => instance.post(`/saves/unsave`, formData)
 export const checkIsSaved = (formData) => instance.post(`/saves/check`, formData)
+
+export const createSession = (formData) => instance.post(`/sessions/new`, formData);
+export const fetchSessionsById = (userId) => instance.get(`/sessions/userid/${userId}`);
+export const getSessionsBySessionId = (sessionId) => instance.get(`/sessions/sessionid/${sessionId}`);
+
+export const getChatsBySessionId = (sessionId) => instance.get(`/chats/allchats/${sessionId}`);
 
 
 

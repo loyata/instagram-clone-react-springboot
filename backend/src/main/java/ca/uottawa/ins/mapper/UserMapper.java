@@ -38,6 +38,11 @@ public interface UserMapper {
     @Update("UPDATE users SET avatar = #{imageUrl} WHERE user_name = #{userName}")
     int updateAvatar(String userName, String imageUrl);
 
+    @Update("UPDATE users SET last_login = #{loginTime} WHERE user_name = #{userName}")
+    int updateLoginTime(String loginTime, String userName);
+
+    @Select("SELECT last_login FROM users WHERE user_id = #{userId}")
+    String getLoginTime(Integer userId);
 
     @Select("SELECT u.user_id, u.user_name, u.avatar\n" +
             "FROM\n" +
