@@ -12,8 +12,9 @@ import {useSelector} from "react-redux";
 
 import Picker from 'emoji-picker-react'
 
-import TimeAgo from "javascript-time-ago";
-import en from 'javascript-time-ago/locale/en'
+import moment from 'moment';
+
+
 import {
     checkIsLiked,
     checkIsSaved,
@@ -28,14 +29,10 @@ import {useNavigate} from "react-router-dom";
 
 
 
-const Display = ({setDisplay}) => {
+const Display = ({setDisplay, setThreeDots, setThreeDotsSelf}) => {
 
 
 
-
-    TimeAgo.setDefaultLocale(en.locale)
-    TimeAgo.addLocale(en)
-    const timeAgo = new TimeAgo('en-US')
 
     const userInfo = useSelector(state => state.user);
     const {postInfo} = useSelector(state => state.post);
@@ -141,7 +138,10 @@ const Display = ({setDisplay}) => {
                                 <div style={{fontSize:"12px"}}>{postInfo.postLocation || 'unknown location'}</div>
                             </span>
                             </div>
-                            <BsThreeDots style={{fontSize:"1.2rem"}}/>
+                            <BsThreeDots className="postCard_threeDots" style={{fontSize:"1.2rem"}} onClick={() => {
+                                if(userInfo. userId === postInfo.userId) setThreeDotsSelf(true)
+                                else setThreeDots(true)
+                            }}/>
                         </div>
                         <hr/>
                     </div>
@@ -149,7 +149,7 @@ const Display = ({setDisplay}) => {
 
                     <div className="display_card_right_middle">
 
-                        {postInfo.postCaption !== null ?
+                        {postInfo.postCaption !== null && postInfo.postCaption !== '' ?
                             <div className="display_comment">
                                 <Avatar sx={{height:"35px", width:"35px"}} src={postInfo.avatar}/>
                                 <div>
@@ -162,7 +162,10 @@ const Display = ({setDisplay}) => {
                                 </div>
                             </div>
                             :
-                            <div/>
+                            <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", height:"100%"}}>
+                                <div style={{fontSize:"1.4rem", fontWeight:"bold"}}>No comments yet.</div>
+                                <div style={{fontSize:"0.9rem"}}>Start the conversation.</div>
+                            </div>
                         }
 
 
@@ -173,7 +176,7 @@ const Display = ({setDisplay}) => {
                                     <div className="display_all">
                                         <div style={{fontSize:"0.9rem"}}><b>{comment.commenterName}</b>&nbsp;{comment.commentContent}</div>
                                         <div className="display_reply">
-                                            <div>{timeAgo.format(new Date(comment.commentTimestamp))}</div>
+                                            <div>{moment(new Date(comment.commentTimestamp)).fromNow()}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -214,7 +217,9 @@ const Display = ({setDisplay}) => {
                                             await likePost(formData)
                                         }}><BsHeart/></div>}
                                 </div>
-                                <BsChat/>
+                                <BsChat onClick={() => {
+                                    document.getElementById("textarea_id").focus()
+                                }}/>
 
                                 <IoPaperPlaneOutline onClick={() => {
                                     setDisplay(false)
@@ -251,7 +256,7 @@ const Display = ({setDisplay}) => {
 
 
                         {showOtherLikes()}
-                        <span style={{fontSize:"0.5rem", padding:"0 0.7rem 0.7rem 0.7rem", color:"rgb(158,158,158)",fontWeight:"bold"}}>{timeAgo.format(new Date(postInfo.postDate))}</span>
+                        <span style={{fontSize:"0.5rem", padding:"0 0.7rem 0.7rem 0.7rem", color:"rgb(158,158,158)",fontWeight:"bold"}}>{moment(new Date(postInfo.postDate)).fromNow()}</span>
                         <hr/>
                         <div className="postCard_comment">
                             <div className="postCard_commentEmoji">
@@ -269,7 +274,7 @@ const Display = ({setDisplay}) => {
                                 </div>
 
                                 <div className="textarea_container">
-                                    <textarea value={commentInput} placeholder="Add a comment..." className="postCard_commentInput" onChange={event => setCommentInput(event.target.value)}/>
+                                    <textarea id={"textarea_id"} value={commentInput} placeholder="Add a comment..." className="postCard_commentInput" onChange={event => setCommentInput(event.target.value)}/>
                                 </div>
                                  </div>
                             {

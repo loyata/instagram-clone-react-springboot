@@ -32,7 +32,7 @@ import PersonalPosts from "./PersonalPosts/PersonalPosts";
 
 
 import {closeShowProfile, updateProfile, updateStateSimple} from "../../redux/navbarStatusSlice";
-import {updatePost} from "../../redux/postSlice";
+import {updatePost, updatePostUser} from "../../redux/postSlice";
 import {cancelUnfollow} from "../../redux/followSlice";
 
 
@@ -135,7 +135,7 @@ const PersonalContent = ({setDisplay, userName, display, setUnfollow}) => {
                         setFollow(res.data)
                     })
 
-                    dispatch(updatePost({...otherUser}));
+                    dispatch(updatePostUser({...otherUser}));
 
                 }
             }

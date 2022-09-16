@@ -27,7 +27,7 @@
     gap:0.3rem
 }
 
-.postCard_names:hover{
+.postCard_names:hover, .postCard_threeDots:hover{
     cursor: pointer;
 }
 

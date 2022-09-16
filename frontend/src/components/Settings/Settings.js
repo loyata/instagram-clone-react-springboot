@@ -9,6 +9,7 @@ import * as htmlToImage from 'html-to-image'
 
 import jwt_decode from "jwt-decode";
 import {updateAvatar} from "../../api";
+import {useSelector} from "react-redux";
 
 const AWS = require('aws-sdk')
 const S3_BUCKET ='loyata.images';
@@ -27,6 +28,8 @@ const Settings = () => {
     const [state, setState] = useState(0);
     const [avatar, setAvatar] = useState(null)
     const [userName, setUserName] = useState('');
+
+    const userInfo = useSelector(state => state.user)
 
 
     useEffect(() => {

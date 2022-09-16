@@ -136,7 +136,7 @@ const DisplayNewPage = ({setDisplay}) => {
             setDisplay(false)
         }}>
 
-            <div className="display_card" onClick={(e) => {
+            <div className="displayNew_card" onClick={(e) => {
                 e.stopPropagation();
             }}>
 
@@ -165,7 +165,7 @@ const DisplayNewPage = ({setDisplay}) => {
 
                     <div className="display_card_right_middle">
 
-                        {postInfo.postCaption !== null ?
+                        {postInfo.postCaption !== null && postInfo.postCaption !== ''?
                             <div className="display_comment">
                                 <Avatar sx={{height:"35px", width:"35px"}} src={postInfo.userAvatar}/>
                                 <div>
@@ -233,7 +233,9 @@ const DisplayNewPage = ({setDisplay}) => {
                                             await likePost(formData)
                                         }}><BsHeart/></div>}
                                 </div>
-                                <BsChat/>
+                                <BsChat onClick={() => {
+                                    document.getElementById("textArea_id2").focus()
+                                }}/>
 
                                 <IoPaperPlaneOutline onClick={() => {
                                     setDisplay(false)
@@ -288,7 +290,7 @@ const DisplayNewPage = ({setDisplay}) => {
                                 </div>
 
                                 <div className="textarea_container">
-                                    <textarea value={commentInput} placeholder="Add a comment..." className="postCard_commentInput" onChange={event => setCommentInput(event.target.value)}/>
+                                    <textarea id={"textArea_id2"} value={commentInput} placeholder="Add a comment..." className="postCard_commentInput" onChange={event => setCommentInput(event.target.value)}/>
                                 </div>
                             </div>
                             {

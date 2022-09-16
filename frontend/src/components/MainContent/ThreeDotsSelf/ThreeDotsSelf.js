@@ -1,10 +1,10 @@
 import React from 'react';
 import "./ThreeDotsSelf.css"
 
-const ThreeDotsSelf = () => {
+const ThreeDotsSelf = ({setThreeDotsSelf}) => {
     return (
-        <div className="threeDotsSelf_container">
-            <div className="threeDotsSelf_main">
+        <div className="threeDotsSelf_container" onClick={() => setThreeDotsSelf(false)}>
+            <div className="threeDotsSelf_main" onClick={(e) => e.stopPropagation()}>
                 <div>Delete</div>
                 <div>Edit</div>
                 <div>Hide like count</div>

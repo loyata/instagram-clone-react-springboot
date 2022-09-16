@@ -35,6 +35,9 @@ const PersonalPosts = ({allPosts, setDisplay, userType, userInfo, otherUser}) =>
                             className="personalContent_imageItem"
                             onClick={() => {
                                 setDisplay(true)
+                                // console.log({...item, ...otherUser})
+
+
                                 if(userType === 0) dispatch(updatePost({...item, ...userInfo}));
                                 else dispatch(updatePost({...item, ...otherUser}));
                             }}

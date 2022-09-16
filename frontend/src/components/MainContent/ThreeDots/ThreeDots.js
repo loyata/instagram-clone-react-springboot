@@ -29,20 +29,20 @@ const ThreeDots = ({setThreeDots, setUnfollow, setDisplay}) => {
                     setUnfollow(true);
                 }}>Unfollow</div>
 
-                {!isSaved ?
-                    <div onClick={async () => {
-                        await savePost({...formData, saveTimestamp: new Date().toISOString()})
-                        dispatch(updateCheck())
-                        setThreeDots(false)
-                    }
-                    }>Add to Favorites</div>
-                    :
-                    <div onClick={async () => {
-                        await unSavePost(formData)
-                        dispatch(updateCheck())
-                        setThreeDots(false)
-                    } }>Remove from Favorites</div>
-                }
+                {/*{!isSaved ?*/}
+                {/*    <div onClick={async () => {*/}
+                {/*        await savePost({...formData, saveTimestamp: new Date().toISOString()})*/}
+                {/*        dispatch(updateCheck())*/}
+                {/*        setThreeDots(false)*/}
+                {/*    }*/}
+                {/*    }>Add to Favorites</div>*/}
+                {/*    :*/}
+                {/*    <div onClick={async () => {*/}
+                {/*        await unSavePost(formData)*/}
+                {/*        dispatch(updateCheck())*/}
+                {/*        setThreeDots(false)*/}
+                {/*    } }>Remove from Favorites</div>*/}
+                {/*}*/}
 
                 <div onClick={() => {
                     setThreeDots(false);

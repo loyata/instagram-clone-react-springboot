@@ -20,6 +20,7 @@ import SeeAll from "../MainContent/SeeAll/SeeAll";
 import ThreeDots from "../MainContent/ThreeDots/ThreeDots";
 import UnFollow from "../MainContent/UnFollow/UnFollow";
 import DisplayNewPage from "../DisplayNewPage/DisplayNewPage";
+import ThreeDotsSelf from "../MainContent/ThreeDotsSelf/ThreeDotsSelf";
 
 const HomePage = () => {
 
@@ -42,6 +43,7 @@ const HomePage = () => {
     const [switchAccount, setSwitchAccount] = useState(false);
 
     const [threeDots, setThreeDots] = useState(false);
+    const [threeDotsSelf, setThreeDotsSelf] = useState(false);
     const [unfollow, setUnfollow] = useState(false);
 
 
@@ -112,7 +114,7 @@ const HomePage = () => {
 
             {display ?
                 <div style={{position:"absolute",width:"100%", zIndex:15, top:`${scrollPosition}px`}}>
-                    <Display display={display} setDisplay={setDisplay}/>
+                    <Display display={display} setDisplay={setDisplay} setThreeDots={setThreeDots} setThreeDotsSelf={setThreeDotsSelf}/>
                 </div>
                 :
                 <div/>
@@ -134,6 +136,16 @@ const HomePage = () => {
                 :
                 <div/>
             }
+
+            {threeDotsSelf ?
+                // <div style={{position:"absolute",width:"100%", zIndex:25, transform:`translate(0, ${scrollPosition}px)`}}>
+                <div style={{position:"absolute",width:"100%", zIndex:25, top:`${scrollPosition}px`}}>
+                    <ThreeDotsSelf setThreeDotsSelf={setThreeDotsSelf} setDisplay={setDisplay}/>
+                </div>
+                :
+                <div/>
+            }
+
 
             {unfollow ?
                 <div style={{position:"absolute",width:"100%", zIndex:25, top:`${scrollPosition}px`}}>

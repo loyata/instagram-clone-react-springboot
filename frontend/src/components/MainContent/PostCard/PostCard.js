@@ -44,7 +44,7 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
     const timeAgo = new TimeAgo('en-US')
 
     const userInfo = useSelector(state => state.user);
-    const {checkNeeded} = useSelector(state => state.follow)
+    const {checkNeeded, isSaved} = useSelector(state => state.follow)
 
 
 
@@ -95,9 +95,8 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
     },[])
 
     useEffect(() => {
-        console.log("carried")
         checkLikeAndSave();
-    },[postInfo, liked, saved, allLikes, checkNeeded])
+    },[postInfo, liked, saved, allLikes])
 
 
     const showOtherLikes = () => {
@@ -195,11 +194,7 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
                                 postId: postInfo.postId,
                             }
                             await unSavePost(formData)
-                            dispatch(unSavePostUpdate())
-                            dispatch(updateFormData({
-                                userId: userInfo.userId,
-                                postId: postInfo.postId
-                            }))
+
                         }
                         }><RiBookmarkFill/></div> : <div onClick={async () => {
                             const formData = {
@@ -208,11 +203,8 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
                                 saveTimestamp: new Date().toISOString()
                             }
                             await savePost(formData)
-                            dispatch(savePostUpdate())
-                            dispatch(updateFormData({
-                                userId: userInfo.userId,
-                                postId: postInfo.postId
-                            }))
+
+
                         }}><RiBookmarkLine/></div>}
                 </div>
 
