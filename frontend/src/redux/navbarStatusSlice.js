@@ -90,10 +90,13 @@ export const navbarStatusSlice = createSlice({
         openShowProfile: (state) => {
             state.showProfile = true
         },
+        clearAll:(state) => {
+            state.navbarStatus = navbarStatusDefault;
+        }
 
     }
 })
 
 
-export const {updateStateSimple, updateStateComplex, updateStateOuter, updateProfile, closeShowProfile, openShowProfile} = navbarStatusSlice.actions;
+export const {updateStateSimple, updateStateComplex, updateStateOuter, updateProfile, closeShowProfile, openShowProfile, clearAll} = navbarStatusSlice.actions;
 export default navbarStatusSlice.reducer;

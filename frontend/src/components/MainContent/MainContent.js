@@ -11,7 +11,7 @@ import useWindowDimensions from "../../utilities/useWindowDimension";
 import {getSamplePosts} from "../../api";
 import {updateStateOuter} from "../../redux/navbarStatusSlice";
 
-const MainContent = ({display, setDisplay, setSwitchAccount, friendsSuggestion, setFriendsSuggestion}) => {
+const MainContent = ({display, setDisplay, setSwitchAccount, friendsSuggestion, setFriendsSuggestion, setThreeDots}) => {
 
     const {width} = useWindowDimensions();
     const [posts, setPosts] = useState([]);
@@ -45,8 +45,15 @@ const MainContent = ({display, setDisplay, setSwitchAccount, friendsSuggestion, 
             <Container maxWidth="md" >
                 <div className="mainContent_container">
                     <div className="mainContent_left">
-                        <FriendCard/>
-                        {posts.map((post,index) => <PostCard key={index} postInfo={post} display={display} setDisplay={setDisplay}/>)}
+                        <FriendCard />
+                        {posts.map((post,index) =>
+                            <PostCard
+                                key={index}
+                                postInfo={post}
+                                display={display}
+                                setDisplay={setDisplay}
+                                setThreeDots={setThreeDots}
+                            />)}
                     </div>
 
                     {

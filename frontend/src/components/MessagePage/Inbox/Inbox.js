@@ -2,8 +2,12 @@ import React from 'react';
 import imgLogo from "../img.png";
 import Button from "@mui/material/Button";
 import "../MessagePage.css"
+import {useNavigate} from "react-router-dom";
 
 const Inbox = () => {
+
+    const navigate = useNavigate();
+
     return (
         <div className="messagePage_right2">
             <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
@@ -14,6 +18,7 @@ const Inbox = () => {
                     <Button variant="contained"
                             id="loginButton"
                             size="small"
+                            onClick={() => {navigate("/direct/new")}}
                     >Send Message</Button>
                 </div>
 

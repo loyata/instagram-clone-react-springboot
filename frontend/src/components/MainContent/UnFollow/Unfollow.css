@@ -1,0 +1,44 @@
+.unfollow_container{
+    background-color:rgba(87,87,87,0.8);
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.unfollow_main{
+    width: 400px;
+    min-height: 40px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    user-select: none;
+}
+
+.unfollow_main > div{
+    text-align: center;
+}
+
+.unfollow_selections > div{
+    padding: 0.8rem;
+    border-top: 1px solid rgb(219,219,219);
+}
+
+.unfollow_selections > div:active{
+    background-color: rgb(219,219,219);
+}
+
+.unfollow_selections > div:hover{
+    cursor: pointer;
+}
+
+.unfollow_selections > div:first-child{
+    color:rgb(219,86,91);
+    font-weight: bold;
+}
+
+.unfollow_selections > div:last-child{
+    border-radius: 0 0 8px 8px;
+}

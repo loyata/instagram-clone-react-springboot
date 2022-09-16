@@ -30,8 +30,9 @@ import {
 } from "../../../api";
 import {AiOutlineSmile} from "react-icons/ai";
 import {updatePost} from "../../../redux/postSlice";
+import {disableScroll} from "../../../redux/scrollSlice";
 
-const PostCard = ({postInfo, setDisplay}) => {
+const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
 
     const [commentInput, setCommentInput] = useState("");
     const [showEmoji, setShowEmoji] = useState(false)
@@ -122,11 +123,17 @@ const PostCard = ({postInfo, setDisplay}) => {
                         <div style={{fontSize:"12px"}}>{postInfo.postLocation || 'unknown location'}</div>
                     </span>
                 </div>
-                <BsThreeDots style={{fontSize:"1.2rem"}}/>
+                <BsThreeDots style={{fontSize:"1.2rem"}} className="pc_threedots" onClick={() => {
+                    setThreeDots(true)
+                    dispatch(updatePost({...postInfo, avatar: postInfo.userAvatar}));
+
+                    dispatch(disableScroll())
+                }}/>
             </div>
 
             <img src={postInfo.imageUrl} width="100%" className="postCard_image" onClick={() => {
-                setDisplay(true)
+                // setDisplay(true)
+                navigate(`/p/${postInfo.postId}`)
                 dispatch(updatePost({...postInfo, avatar: postInfo.userAvatar}));
             }}/>
 
@@ -156,7 +163,7 @@ const PostCard = ({postInfo, setDisplay}) => {
                                 fetchLikes();
                             }}><BsHeart/></div>}
                     </div>
-                    <BsChat/>
+                    <BsChat onClick={() => setDisplay(true)}/>
 
                     <IoPaperPlaneOutline onClick={() => {
                         navigate("/direct")
@@ -193,7 +200,8 @@ const PostCard = ({postInfo, setDisplay}) => {
                 {/*<span>like</span>*/}
                 {showOtherLikes()}
             </div>
-            <span style={{fontSize:"0.5rem", padding:"0 0.7rem 0.7rem 0.7rem", color:"rgb(158,158,158)",fontWeight:"bold"}}>2 HOURS AGO</span>
+            <span style={{fontSize:"0.7rem", padding:"0 0.7rem 0.7rem 0.7rem", color:"rgb(158,158,158)",fontWeight:"bold"}}>
+                {timeAgo.format(new Date(postInfo.postDate))}</span>
             <hr/>
 
             <div className="postCard_comment">

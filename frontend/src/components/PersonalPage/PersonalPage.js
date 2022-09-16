@@ -7,13 +7,13 @@ import Footer from "../LoginPage/Footer/Footer";
 
 import {useParams} from "react-router-dom";
 
-const PersonalPage = ({display, setDisplay}) => {
+const PersonalPage = ({display, setDisplay, setUnfollow}) => {
 
     const {userName} = useParams();
 
     return (
         <div style={{minHeight:"100vh", transform:"translate(0, 62px)"}}>
-            <PersonalContent display={display} setDisplay={setDisplay} userName={userName}/>
+            <PersonalContent display={display} setDisplay={setDisplay} userName={userName} setUnfollow={setUnfollow}/>
         </div>
     );
 };

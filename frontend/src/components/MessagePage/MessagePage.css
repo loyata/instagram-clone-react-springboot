@@ -154,13 +154,19 @@
 
 .messagePage_right_down_chat{
     height: 530px;
-    overflow-y: auto;
+    width: 100%;
+    overflow-y:auto;
     /*border: 1px solid gold;*/
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     padding: 1rem 0.5rem;
+    flex-flow: column-reverse;
 }
+
+/*hide the scroll bar*/
+/*.messagePage_right_down_chat::-webkit-scrollbar{*/
+/*    display: none;*/
+/*}*/
 
 .messagePage_right_down_chatDetail{
     width: 100%;
@@ -181,23 +187,25 @@
 }
 
 .box_other{
-    max-width: 40%;
+    max-width: 235px;
     padding: 0.7rem 1rem;
     min-height: 2rem;
     margin-left: 0.6rem;
     border: 1px solid rgb(219,219,219);
     border-radius: 16px;
     font-size: 0.9rem;
+    word-wrap:break-word;
 }
 
 .box_self{
-    max-width: 40%;
+    max-width: 235px;
     padding: 0.7rem 1rem;
     min-height: 2rem;
     margin-left: 0.6rem;
     background-color: rgb(237,237,237);
     border-radius: 16px;
     font-size: 0.9rem;
+    word-wrap:break-word;
 }
 
 .messagePage_counterpart{

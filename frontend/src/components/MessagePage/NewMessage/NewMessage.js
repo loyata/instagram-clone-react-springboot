@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import {Avatar} from "@mui/material";
 import {createSession, getUserById, queryUser} from "../../../api";
 import { v4 as uuidv4 } from 'uuid';
+import {useNavigate} from "react-router-dom";
 
 const NewMessage = ({setShowNewMessage}) => {
 
@@ -12,6 +13,8 @@ const NewMessage = ({setShowNewMessage}) => {
     const [allowNext, setAllowNext] = useState(false);
 
     const [selectedUser, setSelectedUser] = useState(-1);
+
+    const navigate = useNavigate()
 
     const userInfo = useSelector(state => state.user);
 
@@ -30,7 +33,12 @@ const NewMessage = ({setShowNewMessage}) => {
     },[searchContent])
 
     return (
-        <div className="nm_ct" onClick={() => setShowNewMessage(false)}>
+        <div className="nm_ct" onClick={
+            () => {
+                // setShowNewMessage(false)
+                navigate('/direct/inbox')
+            }
+        }>
             <div className="nm_box" onClick={(e) => e.stopPropagation()}>
                 <div className="nm_first">
                     <span style={{fontSize:"2rem"}}>×</span>
@@ -48,7 +56,8 @@ const NewMessage = ({setShowNewMessage}) => {
                                 sessionTimestamp:new Date().toISOString(),
                             }
                             await createSession(formData);
-                            setShowNewMessage(false);
+                            // setShowNewMessage(false);
+                            navigate('/direct/inbox')
                         }
 
                     }}>Next</span>

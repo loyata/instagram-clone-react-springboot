@@ -125,6 +125,9 @@
 .personalContent_imageItem:hover{
     cursor: pointer;
     filter: brightness(50%);
+
+    height: unset!important;
+
 }
 
 .personalContent_imageItem:hover + .personalContent_iconDetails{
@@ -134,5 +137,11 @@
 .personalContent_ht, .personalContent_ct{
     display: flex;
     align-items: center;
+}
+
+
+.MuiImageListItem-img, .MuiImageListItem-root{
+    width: 260px!important;
+    height: 260px!important;
 }
 

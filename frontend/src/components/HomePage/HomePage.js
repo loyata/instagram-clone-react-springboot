@@ -17,9 +17,13 @@ import Display from "../Display/Display";
 import SwitchAccounts from "../MainContent/SwitchAccounts/SwitchAccounts";
 import Explore from "../Explore/Explore";
 import SeeAll from "../MainContent/SeeAll/SeeAll";
+import ThreeDots from "../MainContent/ThreeDots/ThreeDots";
+import UnFollow from "../MainContent/UnFollow/UnFollow";
+import DisplayNewPage from "../DisplayNewPage/DisplayNewPage";
 
 const HomePage = () => {
 
+    const {canScroll} = useSelector(state => state.scroll)
 
     const dispatch = useDispatch();
     const token = localStorage.getItem("token")
@@ -37,6 +41,12 @@ const HomePage = () => {
     const [display, setDisplay] = useState(false);
     const [switchAccount, setSwitchAccount] = useState(false);
 
+    const [threeDots, setThreeDots] = useState(false);
+    const [unfollow, setUnfollow] = useState(false);
+
+
+
+
     useEffect(() => {
         document.addEventListener("click", () => {
             setOpen(false);
@@ -51,6 +61,26 @@ const HomePage = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
     };
+
+
+    const forbidScroll = (e) => {
+        e.preventDefault();
+        if(canScroll === false){
+            console.log("forbidden")
+            // window.scrollTo(0, scrollPosition)
+        }else{
+            console.log("allowed")
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', forbidScroll);
+        return (e) => {
+            window.removeEventListener('scroll', forbidScroll);
+        }
+    },[canScroll])
+
+
 
 
 
@@ -96,6 +126,23 @@ const HomePage = () => {
                 <div/>
             }
 
+            {threeDots ?
+                // <div style={{position:"absolute",width:"100%", zIndex:25, transform:`translate(0, ${scrollPosition}px)`}}>
+                <div style={{position:"absolute",width:"100%", zIndex:25, top:`${scrollPosition}px`}}>
+                    <ThreeDots setThreeDots={setThreeDots} setUnfollow={setUnfollow} setDisplay={setDisplay}/>
+                </div>
+                :
+                <div/>
+            }
+
+            {unfollow ?
+                <div style={{position:"absolute",width:"100%", zIndex:25, transform:`translate(0, ${scrollPosition}px)`}}>
+                    <UnFollow setUnfollow={setUnfollow}/>
+                </div>
+                :
+                <div/>
+            }
+
             <NavBar open={open} setOpen={setOpen}/>
 
             <Routes>
@@ -106,12 +153,16 @@ const HomePage = () => {
                         setSwitchAccount={setSwitchAccount}
                         friendsSuggestion={friendsSuggestion}
                         setFriendsSuggestion={setFriendsSuggestion}
+                        setThreeDots={setThreeDots}
+
+
                 />}/>
-                <Route path="/:userName/*" element={<PersonalPage display={display} setDisplay={setDisplay}/>}/>
+                <Route path="/:userName/*" element={<PersonalPage display={display} setDisplay={setDisplay} setUnfollow={setUnfollow}/>}/>
                 <Route path="/accounts/edit" element={<Settings/>}/>
                 <Route path="/direct/*" element={<MessagePage setSwitchAccount={setSwitchAccount}/>}/>
                 <Route path="/explore" element={<Explore display={display} setDisplay={setDisplay}/>}/>
                 <Route path="/explore/people" element={<SeeAll friendSuggestion={friendsSuggestion}/>}/>
+                <Route path="/p/:postId" element={<DisplayNewPage/>}/>
             </Routes>
 
             {/*<MainContent/>*/}

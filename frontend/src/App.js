@@ -17,6 +17,10 @@ import jwt_decode from "jwt-decode";
 import {useDispatch} from "react-redux";
 import SwitchAccounts from "./components/MainContent/SwitchAccounts/SwitchAccounts";
 import NewMessage from "./components/MessagePage/NewMessage/NewMessage";
+import ThreeDots from "./components/MainContent/ThreeDots/ThreeDots";
+import UnFollow from "./components/MainContent/UnFollow/UnFollow";
+import ThreeDotsSelf from "./components/MainContent/ThreeDotsSelf/ThreeDotsSelf";
+import DisplayNewPage from "./components/DisplayNewPage/DisplayNewPage";
 
 
 function App() {
@@ -32,6 +36,7 @@ function App() {
             <Route path="/accounts/emailsignup" element={<SignUp/>}/>
             <Route path="*" element={<NotFound/>}/>
         </Routes>
+
 
     </div>
 

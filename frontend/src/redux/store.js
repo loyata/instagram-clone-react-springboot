@@ -4,6 +4,8 @@ import confirmationReducer from "./confirmationSlice"
 import userReducer from "./userSlice"
 import postReducer from "./postSlice"
 import suggestionReducer from "./suggestionSlice"
+import scrollReducer from "./scrollSlice"
+import followReducer from "./followSlice"
 
 export const store = configureStore({
     reducer:{
@@ -11,6 +13,8 @@ export const store = configureStore({
         confirm: confirmationReducer,
         user:userReducer,
         post:postReducer,
-        suggestion:suggestionReducer
+        suggestion:suggestionReducer,
+        scroll:scrollReducer,
+        follow:followReducer
     }
 })

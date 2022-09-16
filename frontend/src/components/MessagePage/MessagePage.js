@@ -70,8 +70,10 @@ const MessagePage = ({setSwitchAccount}) => {
 
     return (
         <div style={{height:"90vh", display:"flex", flexDirection:"column", position:"relative"}}>
-            <div style={{zIndex:"20", display:`${showNewMessage? 'block' : 'none'}`}}>
-                <NewMessage setShowNewMessage={setShowNewMessage}/>
+            <div style={{zIndex:"20"}}>
+                <Routes>
+                    <Route path="new" element={<NewMessage setShowNewMessage={setShowNewMessage}/>}/>
+                </Routes>
             </div>
             <div className="messagePage_container">
                 <div className="messagePage_main">
@@ -83,7 +85,8 @@ const MessagePage = ({setSwitchAccount}) => {
                                     setSwitchAccount(true)
                                 }}><BsChevronDown/></div>
                                 <div className="messagePage_new_msg" onClick={() => {
-                                    setShowNewMessage(true)
+                                    navigate('/direct/new')
+                                    // setShowNewMessage(true)
                                 }}><BsPencilSquare/></div>
                             </div>
                             <div className="messagePage_left_down">

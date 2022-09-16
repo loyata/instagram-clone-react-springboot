@@ -243,6 +243,18 @@ public class AccountController {
         return post.get(0);
     }
 
+    @GetMapping("/posts/postid/{postId}")
+    public Object getPostByPostId(@PathVariable("postId") Integer postId){
+        detailedPost = postMapper.getPostByPostId(postId);
+        Integer userId = detailedPost.getUserId();
+        user = userMapper.getUserById(userId);
+        String userAvatar = user.getAvatar();
+        String userName = user.getUserName();
+        detailedPost.setUserAvatar(userAvatar);
+        detailedPost.setUserName(userName);
+        return detailedPost;
+    }
+
 //    export const getSavedPostsByUserId = (userId) => instance.get(`/posts/saved/userid/${userId}`)
     @GetMapping("/posts/saved/userid/{userId}")
     public Object getSavedPostsByUserId(@PathVariable("userId") Integer userId){
@@ -268,6 +280,7 @@ public class AccountController {
 
 
 
+
     @PostMapping("/sessions/new")
     public Integer createSession(@RequestBody String content) throws JsonProcessingException{
         ObjectMapper objectMapper = new ObjectMapper();
@@ -276,6 +289,15 @@ public class AccountController {
                 session.getUserBId(), session.getUserBName(), session.getUserBAvatar(), session.getSessionTimestamp());
         return 1;
     }
+
+    @PostMapping("/chats/new")
+    public Integer newChat(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        chat = objectMapper.readValue(content, Chat.class);
+        chatMapper.createChat(chat.getSessionId(), chat.getUserId(), chat.getChatContent(), chat.getChatTimestamp());
+        return 1;
+    }
+
 
     @PostMapping("/follows/check")
     public boolean checkIsFollowing(@RequestBody String content) throws JsonProcessingException{

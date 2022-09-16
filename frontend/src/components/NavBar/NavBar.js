@@ -39,7 +39,6 @@ const NavBar = ({open, setOpen}) => {
 
 
 
-
     const userInfo = useSelector(state => state.user);
 
 
@@ -124,9 +123,9 @@ const NavBar = ({open, setOpen}) => {
 
                     {navbarStatus.message ? <IoPaperPlaneSharp className="navBar_Click"/> :
                     <IoPaperPlaneOutline className="navBar_Click" onClick={e => {
-                        dispatch(updateStateSimple('message'))
-
+                            dispatch(updateStateSimple('message'))
                             navigate("/direct/inbox")
+
                     }}/>}
 
                     {navbarStatus.newPost ? <BsPlusSquareFill className="navBar_Click"/> :

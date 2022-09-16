@@ -1,0 +1,47 @@
+.threeDotsSelf_container{
+    background-color:rgba(87,87,87,0.8);
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.threeDotsSelf_main{
+    width: 424px;
+    min-height: 40px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.threeDotsSelf_main > div{
+    padding: 0.8rem;
+    text-align: center;
+    border-bottom: 1px solid rgb(219,219,219);
+    user-select: none;
+    font-size: 0.9rem;
+}
+
+.threeDotsSelf_main > div:last-child{
+    border-bottom:none;
+    border-radius: 0 0 8px 8px;
+}
+
+.threeDotsSelf_main > div:first-child{
+    border-radius: 8px 8px 0 0;
+}
+
+.threeDotsSelf_main > div:hover{
+    cursor: pointer;
+}
+
+.threeDotsSelf_main > div:active{
+    background-color: rgb(219,219,219);
+}
+
+.threeDotsSelf_main > div:nth-child(1){
+    color:rgb(219,86,91);
+    font-weight: bold;
+}

@@ -43,6 +43,7 @@ export const getRandomUsers = (num) => instance.get(`/users/random/${num}`)
 
 export const getPostsById = (userId) => instance.get(`/posts/user/${userId}`)
 export const getPostByIdentifier = (identifier) => instance.get(`/posts/identifier/${identifier}`)
+export const getPostByPostId = (postId) => instance.get(`/posts/postid/${postId}`)
 export const getPostsByName = (userName) => instance.get(`/posts/username/${userName}`)
 export const getSamplePosts = (limit) => instance.get(`/posts/random/${limit}`);
 export const getSavedPostsByUserId = (userId) => instance.get(`/posts/saved/userid/${userId}`)
@@ -74,7 +75,7 @@ export const fetchSessionsById = (userId) => instance.get(`/sessions/userid/${us
 export const getSessionsBySessionId = (sessionId) => instance.get(`/sessions/sessionid/${sessionId}`);
 
 export const getChatsBySessionId = (sessionId) => instance.get(`/chats/allchats/${sessionId}`);
-
+export const createChat = (formData) => instance.post(`/chats/new`, formData);
 
 
 export const comment = (formData) => instance.post(`/comments/new`, formData)

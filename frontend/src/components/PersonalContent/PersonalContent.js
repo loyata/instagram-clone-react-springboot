@@ -7,7 +7,7 @@ import {BsGrid3X3, BsBookmarkStar, BsFileEarmarkPerson, BsFillChatFill, BsFillHe
 import {AiFillHeart} from "react-icons/ai"
 import {useDispatch, useSelector} from "react-redux";
 import {
-    checkIsFollowing,
+    checkIsFollowing, createSession,
     followUser,
     getFolloweesById,
     getFollowersById,
@@ -25,14 +25,19 @@ import Footer from "../LoginPage/Footer/Footer";
 import {HiOutlineDotsHorizontal} from "react-icons/hi";
 import {BsPersonCheckFill} from "react-icons/bs";
 
+import { v4 as uuidv4 } from 'uuid';
+
 
 import PersonalPosts from "./PersonalPosts/PersonalPosts";
 
 
 import {closeShowProfile, updateProfile, updateStateSimple} from "../../redux/navbarStatusSlice";
+import {updatePost} from "../../redux/postSlice";
+import {cancelUnfollow} from "../../redux/followSlice";
 
 
-const PersonalContent = ({setDisplay, userName, display}) => {
+
+const PersonalContent = ({setDisplay, userName, display, setUnfollow}) => {
 
     const [tag, setTag] = useState(0);
 
@@ -55,7 +60,16 @@ const PersonalContent = ({setDisplay, userName, display}) => {
 
     const [followers, setFollowers] = useState([]);
     const [followings, setFollowings] = useState([]);
+
+    const [check, setCheck] = useState(true)
     
+    const {userDidUnfollowed} = useSelector(state=>state.follow)
+
+
+    useEffect(() => {
+        console.log(userDidUnfollowed)
+    },[userDidUnfollowed])
+
 
     /**
      * 0 self
@@ -121,11 +135,13 @@ const PersonalContent = ({setDisplay, userName, display}) => {
                         setFollow(res.data)
                     })
 
+                    dispatch(updatePost({...otherUser}));
+
                 }
             }
         }
         if (userInfo.userName) checkUserNameAsync();
-    },[userName, userInfo, follow, display])
+    },[userName, userInfo, follow, display, userDidUnfollowed])
 
 
 
@@ -149,7 +165,22 @@ const PersonalContent = ({setDisplay, userName, display}) => {
                                     </div>
                                     :
                                     <div style={{display:"flex"}}>
-                                        <div className="personalContent_button">Message</div>
+                                        <div className="personalContent_button" onClick={async () => {
+                                            const uuId = uuidv4();
+                                            const formData = {
+                                                sessionId:uuId,
+                                                userAId:userInfo.userId,
+                                                userAName:userInfo.userName,
+                                                userAAvatar:userInfo.avatar,
+                                                userBId:otherUser.userId,
+                                                userBName:otherUser.userName,
+                                                userBAvatar:otherUser.avatar,
+                                                sessionTimestamp:new Date().toISOString(),
+                                            }
+                                            await createSession(formData);
+                                            navigate(`/direct/t/${uuId}`)
+                                        }
+                                        }>Message</div>
                                         {
                                             follow === false ?
                                                 <div className="personalContent_button2" onClick={async () => {
@@ -159,18 +190,14 @@ const PersonalContent = ({setDisplay, userName, display}) => {
                                                         followeeId: otherUser.userId,
                                                         followTimestamp: new Date().toISOString()
                                                     }
-                                                    const res = await followUser(formData);
+                                                    await followUser(formData);
+                                                    dispatch(cancelUnfollow())
                                                 }
                                                 }>Follow</div>
                                                 :
                                                 <div className="personalContent_button"
                                                      onClick={async () => {
-                                                         setFollow(false)
-                                                         const formData = {
-                                                             followerId: userInfo.userId,
-                                                             followeeId: otherUser.userId,
-                                                         }
-                                                         const res = await unfollowUser(formData);
+                                                         setUnfollow(true)
                                                      }
                                                 }>
                                                     <div style={{transform:"translate(0, 4px) scale(1.5)"}}>

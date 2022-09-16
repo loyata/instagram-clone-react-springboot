@@ -11,7 +11,7 @@
     gap: 1rem;
     overflow-x: scroll;
     overflow-y: hidden;
-    min-height: 130px;
+    min-height: 110px;
 }
 
 .friendCard_person{

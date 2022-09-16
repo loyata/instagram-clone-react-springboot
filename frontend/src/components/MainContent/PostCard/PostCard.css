@@ -7,9 +7,11 @@
 
     display: flex;
     flex-direction: column;
+}
 
 
-
+.pc_threedots:hover{
+    cursor: pointer;
 }
 
 .postCard_header{
@@ -77,6 +79,7 @@ hr{
     align-items: center;
     padding: 0.6rem;
     width: 100%;
+    position: relative;
 }
 
 .postCard_commentInput{

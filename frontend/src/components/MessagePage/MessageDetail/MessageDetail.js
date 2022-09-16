@@ -5,11 +5,14 @@ import {FaRegSmile} from "react-icons/fa";
 
 import "../MessagePage.css"
 import {useSelector} from "react-redux";
-import {getChatsBySessionId, getLoginTime, getSessionsBySessionId} from "../../../api";
+import {createChat, getChatsBySessionId, getLoginTime, getSessionsBySessionId} from "../../../api";
 import {useParams} from "react-router-dom";
 
 import TimeAgo from "javascript-time-ago";
 import en from 'javascript-time-ago/locale/en'
+
+import moment from 'moment';
+import Picker from "emoji-picker-react";
 
 const MessageDetail = ({selectedSessionDetail}) => {
 
@@ -25,7 +28,28 @@ const MessageDetail = ({selectedSessionDetail}) => {
     const [other, setOther] = useState('');
     const [loginTime, setLoginTime] = useState('');
     const [chats, setChats] = useState([]);
+    const [showEmoji, setShowEmoji] = useState(false)
+    const [messageState, setMessageState] = useState(false)
+    const [timer, setTimer] = useState(0);
 
+
+    useEffect(()=>{
+        const temp = setInterval(() => {
+            setTimer(timer => timer + 1 >= 4 ? 0 : timer + 1)
+        },1000)
+        return () => clearInterval(temp);
+    }, []);
+
+    useEffect(()=>{
+        if(timer === 3) setMessageState(!messageState)
+    },[timer])
+
+
+    useEffect(() => {
+        document.addEventListener('click', () => {
+            setShowEmoji(false)
+        })
+    },[])
 
 
     useEffect(() => {
@@ -78,18 +102,11 @@ const MessageDetail = ({selectedSessionDetail}) => {
 
     useEffect(() => {
         getChats()
-    },[sessionId])
+    },[sessionId, messageState])
 
     useEffect(() => {
         getChats()
     },[])
-
-    useEffect(() => {
-        console.log(chats)
-    },[chats])
-
-
-
 
 
 
@@ -126,7 +143,7 @@ const MessageDetail = ({selectedSessionDetail}) => {
                             <>
                                 {userInfo.userId === chat.userId ?
                                     <div className="messagePage_right_down_chatDetail">
-                                        <div className="messagePage_time">{chat.chatTimestamp}</div>
+                                        <div className="messagePage_time">{moment(new Date(chat.chatTimestamp)).format("MMMM DD, YYYY h:mm a")}</div>
                                         <div className="messagePage_self">
                                             <div className="box_self">
                                                 {chat.chatContent}
@@ -135,7 +152,7 @@ const MessageDetail = ({selectedSessionDetail}) => {
                                     </div>
                                     :
                                     <div className="messagePage_right_down_chatDetail">
-                                        <div className="messagePage_time">{chat.chatTimestamp}</div>
+                                        <div className="messagePage_time">{moment(new Date(chat.chatTimestamp)).format("MMMM DD, YYYY h:mm a")}</div>
                                         <div className="messagePage_counterpart">
                                             <Avatar sx={{width:"25px", height:"25px"}} src={session[other+'Avatar']}/>
                                             <div className="box_other">
@@ -152,16 +169,38 @@ const MessageDetail = ({selectedSessionDetail}) => {
                 <div className="messagePage_right_down_text">
                     <div className="messagePage_right_down_border">
                         <div className="postCard_comment">
+                            <div style={{position:"absolute", transform:"translate(0, -60%)", display:`${showEmoji ? "block" :"none"}`, userSelect:"none"}} onClick={(e) => {
+                                e.nativeEvent.stopImmediatePropagation();
+                            }}>
+                                <Picker
+                                    onEmojiClick={(event, emojiObject) => {
+                                    setCommentInput(commentInput => commentInput += emojiObject.emoji);
+                                }}/>
+                            </div>
                             <div className="postCard_commentEmoji">
-                                <FaRegSmile style={{fontSize:"1.5rem",fontWeight:"bold"}}/>
-                                <input type="text" value={commentInput} placeholder="Message..." className="postCard_commentInput" onChange={event => setCommentInput(event.target.value)}/>
+                                <FaRegSmile style={{fontSize:"1.5rem",fontWeight:"bold"}} onClick={(e) => {
+                                    e.nativeEvent.stopImmediatePropagation();
+                                    setShowEmoji(!showEmoji)
+                                }}/>
+                                <input type="text"
+                                       value={commentInput}
+                                       placeholder="Message..."
+                                       className="postCard_commentInput"
+                                       onChange={event => setCommentInput(event.target.value)}/>
                             </div>
                             {
                                 commentInput === ''?
                                     <button className="postCard_commentButtonCannotPost">Send</button>
                                     :
-                                    <button className="postCard_commentButtonCanPost" onClick={() => {
-                                        alert(commentInput);
+                                    <button className="postCard_commentButtonCanPost" onClick={async () => {
+                                            const formData = {
+                                                sessionId:sessionId,
+                                                userId:userInfo.userId,
+                                                chatContent:commentInput,
+                                                chatTimestamp:new Date().toISOString()
+                                            }
+                                            await createChat(formData);
+                                            setMessageState(!messageState);
                                         setCommentInput("");
                                     }}>Send</button>
                             }

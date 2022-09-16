@@ -11,12 +11,12 @@ import java.util.List;
 @Component
 public interface ChatMapper {
 
-    @Insert("INSERT INTO chats(chat_id, session_id, user_id, chat_content, chat_timestamp)" +
-            " values(#{chatId}, #{sessionId}, #{userId}, #{chatContent}, #{chatTimestamp})")
-    int createChat(Integer chatId, String SessionId, Integer userId, String chatContent, String chatTimestamp);
+    @Insert("INSERT INTO chats(session_id, user_id, chat_content, chat_timestamp)" +
+            " values(#{sessionId}, #{userId}, #{chatContent}, #{chatTimestamp})")
+    int createChat(String sessionId, Integer userId, String chatContent, String chatTimestamp);
 
 
-    @Select("SELECT * FROM chats WHERE session_id = #{sessionId} ORDER BY chat_timestamp")
+    @Select("SELECT * FROM chats WHERE session_id = #{sessionId} ORDER BY chat_timestamp DESC")
     List<Chat> getChatsBySessionId(String sessionId);
 
 
