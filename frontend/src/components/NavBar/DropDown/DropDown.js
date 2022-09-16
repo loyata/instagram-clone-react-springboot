@@ -3,6 +3,8 @@ import "./DropDown.css"
 
 import {BsPersonCheck} from "react-icons/bs"
 import {AiOutlineStar} from "react-icons/ai"
+import {useDispatch} from "react-redux";
+import {updatePostCategory} from "../../../redux/postCategorySlice";
 
 
 
@@ -10,13 +12,16 @@ import {AiOutlineStar} from "react-icons/ai"
 
 const DropDown = ({setHideDropDown}) => {
 
+
+    const dispatch = useDispatch()
+
     const handleFollowing = (e) => {
-        alert("navigate to following")
+        dispatch(updatePostCategory(1))
         setHideDropDown(true)
     }
 
     const handleFavs = (e) => {
-        alert("navigate to favorites")
+        dispatch(updatePostCategory(2))
         setHideDropDown(true)
     }
 

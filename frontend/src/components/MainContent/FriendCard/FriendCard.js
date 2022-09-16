@@ -35,14 +35,16 @@ const FriendCard = () => {
 
     return (
         <div className="friendCard_container">
-            {friends.map((friend, index) => (
-                <div className="friendCard_person" key={index} onClick={() => {
-                    navigate(`/${friends[index].userName}`)
-                }}>
-                    <Avatar sx={{width:"55px", height:"55px"}} src={friends[index].avatar}/>
-                    <div className="friendCard_text">{friends[index].userName}</div>
-                </div>
-            ))}
+
+                {friends.map((friend, index) => (
+                    <div className="friendCard_person" key={index} onClick={() => {
+                        navigate(`/${friends[index].userName}`)
+                    }}>
+                        <Avatar sx={{width:"55px", height:"55px"}} src={friends[index].avatar}/>
+                        <div className="friendCard_text">{friends[index].userName}</div>
+                    </div>
+                ))}
+
         </div>
     );
 };

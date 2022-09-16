@@ -40,6 +40,25 @@ public interface PostMapper {
             "LIMIT 5")
     List<DetailedPost> getRandomPosts(Integer limit);
 
+
+    @Select("SELECT p.user_id, post_id, post_likes, avatar as user_avatar, user_name, post_location, image_url, post_date, post_likes \n" +
+            "FROM follows f, posts p, users u \n" +
+            "WHERE f.follower_id = #{userId} \n" +
+            "AND f.followee_id = p.user_id \n" +
+            "AND p.user_id = u.user_id \n" +
+            "ORDER BY post_id \n" +
+            "LIMIT #{startIndex}, #{limit}")
+    List<DetailedPost> getFriendPostsPaging(Integer userId, Integer startIndex, Integer limit);
+
+    @Select("SELECT p.user_id, p.post_id, post_likes, avatar as user_avatar, user_name, post_location, image_url, post_date, post_likes\n" +
+            "FROM saves s, posts p, users u\n" +
+            "WHERE s.user_id = #{userId} \n" +
+            "AND s.post_id = p.post_id\n" +
+            "AND p.user_id = u.user_id \n" +
+            "ORDER BY post_id \n" +
+            "LIMIT #{startIndex}, #{limit}")
+    List<DetailedPost> getFavoritePostsPaging(Integer userId, Integer startIndex, Integer limit);
+
     @Select("SELECT b.* FROM (" +
             "SELECT * FROM saves WHERE saves.user_id = #{userId}" +
             ") a, posts b " +

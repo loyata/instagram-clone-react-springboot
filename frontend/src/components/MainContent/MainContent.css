@@ -6,6 +6,10 @@
     transform:translate(0, 62px);
 }
 
+.mainContent_return:hover{
+    cursor: pointer;
+}
+
 .mainContent_left{
     width: 55%;
 }

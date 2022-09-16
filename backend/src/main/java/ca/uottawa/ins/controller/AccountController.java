@@ -231,11 +231,26 @@ public class AccountController {
     }
 
     @CrossOrigin
+    @GetMapping("/posts/friends")
+    public Object getFriendPosts(@RequestParam("userId") Integer userId, @RequestParam("startIndex") Integer startIndex, @RequestParam("limit") Integer limit){
+        return postMapper.getFriendPostsPaging(userId, startIndex, limit);
+    }
+
+    @CrossOrigin
+    @GetMapping("/posts/favorites")
+    public Object getFavoritePosts(@RequestParam("userId") Integer userId, @RequestParam("startIndex") Integer startIndex, @RequestParam("limit") Integer limit){
+        return postMapper.getFavoritePostsPaging(userId, startIndex, limit);
+    }
+
+
+    @CrossOrigin
     @GetMapping("/posts/random/{limit}")
-    public Object getRandomPosts(@PathVariable("limit") Integer limit){
+    public Object getFriendPostsPaging(@PathVariable("limit") Integer limit){
         List<DetailedPost> randomPosts = postMapper.getRandomPosts(limit);
         return randomPosts;
     }
+
+
 
     @GetMapping("/posts/identifier/{identifier}")
     public Object getPostByIdentifier(@PathVariable("identifier") String identifier){
@@ -261,6 +276,8 @@ public class AccountController {
         List<Post> allPosts = postMapper.getSavedPostsByUserId(userId);
         return allPosts;
 }
+
+
 
 
 

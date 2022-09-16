@@ -66,10 +66,10 @@ const HomePage = () => {
     const forbidScroll = (e) => {
         e.preventDefault();
         if(canScroll === false){
-            console.log("forbidden")
+            // console.log("forbidden")
             // window.scrollTo(0, scrollPosition)
         }else{
-            console.log("allowed")
+            // console.log("allowed")
         }
     }
 
@@ -103,7 +103,7 @@ const HomePage = () => {
             // position:"relative",
         }}>
             {navbarStatus.newPost ?
-                <div style={{position:"absolute",width:"100%", zIndex:15, transform:`translate(0, ${scrollPosition}px)`}}>
+                <div style={{position:"absolute",width:"100%", zIndex:15, top:`${scrollPosition}px`}}>
                     <NewPost/>
                 </div>
                 :
@@ -111,7 +111,7 @@ const HomePage = () => {
             }
 
             {display ?
-                <div style={{position:"absolute",width:"100%", zIndex:15, transform:`translate(0, ${scrollPosition}px)`}}>
+                <div style={{position:"absolute",width:"100%", zIndex:15, top:`${scrollPosition}px`}}>
                     <Display display={display} setDisplay={setDisplay}/>
                 </div>
                 :
@@ -119,7 +119,7 @@ const HomePage = () => {
             }
 
             {switchAccount ?
-                <div style={{position:"absolute",width:"100%", zIndex:15, transform:`translate(0, ${scrollPosition}px)`}}>
+                <div style={{position:"absolute",width:"100%", zIndex:15, top:`${scrollPosition}px`}}>
                     <SwitchAccounts switchAccount={switchAccount} setSwitchAccount={setSwitchAccount}/>
                 </div>
                 :
@@ -136,7 +136,7 @@ const HomePage = () => {
             }
 
             {unfollow ?
-                <div style={{position:"absolute",width:"100%", zIndex:25, transform:`translate(0, ${scrollPosition}px)`}}>
+                <div style={{position:"absolute",width:"100%", zIndex:25, top:`${scrollPosition}px`}}>
                     <UnFollow setUnfollow={setUnfollow}/>
                 </div>
                 :

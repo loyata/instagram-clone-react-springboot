@@ -3,6 +3,8 @@ import "./ThreeDots.css"
 import {useDispatch, useSelector} from "react-redux";
 import {allowScroll,disableScroll} from "../../../redux/scrollSlice";
 import {useNavigate} from "react-router-dom";
+import {savePost, unSavePost} from "../../../api";
+import {updateCheck} from "../../../redux/followSlice";
 
 const ThreeDots = ({setThreeDots, setUnfollow, setDisplay}) => {
 
@@ -11,6 +13,7 @@ const ThreeDots = ({setThreeDots, setUnfollow, setDisplay}) => {
     const navigate = useNavigate();
 
     const {postInfo} = useSelector(state => state.post);
+    const {isSaved, formData} = useSelector(state => state.follow)
 
     return (
         <div className="threeDots_container" onClick={
@@ -25,13 +28,27 @@ const ThreeDots = ({setThreeDots, setUnfollow, setDisplay}) => {
                     setThreeDots(false);
                     setUnfollow(true);
                 }}>Unfollow</div>
-                <div>Add to Favorites</div>
+
+                {!isSaved ?
+                    <div onClick={async () => {
+                        await savePost({...formData, saveTimestamp: new Date().toISOString()})
+                        dispatch(updateCheck())
+                        setThreeDots(false)
+                    }
+                    }>Add to Favorites</div>
+                    :
+                    <div onClick={async () => {
+                        await unSavePost(formData)
+                        dispatch(updateCheck())
+                        setThreeDots(false)
+                    } }>Remove from Favorites</div>
+                }
+
                 <div onClick={() => {
                     setThreeDots(false);
                     // setDisplay(true);
                     // console.log(postInfo)
                     navigate(`/p/${postInfo.postId}`)
-
                 }}>Go to post</div>
                 {/*<div>Share to...</div>*/}
                 <div onClick={() => {

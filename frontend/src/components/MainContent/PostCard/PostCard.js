@@ -31,6 +31,7 @@ import {
 import {AiOutlineSmile} from "react-icons/ai";
 import {updatePost} from "../../../redux/postSlice";
 import {disableScroll} from "../../../redux/scrollSlice";
+import {savePostUpdate, unSavePostUpdate, updateFormData} from "../../../redux/followSlice";
 
 const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
 
@@ -43,6 +44,7 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
     const timeAgo = new TimeAgo('en-US')
 
     const userInfo = useSelector(state => state.user);
+    const {checkNeeded} = useSelector(state => state.follow)
 
 
 
@@ -71,10 +73,19 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
 
     const checkLikeAndSave = async () => {
         if(postInfo.postId){
+
+            dispatch(updateFormData({
+            userId: userInfo.userId,
+            postId: postInfo.postId
+        }))
+
             const res = await checkIsLiked({userId: userInfo.userId, postId: postInfo.postId});
             const res2 = await checkIsSaved({userId: userInfo.userId, postId: postInfo.postId});
             setLiked(res.data);
             setSaved(res2.data);
+            if(res2.data === true) {
+                dispatch(savePostUpdate())
+            }
         }
     }
 
@@ -84,8 +95,9 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
     },[])
 
     useEffect(() => {
+        console.log("carried")
         checkLikeAndSave();
-    },[postInfo, liked, saved, allLikes])
+    },[postInfo, liked, saved, allLikes, checkNeeded])
 
 
     const showOtherLikes = () => {
@@ -123,10 +135,10 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
                         <div style={{fontSize:"12px"}}>{postInfo.postLocation || 'unknown location'}</div>
                     </span>
                 </div>
-                <BsThreeDots style={{fontSize:"1.2rem"}} className="pc_threedots" onClick={() => {
+                <BsThreeDots
+                    style={{fontSize:"1.2rem"}} className="pc_threedots" onClick={() => {
                     setThreeDots(true)
                     dispatch(updatePost({...postInfo, avatar: postInfo.userAvatar}));
-
                     dispatch(disableScroll())
                 }}/>
             </div>
@@ -183,6 +195,11 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
                                 postId: postInfo.postId,
                             }
                             await unSavePost(formData)
+                            dispatch(unSavePostUpdate())
+                            dispatch(updateFormData({
+                                userId: userInfo.userId,
+                                postId: postInfo.postId
+                            }))
                         }
                         }><RiBookmarkFill/></div> : <div onClick={async () => {
                             const formData = {
@@ -191,6 +208,11 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
                                 saveTimestamp: new Date().toISOString()
                             }
                             await savePost(formData)
+                            dispatch(savePostUpdate())
+                            dispatch(updateFormData({
+                                userId: userInfo.userId,
+                                postId: postInfo.postId
+                            }))
                         }}><RiBookmarkLine/></div>}
                 </div>
 

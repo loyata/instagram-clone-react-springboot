@@ -45,7 +45,11 @@ export const getPostsById = (userId) => instance.get(`/posts/user/${userId}`)
 export const getPostByIdentifier = (identifier) => instance.get(`/posts/identifier/${identifier}`)
 export const getPostByPostId = (postId) => instance.get(`/posts/postid/${postId}`)
 export const getPostsByName = (userName) => instance.get(`/posts/username/${userName}`)
+
 export const getSamplePosts = (limit) => instance.get(`/posts/random/${limit}`);
+export const getFriendPostsPaging = (userId, startIndex, limit) => instance.get(`/posts/friends?userId=${userId}&startIndex=${startIndex}&limit=${limit}`);
+export const getFavoritePostsPaging = (userId, startIndex, limit) => instance.get(`/posts/favorites?userId=${userId}&startIndex=${startIndex}&limit=${limit}`);
+
 export const getSavedPostsByUserId = (userId) => instance.get(`/posts/saved/userid/${userId}`)
 
 export const followUser = (formData) => instance.post(`/follows/follow`, formData)

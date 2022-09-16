@@ -1,21 +1,21 @@
 .friendCard_container{
     background-color: white;
-    /*width: 50%;*/
-    min-width: 350px;
-    /*height: 15%;*/
+    width: 470px;
+    height: 62px;
     margin:16px 0 0;
     padding:16px 0;
     border-radius: 8px;
     border: 1px solid rgb(219,219,219);
     display: flex;
-    gap: 1rem;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    gap: 0.4rem;
+    overflow: auto;
     min-height: 110px;
 }
 
+
 .friendCard_person{
-    padding-left: 0.6rem;
+    overflow: scroll;
+    padding-left: 0.2rem;
     margin-top: 0.4rem;
     display: flex;
     flex-direction: column;
