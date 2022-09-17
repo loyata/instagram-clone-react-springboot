@@ -4,7 +4,10 @@ const initialState = {
     userId:-1,
     avatar:'',
     email:'',
-    fullName:''
+    fullName:'',
+    website:'',
+    bio:'',
+    phoneNumber:''
 }
 
 export const userSlice = createSlice({
@@ -12,12 +15,15 @@ export const userSlice = createSlice({
     initialState,
     reducers:{
         update: (state, action) => {
-            const {userName, userId, avatar, email, fullName} = action.payload
+            const {userName, userId, avatar, email, fullName, website, bio, phoneNumber} = action.payload
             state.userName = userName;
             state.userId = userId;
             state.avatar = avatar;
             state.email = email;
             state.fullName = fullName;
+            state.website = website;
+            state.bio = bio;
+            state.phoneNumber = phoneNumber
         }
     }
 

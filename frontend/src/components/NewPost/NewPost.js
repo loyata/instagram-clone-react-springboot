@@ -43,7 +43,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import jwt_decode from "jwt-decode";
 
-const AntSwitch = styled(Switch)(({ theme }) => ({
+export const AntSwitch = styled(Switch)(({ theme }) => ({
     width: 28,
     height: 16,
     padding: 0,
@@ -773,8 +773,34 @@ const NewPost = () => {
                                         </div>
                                     </div>
 
+                                    <div className="newPost_remain">
+                                        {locationContent !== '' && disableLocation === false ?
+                                            <div className="newPost_searchResults">
+                                                <ul className="newPost_location_ul">
+                                                    {
+                                                        locationResult.map(
+                                                            (result, index) =>
+                                                                <li
+                                                                    className="newPost_location_li"
+                                                                    key={index}
+                                                                    onClick={() => {
+                                                                        setLocationContent(locationResult[index]);
+                                                                        setDisableLocation(true)
+                                                                    }}
+                                                                >
+                                                                    {result}
+                                                                </li>
+                                                        )
+                                                    }
+                                                </ul>
+                                            </div>
+                                            :
+                                            <div/>
+                                        }
+                                    </div>
 
-                                    <div className="newPost_access">
+                                    <div className="newPost_access"
+                                         style={{display:`${locationContent !== '' && disableLocation === false ? 'none':'block'}`}}>
                                         <div style={{display:"flex", justifyContent:"space-between"}}>
                                             <div style={{fontWeight:`${accessOpen? 'bold':'unset'}`}}>Accessibility</div>
                                             <div
@@ -799,10 +825,9 @@ const NewPost = () => {
                                         </div>
                                     </div>
 
-                                    {/*const [advancedOn, setAdvancedOn] = useState(false);*/}
-                                    {/*const [hideLikeAndView, setHideLikeAndView] = useState(false);*/}
-                                    {/*const [disableComment, setDisableComment] = useState(false);*/}
-                                    <div className="newPost_access">
+                                    <div className="newPost_access"
+                                         style={{display:`${locationContent !== '' && disableLocation === false ? 'none':'block'}`}}
+                                    >
                                         <div style={{display:"flex", justifyContent:"space-between"}}>
                                             <div style={{fontWeight:`${advancedOn? 'bold':'unset'}`}}>Advanced Settings</div>
                                             <div
@@ -839,32 +864,6 @@ const NewPost = () => {
                                     </div>
 
 
-
-                                    <div className="newPost_remain">
-                                        {locationContent !== '' && disableLocation === false ?
-                                            <div className="newPost_searchResults">
-                                                <ul className="newPost_location_ul">
-                                                    {
-                                                        locationResult.map(
-                                                            (result, index) =>
-                                                                <li
-                                                                    className="newPost_location_li"
-                                                                    key={index}
-                                                                    onClick={() => {
-                                                                        setLocationContent(locationResult[index]);
-                                                                        setDisableLocation(true)
-                                                                    }}
-                                                                >
-                                                                    {result}
-                                                                </li>
-                                                        )
-                                                    }
-                                                </ul>
-                                            </div>
-                                            :
-                                            <div/>
-                                        }
-                                    </div>
                                 </div>
                                 :
                                 <div className="newPost_editPhoto_right">

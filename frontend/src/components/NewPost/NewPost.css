@@ -5,7 +5,6 @@
     align-items: center;
     background-color: rgba(0,0,0,0.6);
     flex-direction: column;
-    /*position: relative;*/
 }
 
 .newPost_create{
@@ -408,6 +407,7 @@
     padding: 1rem 1rem 0.5rem 1rem;
     width: 100%;
     border-bottom: 1px solid rgb(219,219,219);
+
 }
 
 textarea{
@@ -483,6 +483,7 @@ textarea::placeholder {
     height: 250px;
     box-shadow: rgba(0, 0, 0, 0.1) 8px 4px 12px;
     overflow-y: scroll;
+    z-index: 20;
 }
 
 .newPost_location_ul{

@@ -18,5 +18,8 @@ public class User {
     private String avatar;
     private String fullName;
     private String lastLogin;
+    private String website;
+    private String bio;
+    private String phoneNumber;
 }
 

@@ -21,6 +21,8 @@ import ThreeDots from "../MainContent/ThreeDots/ThreeDots";
 import UnFollow from "../MainContent/UnFollow/UnFollow";
 import DisplayNewPage from "../DisplayNewPage/DisplayNewPage";
 import ThreeDotsSelf from "../MainContent/ThreeDotsSelf/ThreeDotsSelf";
+import DeletePost from "../MainContent/DeletePost/DeletePost";
+import EditPost from "../MainContent/EditPost/EditPost";
 
 const HomePage = () => {
 
@@ -45,6 +47,8 @@ const HomePage = () => {
     const [threeDots, setThreeDots] = useState(false);
     const [threeDotsSelf, setThreeDotsSelf] = useState(false);
     const [unfollow, setUnfollow] = useState(false);
+    const [deletePost, setDeletePost] = useState(false);
+    const [editPost, setEditPost] = useState(false);
 
 
 
@@ -65,22 +69,22 @@ const HomePage = () => {
     };
 
 
-    const forbidScroll = (e) => {
-        e.preventDefault();
-        if(canScroll === false){
-            // console.log("forbidden")
-            // window.scrollTo(0, scrollPosition)
-        }else{
-            // console.log("allowed")
-        }
-    }
-
-    useEffect(() => {
-        window.addEventListener('scroll', forbidScroll);
-        return (e) => {
-            window.removeEventListener('scroll', forbidScroll);
-        }
-    },[canScroll])
+    // const forbidScroll = (e) => {
+    //     // e.preventDefault();
+    //     if(canScroll === false){
+    //         // console.log("forbidden")
+    //         // window.scrollTo(0, scrollPosition)
+    //     }else{
+    //         // console.log("allowed")
+    //     }
+    // }
+    //
+    // useEffect(() => {
+    //     window.addEventListener('scroll', forbidScroll);
+    //     return (e) => {
+    //         window.removeEventListener('scroll', forbidScroll);
+    //     }
+    // },[canScroll])
 
 
 
@@ -140,7 +144,11 @@ const HomePage = () => {
             {threeDotsSelf ?
                 // <div style={{position:"absolute",width:"100%", zIndex:25, transform:`translate(0, ${scrollPosition}px)`}}>
                 <div style={{position:"absolute",width:"100%", zIndex:25, top:`${scrollPosition}px`}}>
-                    <ThreeDotsSelf setThreeDotsSelf={setThreeDotsSelf} setDisplay={setDisplay}/>
+                    <ThreeDotsSelf setThreeDotsSelf={setThreeDotsSelf}
+                                   setDisplay={setDisplay}
+                                   setDeletePost={setDeletePost}
+                                   setEditPost={setEditPost}
+                    />
                 </div>
                 :
                 <div/>
@@ -155,7 +163,24 @@ const HomePage = () => {
                 <div/>
             }
 
-            <NavBar open={open} setOpen={setOpen}/>
+
+            {deletePost ?
+                <div style={{position:"absolute",width:"100%", zIndex:25, top:`${scrollPosition}px`}}>
+                    <DeletePost setDeletePost={setDeletePost}/>
+                </div>
+                :
+                <div/>
+            }
+
+            {editPost ?
+                <div style={{position:"absolute",width:"100%",zIndex:25, top:`${scrollPosition}px`}}>
+                    <EditPost setEditPost={setEditPost}/>
+                </div>
+                :
+                <div/>
+            }
+
+            <NavBar open={open} setOpen={setOpen} setSwitchAccount={setSwitchAccount}/>
 
             <Routes>
                 <Route path="/" element={

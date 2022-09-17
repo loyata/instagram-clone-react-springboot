@@ -29,6 +29,7 @@ export const logIn = (formData) => instance.post(`/accounts/login`, formData);
 
 export const createPost = (formData) => instance.post("/posts/new", formData);
 export const updateAvatar = (formData) => instance.post(`/accounts/avatar`, formData)
+export const updateInSettings = (formData) => instance.post(`/accounts/update`, formData)
 
 export const checkUserName = (userName) => instance.get(`/accounts/validate/username/${userName}`)
 export const checkEmail = (email) => instance.get(`/accounts/validate/email/${email}`)
@@ -45,10 +46,15 @@ export const getPostsById = (userId) => instance.get(`/posts/user/${userId}`)
 export const getPostByIdentifier = (identifier) => instance.get(`/posts/identifier/${identifier}`)
 export const getPostByPostId = (postId) => instance.get(`/posts/postid/${postId}`)
 export const getPostsByName = (userName) => instance.get(`/posts/username/${userName}`)
+export const deletePost = (postId) => instance.delete(`/posts/delete/${postId}`)
 
 export const getSamplePosts = (limit) => instance.get(`/posts/random/${limit}`);
+export const getSamplePostsExcludingSelf = (limit, userId) => instance.get(`/posts/random/others?limit=${limit}&userId=${userId}`);
+
 export const getFriendPostsPaging = (userId, startIndex, limit) => instance.get(`/posts/friends?userId=${userId}&startIndex=${startIndex}&limit=${limit}`);
 export const getFavoritePostsPaging = (userId, startIndex, limit) => instance.get(`/posts/favorites?userId=${userId}&startIndex=${startIndex}&limit=${limit}`);
+export const updatePost = (formData) => instance.patch(`/posts/update`, formData);
+
 
 export const getSavedPostsByUserId = (userId) => instance.get(`/posts/saved/userid/${userId}`)
 

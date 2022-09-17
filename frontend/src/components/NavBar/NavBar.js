@@ -27,7 +27,7 @@ import {getUserByName} from "../../api";
 
 
 
-const NavBar = ({open, setOpen}) => {
+const NavBar = ({setSwitchAccount}) => {
 
     const { width } = useWindowDimensions();
     const [searchContent, setSearchContent] = useState("");
@@ -154,7 +154,7 @@ const NavBar = ({open, setOpen}) => {
                                     else dispatch(updateProfile(1))
                         }}/>
                         {/*{navbarStatus.profile?  <ProfileInfo/>: <div/>}*/}
-                        {showProfile?  <ProfileInfo/>: <div/>}
+                        {showProfile?  <ProfileInfo setSwitchAccount={setSwitchAccount}/>: <div/>}
                     </div>
                 </Grid>
 

@@ -149,9 +149,10 @@ const Display = ({setDisplay, setThreeDots, setThreeDotsSelf}) => {
 
                     <div className="display_card_right_middle">
 
-                        {postInfo.postCaption !== null && postInfo.postCaption !== '' ?
+
+                        {postInfo.postCaption !== null && postInfo.postCaption !== ''?
                             <div className="display_comment">
-                                <Avatar sx={{height:"35px", width:"35px"}} src={postInfo.avatar}/>
+                                <Avatar sx={{height:"35px", width:"35px"}} src={postInfo.userAvatar}/>
                                 <div>
                                     <div className="display_all">
 
@@ -162,11 +163,19 @@ const Display = ({setDisplay, setThreeDots, setThreeDotsSelf}) => {
                                 </div>
                             </div>
                             :
+                            <div/>
+                        }
+
+
+                        {(postInfo.postCaption === null || postInfo.postCaption === '') && comments.length === 0 ?
                             <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", height:"100%"}}>
                                 <div style={{fontSize:"1.4rem", fontWeight:"bold"}}>No comments yet.</div>
                                 <div style={{fontSize:"0.9rem"}}>Start the conversation.</div>
                             </div>
+                            :
+                            <div/>
                         }
+
 
 
                         {comments.map((comment, index) => (

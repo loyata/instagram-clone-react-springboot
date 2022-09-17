@@ -1,6 +1,6 @@
 .setting_ct{
     width: 935px;
-    height: 90%;
+    min-height: 90%;
     border: 1px solid rgb(219,219,219);
     background-color: white;
     border-radius: 4px;
@@ -46,9 +46,28 @@
     width: 70%;
 }
 
+.setting_text{
+    white-space: normal;
+    max-width: 300px;
+    font-size: 0.8rem;
+    color:rgb(143,143,143)
+}
+
+
 .setting_right_right > input{
     height: 30px;
     width: 300px;
+    border:1px solid rgb(219,219,219);
+    border-radius: 4px;
+    padding-left: 0.6rem;
+}
+
+.setting_right_right > textarea{
+    width: 300px;
+    height: 90px;
+    border:1px solid rgb(219,219,219);
+    border-radius: 4px;
+    padding: 0.6rem;
 }
 
 .setting_right_li{
@@ -67,10 +86,8 @@
     font-weight: bold;
     font-size: 0.9rem;
     user-select: none;
-    width: 110px;
+    width: 90px;
     text-align: center;
-    margin-left: 12rem;
-    margin-top: 2rem;
 }
 
 .setting_button:hover{

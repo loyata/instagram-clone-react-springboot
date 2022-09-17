@@ -41,6 +41,10 @@ public interface UserMapper {
     @Update("UPDATE users SET last_login = #{loginTime} WHERE user_name = #{userName}")
     int updateLoginTime(String loginTime, String userName);
 
+    @Update("UPDATE users SET avatar = #{imageUrl}, full_name = #{fullName}, website = #{website}, bio = #{bio}, phone_number = #{phoneNumber} " +
+            "WHERE user_name = #{userName}")
+    int updateInSettings(String userName, String imageUrl, String fullName, String website, String bio, String phoneNumber);
+
     @Select("SELECT last_login FROM users WHERE user_id = #{userId}")
     String getLoginTime(Integer userId);
 

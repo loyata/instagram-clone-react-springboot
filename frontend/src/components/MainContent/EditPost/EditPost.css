@@ -1,0 +1,66 @@
+.editPost_ct{
+    background-color:rgba(87,87,87,0.8);
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editPost_main{
+    height: 76vh;
+    width: 60vw;
+    border-radius: 16px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+.editPost_title{
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(219,219,219);
+}
+
+.editPost_title > span{
+    padding: 0.8rem;
+}
+
+.editPost_title > span:hover{
+    cursor: pointer;
+}
+
+.editPost_body{
+    flex: 1 1 0;
+    width: 100%;
+    display: flex;
+}
+
+.editPost_bodyLeft{
+    width: 60%;
+    height: 100%;
+    background-color: black;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 0 0 0 16px;
+}
+
+.editPost_bodyRight{
+    width: 40%;
+    height: 100%;
+}
+
+.editPost_searchResults{
+    /*position: absolute;*/
+    width: 100%;
+    height: 250px;
+    box-shadow: rgba(0, 0, 0, 0.1) 8px 4px 12px;
+    overflow-y: scroll;
+    z-index: 40;
+}

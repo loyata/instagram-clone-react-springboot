@@ -37,8 +37,16 @@ public interface PostMapper {
             "FROM posts, users " +
             "WHERE posts.user_id = users.user_id " +
             "ORDER BY RAND() " +
-            "LIMIT 5")
+            "LIMIT #{limit}")
     List<DetailedPost> getRandomPosts(Integer limit);
+
+
+    @Select("SELECT posts.user_id, post_id, post_likes, avatar as user_avatar, user_name, post_location, image_url, post_date, post_likes " +
+            "FROM posts, users " +
+            "WHERE users.user_id != #{userId} AND posts.user_id = users.user_id " +
+            "ORDER BY RAND() " +
+            "LIMIT #{limit}")
+    List<DetailedPost> getSamplePostsExcludingSelf(Integer userId, Integer limit);
 
 
     @Select("SELECT p.user_id, post_id, post_likes, avatar as user_avatar, user_name, post_location, image_url, post_date, post_likes \n" +
@@ -65,6 +73,12 @@ public interface PostMapper {
             "WHERE " +
             "a.post_id = b.post_id")
     List<Post> getSavedPostsByUserId(Integer userId);
+
+    @Delete("DELETE FROM posts WHERE post_id = #{postId}")
+    Integer deletePost(Integer postId);
+
+    @Update("UPDATE posts SET post_caption = #{postCaption}, post_location = #{postLocation}, post_alt = #{postAlt} WHERE post_id = #{postId}")
+    int updatePost(Integer postId, String postCaption, String postLocation, String postAlt);
 
     @Update("UPDATE posts SET post_comments = post_comments + 1 WHERE post_id = #{postId}")
     int increaseComments(Integer postId);

@@ -7,7 +7,7 @@ import {unfollow} from "../../../redux/followSlice";
 
 const UnFollow = ({setUnfollow}) => {
 
-    const {postUserInfo} = useSelector(state => state.post);
+    const {postInfo, postUserInfo} = useSelector(state => state.post);
     const userInfo = useSelector(state => state.user);
 
     const dispatch = useDispatch();
@@ -22,15 +22,16 @@ const UnFollow = ({setUnfollow}) => {
                     padding:"2rem",
                     gap:"1.5rem"
                 }}>
-                    <Avatar sx={{width:"90px", height:"90px"}} src={postUserInfo.avatar}/>
-                    <div>{`Leave @${postUserInfo.userName}`}</div>
+                    <Avatar sx={{width:"90px", height:"90px"}} src={postUserInfo.avatar || postInfo.avatar}/>
+                    <div>{`Leave @${postUserInfo.userName || postInfo.userName}`}</div>
                 </div>
                 <div className="unfollow_selections">
                     <div onClick={async () => {
                         const formData = {
                             followerId: userInfo.userId,
-                            followeeId: postUserInfo.userId,
+                            followeeId: postUserInfo.userId || postInfo.userId,
                         }
+                        console.log(formData)
                         await unfollowUser(formData);
                         setUnfollow(false);
                         dispatch(unfollow());

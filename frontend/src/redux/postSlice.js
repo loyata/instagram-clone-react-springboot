@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
     postInfo:{},
-    postUserInfo:{} //for usage of Unfollow component
+    postUserInfo:{}, //for usage of Unfollow component
 }
 
 export const postSlice = createSlice({

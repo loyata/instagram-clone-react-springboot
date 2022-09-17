@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "./ThreeDots.css"
 import {useDispatch, useSelector} from "react-redux";
 import {allowScroll,disableScroll} from "../../../redux/scrollSlice";
 import {useNavigate} from "react-router-dom";
-import {savePost, unSavePost} from "../../../api";
+import {checkIsFollowing, followUser, savePost, unSavePost} from "../../../api";
 import {updateCheck} from "../../../redux/followSlice";
 
 const ThreeDots = ({setThreeDots, setUnfollow, setDisplay}) => {
@@ -13,7 +13,24 @@ const ThreeDots = ({setThreeDots, setUnfollow, setDisplay}) => {
     const navigate = useNavigate();
 
     const {postInfo} = useSelector(state => state.post);
-    const {isSaved, formData} = useSelector(state => state.follow)
+    const userInfo = useSelector(state => state.user)
+
+    const [following, setFollowing] = useState(false);
+    const [checkNeeded, setCheckNeeded] = useState(false);
+
+    const check = async () => {
+        console.log({followerId: userInfo.userId, followeeId:postInfo.userId})
+        const res = await checkIsFollowing({followerId: userInfo.userId, followeeId:postInfo.userId})
+        setFollowing(res.data)
+    }
+
+
+    useEffect(() => {
+        if(userInfo){
+            check();
+        }
+    },[userInfo.userId])
+
 
     return (
         <div className="threeDots_container" onClick={
@@ -24,25 +41,23 @@ const ThreeDots = ({setThreeDots, setUnfollow, setDisplay}) => {
         }>
             <div className="threeDots_main" onClick={event => event.stopPropagation()}>
                 {/*<div onClick={() => {alert("This functionality has not been implemented yet.")}}>Report</div>*/}
-                <div onClick={() => {
-                    setThreeDots(false);
-                    setUnfollow(true);
-                }}>Unfollow</div>
+                {following?
+                    <div onClick={() => {
+                        setThreeDots(false);
+                        setUnfollow(true);
+                    }}>Unfollow</div>
+                    :
+                    <div onClick={async () => {
+                        await followUser({
+                            followerId: userInfo.userId,
+                            followeeId: postInfo.userId,
+                            followTimestamp: new Date().toISOString()
+                        })
+                        setThreeDots(false)
+                    }
+                    }>Follow</div>
+                }
 
-                {/*{!isSaved ?*/}
-                {/*    <div onClick={async () => {*/}
-                {/*        await savePost({...formData, saveTimestamp: new Date().toISOString()})*/}
-                {/*        dispatch(updateCheck())*/}
-                {/*        setThreeDots(false)*/}
-                {/*    }*/}
-                {/*    }>Add to Favorites</div>*/}
-                {/*    :*/}
-                {/*    <div onClick={async () => {*/}
-                {/*        await unSavePost(formData)*/}
-                {/*        dispatch(updateCheck())*/}
-                {/*        setThreeDots(false)*/}
-                {/*    } }>Remove from Favorites</div>*/}
-                {/*}*/}
 
                 <div onClick={() => {
                     setThreeDots(false);
@@ -51,8 +66,8 @@ const ThreeDots = ({setThreeDots, setUnfollow, setDisplay}) => {
                     navigate(`/p/${postInfo.postId}`)
                 }}>Go to post</div>
                 {/*<div>Share to...</div>*/}
-                <div onClick={() => {
-                    navigator.clipboard.writeText(`${window.location.href}p/${postInfo.postId}`)
+                <div onClick={async () => {
+                    await navigator.clipboard.writeText(`${window.location.href}p/${postInfo.postId}`)
                     setThreeDots(false)
                     alert("Link copied to clipboard.")
                 }}>Copy link</div>

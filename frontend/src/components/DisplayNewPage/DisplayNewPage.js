@@ -99,6 +99,10 @@ const DisplayNewPage = ({setDisplay}) => {
     },[])
 
     useEffect(() => {
+        fetchComments();
+    })
+
+    useEffect(() => {
         checkLikeAndSave();
     },[postInfo, liked, saved, allLikes])
 
@@ -165,6 +169,7 @@ const DisplayNewPage = ({setDisplay}) => {
 
                     <div className="display_card_right_middle">
 
+
                         {postInfo.postCaption !== null && postInfo.postCaption !== ''?
                             <div className="display_comment">
                                 <Avatar sx={{height:"35px", width:"35px"}} src={postInfo.userAvatar}/>
@@ -178,11 +183,20 @@ const DisplayNewPage = ({setDisplay}) => {
                                 </div>
                             </div>
                             :
+                            <div/>
+                        }
+
+
+                        {(postInfo.postCaption === null || postInfo.postCaption === '') && comments.length === 0 ?
                             <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", height:"100%"}}>
                                 <div style={{fontSize:"1.4rem", fontWeight:"bold"}}>No comments yet.</div>
                                 <div style={{fontSize:"0.9rem"}}>Start the conversation.</div>
                             </div>
+                            :
+                            <div/>
                         }
+
+
 
 
                         {comments.map((comment, index) => (
@@ -196,7 +210,6 @@ const DisplayNewPage = ({setDisplay}) => {
                                         </div>
                                     </div>
                                 </div>
-                                {/*<BsHeart style={{fontSize:"0.8rem", marginTop:"0.8rem", width:"60px"}}/>*/}
                             </div>)
                         )}
 

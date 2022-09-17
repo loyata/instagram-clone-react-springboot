@@ -237,6 +237,12 @@ public class AccountController {
     }
 
     @CrossOrigin
+    @GetMapping("/posts/random/others")
+    public Object getSamplePostsExcludingSelf(@RequestParam("userId") Integer userId, @RequestParam("limit") Integer limit){
+        return postMapper.getSamplePostsExcludingSelf(userId, limit);
+    }
+
+    @CrossOrigin
     @GetMapping("/posts/favorites")
     public Object getFavoritePosts(@RequestParam("userId") Integer userId, @RequestParam("startIndex") Integer startIndex, @RequestParam("limit") Integer limit){
         return postMapper.getFavoritePostsPaging(userId, startIndex, limit);
@@ -499,6 +505,15 @@ public class AccountController {
     }
 
     @CrossOrigin
+    @PostMapping("/accounts/update")
+    public Integer userUpdate(@RequestBody String content) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        user = objectMapper.readValue(content, User.class);
+        Integer res = userMapper.updateInSettings(user.getUserName(), user.getAvatar(), user.getFullName(),user.getWebsite(), user.getBio(), user.getPhoneNumber());
+        return res;
+    }
+
+    @CrossOrigin
     @PostMapping("/posts/new")
     public Integer newPost(@RequestBody String content) throws JsonProcessingException{
         ObjectMapper objectMapper = new ObjectMapper();
@@ -508,6 +523,17 @@ public class AccountController {
         return res;
     }
 
+    @DeleteMapping("/posts/delete/{postId}")
+    public Integer deletePost(@PathVariable("postId") Integer postId){
+        return postMapper.deletePost(postId);
+    }
+
+    @PatchMapping("/posts/update")
+    public Integer updatePost(@RequestBody String content) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        post = objectMapper.readValue(content, Post.class);
+        return postMapper.updatePost(post.getPostId(), post.getPostCaption(), post.getPostLocation(), post.getPostAlt());
+    }
 
 
 

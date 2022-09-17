@@ -20,7 +20,7 @@ import links from "./images/links.png"
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {
-    checkIsLiked, checkIsSaved,
+    checkIsLiked, checkIsSaved, comment,
     fetchCommentsByPostId,
     getLikesByPostId,
     likePost,
@@ -29,7 +29,7 @@ import {
     unSavePost
 } from "../../../api";
 import {AiOutlineSmile} from "react-icons/ai";
-import {updatePost} from "../../../redux/postSlice";
+import {updatePost, updatePostUser} from "../../../redux/postSlice";
 import {disableScroll} from "../../../redux/scrollSlice";
 import {savePostUpdate, unSavePostUpdate, updateFormData} from "../../../redux/followSlice";
 
@@ -44,8 +44,6 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
     const timeAgo = new TimeAgo('en-US')
 
     const userInfo = useSelector(state => state.user);
-    const {checkNeeded, isSaved} = useSelector(state => state.follow)
-
 
 
     const [comments, setComments] = useState([]);
@@ -60,6 +58,7 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
     const fetchComments = async ()=>{
         if(postInfo.postId){
             const res = await fetchCommentsByPostId(postInfo.postId)
+            if(res.data.length > 0) console.log(res.data)
             setComments(res.data)
         }
     }
@@ -138,6 +137,7 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
                     style={{fontSize:"1.2rem"}} className="pc_threedots" onClick={() => {
                     setThreeDots(true)
                     dispatch(updatePost({...postInfo, avatar: postInfo.userAvatar}));
+
                     dispatch(disableScroll())
                 }}/>
             </div>
@@ -210,10 +210,23 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
 
             </div>
             <div className="postCard_like">
-                {/*<Avatar sx={{width:"1.2rem", height: "1.2rem"}}/>&nbsp;*/}
-                {/*<span>like</span>*/}
                 {showOtherLikes()}
             </div>
+
+
+            {comments.map((comment, index) => (
+                <div className="display_comment" key={index} style={{padding:"2px 4px"}}>
+                    <div>
+                        <div className="display_all">
+                            <div style={{fontSize:"0.9rem"}}><b>{comment.commenterName}</b>&nbsp;{comment.commentContent}</div>
+                            <div className="display_reply">
+                            </div>
+                        </div>
+                    </div>
+                </div>)
+            )}
+
+
             <span style={{fontSize:"0.7rem", padding:"0 0.7rem 0.7rem 0.7rem", color:"rgb(158,158,158)",fontWeight:"bold"}}>
                 {timeAgo.format(new Date(postInfo.postDate))}</span>
             <hr/>
@@ -243,8 +256,19 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
                     commentInput === ''?
                         <button className="postCard_commentButtonCannotPost">POST</button>
                         :
-                        <button className="postCard_commentButtonCanPost" onClick={() => {
-                            alert(commentInput);
+                        <button className="postCard_commentButtonCanPost" onClick={async () => {
+                            const postContent = {
+
+                                postId:postInfo.postId,
+                                commenterId:userInfo.userId,
+                                commenterName:userInfo.userName,
+                                commentContent:commentInput,
+                                commentTimestamp:new Date().toISOString(),
+                                commenterAvatar:userInfo.avatar
+                            }
+
+                            await comment(postContent);
+                            await fetchComments();
                             setCommentInput("");
                         }}>POST</button>
                 }

@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {updateStateSimple, closeShowProfile} from "../../../redux/navbarStatusSlice"
 
-const ProfileInfo = () => {
+const ProfileInfo = ({setSwitchAccount}) => {
 
     const {navbarStatus, navbarCache} = useSelector(state => state.navbarStatus);
 
@@ -32,7 +32,9 @@ const ProfileInfo = () => {
                 localStorage.clear();
                 window.location.href = '/';
             }
-            else alert(`Navigating to ${name}`);
+            else {
+                setSwitchAccount(true);
+            }
         }
     }
 

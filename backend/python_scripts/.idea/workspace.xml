@@ -2,24 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4865fcb5-b698-4df1-942d-bc6ea3343bd3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/SwitchAccounts/SwitchAccounts.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/SwitchAccounts/SwitchAccounts.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/SwitchAccounts/ins_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/DeletePost/DeletePost.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/DeletePost/DeletePost.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/EditPost/EditPost.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/EditPost/EditPost.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/PostMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/PostMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/api/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../frontend/src/components/HomePage/HomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/HomePage/HomePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/LoginPage/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/LoginPage/LoginPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/MainContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/MainContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/PostCard/PostCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/PostCard/PostCard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/PostCard/PostCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/PostCard/PostCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/Profile/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/Profile/Profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/Profile/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/SuggestionCard/SuggestionCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/SuggestionCard/SuggestionCard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/SuggestionCard/SuggestionCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/SuggestionCard/SuggestionCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/FriendCard/FriendCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/FriendCard/FriendCard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/FriendCard/FriendCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/FriendCard/FriendCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/ThreeDots/ThreeDots.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/ThreeDots/ThreeDots.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/MainContent/ThreeDotsSelf/ThreeDotsSelf.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/MainContent/ThreeDotsSelf/ThreeDotsSelf.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/NavBar/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/NavBar/NavBar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../frontend/src/components/NavBar/ProfileInfo/ProfileInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/NavBar/ProfileInfo/ProfileInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/PersonalContent/PersonalContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/PersonalContent/PersonalContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/PersonalContent/PersonalPosts/PersonalPosts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/PersonalContent/PersonalPosts/PersonalPosts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/NewPost/NewPost.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/NewPost/NewPost.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/NewPost/NewPost.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/NewPost/NewPost.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/Settings/Settings.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/Settings/Settings.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/Settings/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/Settings/Settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/redux/userSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/redux/userSlice.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

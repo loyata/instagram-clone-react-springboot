@@ -8,7 +8,7 @@ import Profile from "./Profile/Profile";
 import SuggestionCard from "./SuggestionCard/SuggestionCard";
 import MainFooter from "./MainFooter/MainFooter";
 import useWindowDimensions from "../../utilities/useWindowDimension";
-import {getFavoritePostsPaging, getFriendPostsPaging, getSamplePosts} from "../../api";
+import {getFavoritePostsPaging, getFriendPostsPaging, getSamplePosts, getSamplePostsExcludingSelf} from "../../api";
 import {updateStateOuter} from "../../redux/navbarStatusSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {BsChevronLeft} from "react-icons/bs";
@@ -37,7 +37,7 @@ const MainContent = ({display, setDisplay, setSwitchAccount, friendsSuggestion, 
     const userInfo = useSelector(state => state.user);
 
     const getRandomPosts = async () => {
-        const res = await getSamplePosts(10);
+        const res = await getSamplePostsExcludingSelf(10, userInfo.userId);
         setPosts(posts => posts.concat(res.data))
     }
 

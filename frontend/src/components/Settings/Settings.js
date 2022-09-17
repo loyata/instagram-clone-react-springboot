@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as htmlToImage from 'html-to-image'
 
 import jwt_decode from "jwt-decode";
-import {updateAvatar} from "../../api";
+import {updateAvatar, updateInSettings} from "../../api";
 import {useSelector} from "react-redux";
 
 const AWS = require('aws-sdk')
@@ -25,18 +25,25 @@ const s3 = new AWS.S3();
 
 const Settings = () => {
 
+    const userInfo = useSelector(state => state.user)
     const [state, setState] = useState(0);
     const [avatar, setAvatar] = useState(null)
-    const [userName, setUserName] = useState('');
+    const [updateInfo, setUpdateInfo] = useState({
+        fullName:'',
+        website: '',
+        bio:'',
+        avatar:'',
+        phoneNumber:''
+    });
 
-    const userInfo = useSelector(state => state.user)
 
 
     useEffect(() => {
-        const token = localStorage.getItem('token')
-        const {username} = jwt_decode(token)
-        setUserName(username)
-    },[avatar])
+        if(userInfo.userName){
+            setAvatar(userInfo.avatar)
+            setUpdateInfo({fullName: userInfo.fullName, website: userInfo.website, bio: userInfo.bio, avatar: userInfo.avatar, phoneNumber: userInfo.phoneNumber})
+        }
+    },[userInfo.userName])
 
 
     const imgParentRef = useRef(null);
@@ -78,15 +85,23 @@ const Settings = () => {
             }
 
 
-            updateAvatar({
-                userName:userName,
-                imageUrl:location,
-                imageKey:key
-            }).then((res)=>{
-                console.log(res.data)
-            }).catch((e)=>{
-                console.log(e)
+
+            const formData = {
+                userName:userInfo.userName,
+                avatar:location,
+                fullName: updateInfo.fullName,
+                bio: updateInfo.bio,
+                website: updateInfo.website,
+                phoneNumber: updateInfo.phoneNumber
+            }
+
+            console.log(formData)
+            updateInSettings(formData).then((res) => {
+                console.log(res)
+                alert("Update success.")
+                window.location.reload();
             })
+
 
         })
     }
@@ -97,7 +112,7 @@ const Settings = () => {
                 <div className="setting_ct">
                     <div className="setting_left">
                         <div className="setting_s" onClick={() => {setState(0)}} style={{fontWeight:`${state === 0 ? 'bold' : 'unset'}`}}>Edit Profile</div>
-                        <div className="setting_s" onClick={() => {setState(1)}} style={{fontWeight:`${state === 1 ? 'bold' : 'unset'}`}}>Change Password</div>
+                        {/*<div className="setting_s" onClick={() => {setState(1)}} style={{fontWeight:`${state === 1 ? 'bold' : 'unset'}`}}>Change Password</div>*/}
                     </div>
                     <div className="setting_right">
                         <div className="setting_right_li">
@@ -105,7 +120,7 @@ const Settings = () => {
                                 <Avatar style={{width:"45px", height:"45px"}} src={avatar} ref={imgParentRef}/>
                             </div>
                             <div className="setting_right_right">
-                                <div style={{fontSize:"1.2rem", fontWeight:"bold"}}>user_name</div>
+                                <div style={{fontSize:"1.2rem", fontWeight:"bold"}}>{userInfo.userName}</div>
                                 <div style={{color:"rgb(66,148,239)", fontWeight:"600"}}
                                      className="change"
                                      onClick={() => {
@@ -117,23 +132,89 @@ const Settings = () => {
 
                         <div className="setting_right_li">
                             <div className="setting_right_left">Name</div>
-                            <div className="setting_right_right"><input disabled/></div>
+                            <div className="setting_right_right">
+                                <input value={updateInfo.fullName} onChange={e=>setUpdateInfo({...updateInfo, fullName: e.target.value})}/>
+                            </div>
                         </div>
 
                         <div className="setting_right_li">
-                            <div className="setting_right_left">UserName</div>
-                            <div className="setting_right_right"><input disabled/></div>
+                            <div className="setting_right_left"/>
+                            <div className="setting_right_right">
+                                <div className="setting_text">
+                                    Help people discover your account by using the name you're known by: either your full name, nickname, or business name.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="setting_right_li">
+                            <div className="setting_right_left">Username</div>
+                            <div className="setting_right_right">
+                                <input
+                                    value={userInfo.userName}
+                                disabled/></div>
+                        </div>
+
+                        <div className="setting_right_li">
+                            <div className="setting_right_left"/>
+                            <div className="setting_right_right">
+                                <div className="setting_text">
+                                    You are not allowed to change your username in this app.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="setting_right_li">
+                            <div className="setting_right_left">Website</div>
+                            <div className="setting_right_right">
+                                <input value={updateInfo.website} onChange={e=>setUpdateInfo({...updateInfo, website: e.target.value})}/>
+                            </div>
+                        </div>
+
+                        <div className="setting_right_li">
+                            <div className="setting_right_left">Bio</div>
+                            <div className="setting_right_right">
+                                <textarea value={updateInfo.bio} onChange={e=>setUpdateInfo({...updateInfo, bio: e.target.value})}/>
+                            </div>
+                        </div>
+
+                        <div className="setting_right_li">
+                            <div className="setting_right_left"/>
+                            <div className="setting_right_right">
+                                <div className="setting_text">
+                                    {/*<div style={{transform:"translate(0, -0.8rem)"}}>1/150</div>*/}
+                                    <div>
+                                        <div style={{fontWeight:"bold"}}>Personal information</div>
+                                        <div>Provide your personal information, even if the account is used for a business, a pet or something else. This won't be a part of your public profile.
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
 
 
                         <div className="setting_right_li">
                             <div className="setting_right_left">Email</div>
-                            <div className="setting_right_right"><input disabled/></div>
+                            <div className="setting_right_right"><input value={userInfo.email} disabled/></div>
                         </div>
+
+
+
+                        <div className="setting_right_li">
+                            <div className="setting_right_left"/>
+                            <div className="setting_right_right">
+                                <div className="setting_text">
+                                    You are not allowed to change your email in this app.
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div className="setting_right_li">
                             <div className="setting_right_left">Phone Number</div>
-                            <div className="setting_right_right"><input disabled/></div>
+                            <div className="setting_right_right">
+                                <input value={updateInfo.phoneNumber} onChange={e=>setUpdateInfo({...updateInfo, phoneNumber: e.target.value})}/>
+                            </div>
                         </div>
 
                         <input
@@ -144,13 +225,13 @@ const Settings = () => {
                         />
 
                         <div className="setting_right_li">
-                           <div className="setting_button" onClick={handleClick}>
-                                Save Change
+                            <div className="setting_right_left"/>
+                            <div className="setting_right_right">
+                                <div className="setting_button" onClick={handleClick}>
+                                    Submit
+                                </div>
                             </div>
                         </div>
-
-
-
 
                     </div>
 
