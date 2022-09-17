@@ -63,7 +63,9 @@ export const unfollowUser = (formData) => instance.post(`/follows/unfollow`, for
 export const getFollowersById = (userId) => instance.get(`/follows/followers/${userId}`)
 export const getFolloweesById = (userId) => instance.get(`/follows/followees/${userId}`)
 export const checkIsFollowing = (formData) => instance.post(`/follows/check`, formData)
-export const getMutualFollowsByUserId = (userId) => instance.get(`follows/mutual/${userId}`)
+export const getMutualFollowsByUserId = (userId) => instance.get(`/follows/mutual/${userId}`)
+
+export const getRecentFollows = (userId, limit) => instance.get(`/follows/recent?userId=${userId}&limit=${limit}`)
 
 
 export const likePost = (formData) => instance.post(`/likes/like`, formData)

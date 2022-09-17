@@ -7,15 +7,19 @@
     z-index: 2;
     top:150%;
     transform: translate(-83%, 0);
+    height: 250px;
+    overflow: auto;
 }
 
 .reportInfo_detail{
     display: flex;
     align-items: center;
+    margin: 1rem 0;
 }
 
 .reportInfo_avatar{
     flex: 1 1 10%;
+    margin-left: 0.5rem;
 }
 
 .reportInfo_text{
@@ -24,7 +28,7 @@
 
 .reportInfo_button{
     flex: 1 1 25%;
-    height: 30px;
+    height: 25px;
     background-color: #0095F6;
     margin: 0 1rem;
     border-radius: 3px;

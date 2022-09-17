@@ -1,3 +1,15 @@
-# instagram-clone
+<center><h1>instagram-clone-fullstack</h1></center>
 
-This project is dedicated to creating an instagram web-app clone with most comprehensive functionality as possible. The main tech stack includes React.js for frontend, Springboot for backend and mysql as database. In order to be as consistent as possible with the native UIs, most of the UI components are customized with plain css, except for a minimum usage of Material UI library.
+<img src="https://s3.us-east-1.amazonaws.com/loyata.images/instagram-clone-logo.png" alt="avatar" style="zoom:67%;" />
+
+## Project description
+
+**Create your own instagram app!**
+
+This project is a clone of the Instagram web-side app.
+
+The main tech stack includes **React.js + Redux + React Router v6** for the frontend, **Spring Boot + MyBatis** for the backend. User images and avatars will be uploaded to **AWS S3 buckets.** 
+
+The objectives of this project is to implement most native intagram web-app's functionalities, and to be as consistent as possible with the native site in terms of UI. With over **6 main modules**, over **30 react components**, this is one of the most authentic and comprehensive clones of instagram on github. Though some code snippets are currently not best practices and refactoring is needed, I'm sure this will improve with time and welcome to contribute!
+
+This project is only for study purposes, materials, logos, and designs involved are facebook's properties.

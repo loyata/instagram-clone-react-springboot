@@ -64,6 +64,7 @@ const ThreeDots = ({setThreeDots, setUnfollow, setDisplay}) => {
                     // setDisplay(true);
                     // console.log(postInfo)
                     navigate(`/p/${postInfo.postId}`)
+                    setDisplay(false)
                 }}>Go to post</div>
                 {/*<div>Share to...</div>*/}
                 <div onClick={async () => {

@@ -35,9 +35,9 @@ const PhonePicture = () => {
                 <div className="imgBase">
                     <img src={imgContainer} height="100%" />
                 </div>
-                {/*<div className="imgContent">*/}
-                {/*    <img src={pictures[index]} height="100%" className="scale-in-center"/>*/}
-                {/*</div>*/}
+                <div className="imgContent">
+                    <img src={pictures[index]} height="100%" className="scale-in-center"/>
+                </div>
             </div>
         </div>
     );

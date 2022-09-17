@@ -11,3 +11,8 @@
 .explore_click{
     cursor: pointer;
 }
+
+/*.MuiImageListItem-img, .MuiImageListItem-root{*/
+/*    width: 100%!important;*/
+/*    height: auto!important;*/
+/*}*/

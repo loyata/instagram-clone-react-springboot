@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        @keyframes cf4FadeInOut {
+            0% {
+                opacity:1;
+            }
+            17% {
+                opacity:1;
+            }
+            25% {
+                opacity:0;
+            }
+            92% {
+                opacity:0;
+            }
+            100% {
+                opacity:1;
+            }
+        }
+        #cf4a img:nth-of-type(1) {
+            animation-delay: 6s;
+        }
+        #cf4a img:nth-of-type(2) {
+            animation-delay: 4s;
+        }
+        #cf4a img:nth-of-type(3) {
+            animation-delay: 2s;
+        }
+        #cf4a img:nth-of-type(4) {
+            animation-delay: 0s;
+        }
+
+        img {
+            -webkit-filter: grayscale(100%);
+            filter: gray; filter: grayscale(100%);
+            -webkit-transition: all .25s ease;
+            -moz-transition: all .25s ease;
+            transition: all .25s ease;
+        }
+        img:hover {
+            -webkit-filter: grayscale(0%);
+            filter: none;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<div id="cf4a" class="shadow">
+    <img class="1" src="/scripts/images/img.png" />
+    <img class="2" src="/scripts/images/img_1.png" />
+    <img class="3" src="/scripts/images/img_2.png" />
+    <img class="4" src="/scripts/images/img_3.png" />
+</div>
+<p id="cf_onclick">Click me to toggle</p>
+
+
+
+
+</body>
+</html>

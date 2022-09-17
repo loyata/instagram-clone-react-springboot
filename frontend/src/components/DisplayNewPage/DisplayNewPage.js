@@ -161,7 +161,7 @@ const DisplayNewPage = ({setDisplay}) => {
                                 <div style={{fontSize:"12px"}}>{postInfo.postLocation || 'unknown location'}</div>
                             </span>
                             </div>
-                            <BsThreeDots style={{fontSize:"1.2rem"}}/>
+                            {/*<BsThreeDots style={{fontSize:"1.2rem"}}/>*/}
                         </div>
                         <hr/>
                     </div>

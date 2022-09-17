@@ -88,6 +88,9 @@ public class AccountController {
     public Session session;
 
     @Autowired
+    public DetailedFollow detailedFollow;
+
+    @Autowired
     public DetailedSession detailedSession;
 
     @Autowired
@@ -240,6 +243,13 @@ public class AccountController {
     @GetMapping("/posts/random/others")
     public Object getSamplePostsExcludingSelf(@RequestParam("userId") Integer userId, @RequestParam("limit") Integer limit){
         return postMapper.getSamplePostsExcludingSelf(userId, limit);
+    }
+
+
+    @CrossOrigin
+    @GetMapping("/follows/recent")
+    public Object getRecentFollows(@RequestParam("userId") Integer userId, @RequestParam("limit") Integer limit){
+        return followMapper.getAllRecentFollows(userId, limit);
     }
 
     @CrossOrigin

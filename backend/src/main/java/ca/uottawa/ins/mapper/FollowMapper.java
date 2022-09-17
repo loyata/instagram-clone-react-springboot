@@ -1,4 +1,5 @@
 package ca.uottawa.ins.mapper;
+import ca.uottawa.ins.model.DetailedFollow;
 import ca.uottawa.ins.model.Follow;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
@@ -24,5 +25,12 @@ public interface FollowMapper {
 
     @Select("SELECT * FROM follows WHERE follower_id = #{a} and followee_id = #{b}")
     List<Follow> checkIsFollowing(Integer a, Integer b);
+
+    @Select("SELECT user_id, user_name, avatar, follow_timestamp \n" +
+            "FROM follows, users \n" +
+            "WHERE follows.followee_id = #{userId} AND follows.follower_id = users.user_id \n" +
+            "ORDER BY follow_timestamp DESC \n" +
+            "LIMIT #{limit}")
+    List<DetailedFollow> getAllRecentFollows(Integer userId, Integer limit);
 
 }
