@@ -53,4 +53,5 @@ The main page is consisted of four major parts:
 - [x] Location suggestion (with Mapbox API)
 - [ ] Upload multiple images at same time
 
-![hippo](https://s3.amazonaws.com/loyata.images/make+new+posts+(1).gif)
+![hippo](https://s3.amazonaws.com/loyata.images/make+new+posts+(5).gif)
+
