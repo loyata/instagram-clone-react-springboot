@@ -43,8 +43,6 @@ The main page is consisted of four major parts:
 
 
 ### Create a new post
-<a href="https://s3.amazonaws.com/loyata.images/make+new+posts+(1).gif" target="_blank">gif demo</a>
-
 - [x] The page could be called anywhere in the web-app
 - [x] Crop image
 - [x] Set Image Size(drag supported)
@@ -53,8 +51,13 @@ The main page is consisted of four major parts:
 - [x] Add caption and alt
 - [x] Location suggestion (with Mapbox API)
 - [ ] Upload multiple images at same time
-
 ![hippo](https://github.com/loyata/instagram-clone/blob/main/images/make_new_posts.gif?raw=true)
+
+### Explore
+- [x] Images display as a quilted list
+- [x] click to view details
+![hippo]()
+
 
 
 
