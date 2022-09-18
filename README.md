@@ -27,7 +27,7 @@ This project is only for study purposes, materials, logos, and designs involved 
 - [ ] css animation when image switches
 
 <img src="https://s3.us-east-1.amazonaws.com/loyata.images/signup_page.png" style="zoom:50%;" />
-![hippo](https://s3.amazonaws.com/loyata.images/log-in-page.gif)
+
 
 ### Main Page
 
