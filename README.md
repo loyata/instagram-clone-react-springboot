@@ -56,7 +56,7 @@ The main page is consisted of four major parts:
 ### Explore
 - [x] Images display as a quilted list
 - [x] click to view details
-![hippo]()
+![hippo](https://github.com/loyata/instagram-clone/blob/main/images/explore-images.gif?raw=true)
 
 
 
