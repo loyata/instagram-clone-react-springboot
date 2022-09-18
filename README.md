@@ -59,6 +59,10 @@ The main page is consisted of four major parts:
 
 ![hippo](https://github.com/loyata/instagram-clone/blob/main/images/explore-images.gif?raw=true)
 
+### Get recent reports
+- [x] new followers along with event date will be arranged and displayed
+- [x] users can follow back
 
+![recent-posts](https://github.com/loyata/instagram-clone/blob/main/images/get-recent-reports.png?raw=true)
 
 
