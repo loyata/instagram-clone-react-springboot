@@ -43,7 +43,7 @@ The main page is consisted of four major parts:
 
 
 ### Create a new post
-<a href="https://s3.amazonaws.com/loyata.images/make+new+posts+(1).gif">gif demo</a>
+<a href="https://s3.amazonaws.com/loyata.images/make+new+posts+(1).gif" target="_blank">gif demo</a>
 
 - [x] The page could be called anywhere in the web-app
 - [x] Crop image
