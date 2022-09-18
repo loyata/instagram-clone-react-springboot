@@ -54,5 +54,7 @@ The main page is consisted of four major parts:
 - [x] Location suggestion (with Mapbox API)
 - [ ] Upload multiple images at same time
 
+![hippo](https://github.com/loyata/instagram-clone/blob/main/images/make_new_posts.gif?raw=true)
+
 
 
