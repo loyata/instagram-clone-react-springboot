@@ -1,4 +1,5 @@
-<center><h1>instagram-clone-fullstack</h1></center>
+Instagram-Clone
+=======
 
 <img src="https://s3.us-east-1.amazonaws.com/loyata.images/instagram-clone-logo.png" alt="avatar" style="zoom:67%;" />
 
@@ -26,4 +27,30 @@ This project is only for study purposes, materials, logos, and designs involved 
 - [ ] css animation when image switches
 
 <img src="https://s3.us-east-1.amazonaws.com/loyata.images/signup_page.png" style="zoom:50%;" />
-<img src="https://s3.us-east-1.amazonaws.com/loyata.images/log-in-page.gif"/>
+![hippo](https://s3.amazonaws.com/loyata.images/log-in-page.gif)
+
+### Main Page
+
+The main page is consisted of four major parts:
+
+- A navbar 
+- A card that displays current user's friends
+- A main display area that shows random posts/ friends' posts/ saved posts(based on the selection on the navbar)
+- Personal information and friend recommendations
+
+![hippo](https://s3.amazonaws.com/loyata.images/main-page.png)
+
+
+
+### Create a new post
+
+- [x] The page could be called anywhere in the web-app
+- [x] Crop image
+- [x] Set Image Size(drag supported)
+- [x] Add preset filters to the image with CSS (thanks to https://github.com/picturepan2/instagram.css)
+- [x] Adjust Brightness, Contrast, Temperature, Fade, Saturation, Vignette with sliders
+- [x] Add caption and alt
+- [x] Location suggestion (with Mapbox API)
+- [ ] Upload multiple images at same time
+
+![hippo](https://s3.amazonaws.com/loyata.images/make+new+posts+(1).gif)
