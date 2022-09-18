@@ -8,7 +8,7 @@
 
 This project is a clone of the Instagram web-side app.
 
-The main tech stack includes **React.js + Redux + React Router v6** for the frontend, **Spring Boot + MyBatis** for the backend. User images and avatars will be uploaded to **AWS S3 buckets.** 
+The main tech stack includes **React.js + Redux + Axios + React Router v6** for the frontend, **Spring Boot + MyBatis** for the backend. Most UI components are 100% customized with CSS, only a few make use of **Material UI & Antd**. User images and avatars will be uploaded to **AWS S3 buckets.** 
 
 The objectives of this project is to implement most native intagram web-app's functionalities, and to be as consistent as possible with the native site in terms of UI. With over **6 main modules**, over **30 react components**, this is one of the most authentic and comprehensive clones of instagram on github. Though some code snippets are currently not best practices and refactoring is needed, I'm sure this will improve with time and welcome to contribute!
 
@@ -18,7 +18,12 @@ This project is only for study purposes, materials, logos, and designs involved 
 
 #### Sign Up & Log in
 
-- [x] Email address verification (frontend)
+- [x] Email address & password verification (frontend)
 - [x] Password authenticatoin with JWT
 - [x] Check is username or email is taken (backend)
+- [x] Check if username or email is taken (backend)
 - [ ] Facebook Login
+- [ ] css animation when image switches
+
+<img src="https://s3.us-east-1.amazonaws.com/loyata.images/signup_page.png" style="zoom:50%;" />
+<img src="https://s3.us-east-1.amazonaws.com/loyata.images/log-in-page.gif"/>
