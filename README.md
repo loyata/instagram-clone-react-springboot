@@ -45,7 +45,7 @@ The main page is consisted of four major parts:
 
 - [x] search users in the database based on string comparision
 
-
+![search](https://github.com/loyata/instagram-clone/blob/main/images/search-results.png?raw=true)
 
 ### Create a new post
 - [x] The page could be called anywhere in the web-app
@@ -93,7 +93,14 @@ The main page is consisted of four major parts:
 - [x] click an image to view details
 - [ ] tags part that stores all posts that hashtagged by others
 
+![personal_page](https://github.com/loyata/instagram-clone/blob/main/images/personal-page.gif?raw=true)
 
+### Chat
 
+- [x] Create new chat sessions with search function
+- [x] display session time and message digestion
+- [x] Leave messages or real time chat
+- [ ] Multi-person chat
+- [ ] video/phone call
 
-
+![chat](https://github.com/loyata/instagram-clone/blob/main/images/personal-page.gif?raw=true)
