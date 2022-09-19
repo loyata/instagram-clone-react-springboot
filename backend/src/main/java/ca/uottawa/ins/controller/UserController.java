@@ -45,5 +45,4 @@ public class UserController {
     public String getLoginTime(@PathVariable("userId") Integer userId){
         return userMapper.getLoginTime(userId);
     }
-
 }
