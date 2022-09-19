@@ -28,7 +28,7 @@ This project is only for study purposes, materials, logos, and designs involved 
 
 <img src="https://s3.us-east-1.amazonaws.com/loyata.images/signup_page.png" style="zoom:50%;" />
 
-![](https://s3.amazonaws.com/loyata.images/log-in-page.gif)
+![log-in](https://github.com/loyata/instagram-clone/blob/main/images/log-in-page.gif?raw=true)
 
 ### Main Page
 
