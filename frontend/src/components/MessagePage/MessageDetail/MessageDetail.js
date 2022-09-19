@@ -125,7 +125,7 @@ const MessageDetail = ({selectedSessionDetail}) => {
                         :
                         <div>
                             <div style={{fontSize:"1.1rem"}}><b>{session[other+'Name']}</b></div>
-                            <div style={{fontSize:"0.8rem", color:"rgb(143,143,143)"}}>{`Active ${timeAgo.format(new Date(loginTime))}`}</div>
+                            <div style={{fontSize:"0.8rem", color:"rgb(143,143,143)"}}>{`Last login ${timeAgo.format(new Date(loginTime))}`}</div>
                         </div>
                     }
                 </div>

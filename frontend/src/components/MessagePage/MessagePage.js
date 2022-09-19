@@ -4,10 +4,6 @@ import NavBar from "../NavBar/NavBar";
 import {
     BsChevronDown,
     BsPencilSquare,
-    BsTelephone,
-    BsCameraVideo,
-    BsInfoCircle,
-    BsEmojiSmileUpsideDown
 } from "react-icons/bs";
 import {Avatar} from "@mui/material";
 import {FaRegSmile} from "react-icons/fa";
@@ -84,10 +80,10 @@ const MessagePage = ({setSwitchAccount}) => {
                                 <div className="messagePage_change" onClick={() => {
                                     setSwitchAccount(true)
                                 }}><BsChevronDown/></div>
-                                <div className="messagePage_new_msg" onClick={() => {
-                                    navigate('/direct/new')
-                                    // setShowNewMessage(true)
-                                }}><BsPencilSquare/></div>
+                                {/*<div className="messagePage_new_msg" onClick={() => {*/}
+                                {/*    navigate('/direct/new')*/}
+                                {/*    // setShowNewMessage(true)*/}
+                                {/*}}><BsPencilSquare/></div>*/}
                             </div>
                             <div className="messagePage_left_down">
                                 <div className="chat_session_container">

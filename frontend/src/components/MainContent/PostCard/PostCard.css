@@ -86,6 +86,7 @@ hr{
     border: none;
     height: auto;
     /*transform: translate(0, -35%);*/
+    width: 300px;
 }
 
 textarea{

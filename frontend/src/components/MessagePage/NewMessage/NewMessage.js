@@ -45,8 +45,10 @@ const NewMessage = ({setShowNewMessage}) => {
                     <span style={{fontSize:"1.1rem"}}>New Message</span>
                     <span style={{color:`${allowNext? "rgb(64,147,239)": "rgb(198,223,250)"}`}} className="nm_next" onClick={async () => {
                         if(allowNext){
+                            const sessionId = uuidv4()
+
                             const formData = {
-                                sessionId:uuidv4(),
+                                sessionId:sessionId,
                                 userAId:userInfo.userId,
                                 userAName:userInfo.userName,
                                 userAAvatar:userInfo.avatar,
@@ -57,7 +59,9 @@ const NewMessage = ({setShowNewMessage}) => {
                             }
                             await createSession(formData);
                             // setShowNewMessage(false);
-                            navigate('/direct/inbox')
+                            navigate(`/direct/t/${sessionId}`)
+                            window.location.reload();
+
                         }
 
                     }}>Next</span>

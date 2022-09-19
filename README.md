@@ -17,7 +17,7 @@ This project is only for study purposes, materials, logos, and designs involved 
 
 ## Preview & Functionalities
 
-#### Sign Up & Log in
+### Sign Up & Log in
 
 - [x] Email address & password verification (frontend)
 - [x] Password authenticatoin with JWT
@@ -40,6 +40,10 @@ The main page is consisted of four major parts:
 - Personal information and friend recommendations
 
 ![hippo](https://github.com/loyata/instagram-clone/blob/main/images/main-page-display.gif?raw=true)
+
+### Search
+
+- [x] search users in the database based on string comparision
 
 
 
@@ -78,3 +82,18 @@ The main page is consisted of four major parts:
 - [ ] send notifications when a post is liked
 
 ![single](https://github.com/loyata/instagram-clone/blob/main/images/single-post-ops.gif?raw=true)
+
+### Personal Display Page
+
+- [x] Display avatar, username, number of followers/followings
+- [x] follow and unfollow, send messages(if this is someone else's homepage)
+- [x] go to settings(if this is current user's homepage)
+- [x] display all posts and saved posts
+- [x] display a post's likes and comments when mouse hover above the image
+- [x] click an image to view details
+- [ ] tags part that stores all posts that hashtagged by others
+
+
+
+
+
