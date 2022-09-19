@@ -1,36 +1,17 @@
 import axios from 'axios';
 
-const geoAPIToken = "pk.eyJ1IjoibG95YXRhIiwiYSI6ImNremxwZDYxMTE0Mnkyd254ems4Nzg1aWIifQ.mLDsHjBUTgEhcBCTsJyU3g"
 
+const geoAPIToken = process.env.REACT_APP_geoAPIToken
 
 const instance = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: process.env.REACT_APP_baseURL
 });
 
-// instance.interceptors.request.use((req)=>{
-//     if(localStorage.getItem("profile")){
-//         req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem("profile")).token}`;
-//     }
-//     return req;
-// })
 
-// export const fetchPosts = (page) => instance.get(`/posts?page=${page}`);
-// export const createPost = (newPost) => instance.post('/posts', newPost);
-// export const getPost = id => instance.get(`posts/${id}`);
-// export const updatePost = (id, post) => instance.patch(`/posts/${id}`, post);
-// export const deletePost = id => instance.delete(`/posts/${id}`);
-// export const comment = (value, id) => instance.post(`/posts/${id}/commentPost`, {value});
-// export const likePost = id => instance.patch(`/posts/${id}/like`);
-// export const fetchPostsFromQuery = query => instance.get(`/posts/search?searchQuery=${query.search || 'none'}&saves=${query.saves}`);
-//
-// export const signIn = (formData) => instance.post(`/users/login`, formData);
 export const signUp = (formData) => instance.post(`/accounts/signup`, formData);
 export const logIn = (formData) => instance.post(`/accounts/login`, formData);
-
-export const createPost = (formData) => instance.post("/posts/new", formData);
 export const updateAvatar = (formData) => instance.post(`/accounts/avatar`, formData)
 export const updateInSettings = (formData) => instance.post(`/accounts/update`, formData)
-
 export const checkUserName = (userName) => instance.get(`/accounts/validate/username/${userName}`)
 export const checkEmail = (email) => instance.get(`/accounts/validate/email/${email}`)
 
@@ -41,22 +22,19 @@ export const getLoginTime = (userId) => instance.get(`/users/login/${userId}`)
 export const getRandomUsers = (num) => instance.get(`/users/random/${num}`)
 
 
-
 export const getPostsById = (userId) => instance.get(`/posts/user/${userId}`)
 export const getPostByIdentifier = (identifier) => instance.get(`/posts/identifier/${identifier}`)
 export const getPostByPostId = (postId) => instance.get(`/posts/postid/${postId}`)
 export const getPostsByName = (userName) => instance.get(`/posts/username/${userName}`)
 export const deletePost = (postId) => instance.delete(`/posts/delete/${postId}`)
-
+export const createPost = (formData) => instance.post("/posts/new", formData);
 export const getSamplePosts = (limit) => instance.get(`/posts/random/${limit}`);
 export const getSamplePostsExcludingSelf = (limit, userId) => instance.get(`/posts/random/others?limit=${limit}&userId=${userId}`);
-
 export const getFriendPostsPaging = (userId, startIndex, limit) => instance.get(`/posts/friends?userId=${userId}&startIndex=${startIndex}&limit=${limit}`);
 export const getFavoritePostsPaging = (userId, startIndex, limit) => instance.get(`/posts/favorites?userId=${userId}&startIndex=${startIndex}&limit=${limit}`);
 export const updatePost = (formData) => instance.patch(`/posts/update`, formData);
-
-
 export const getSavedPostsByUserId = (userId) => instance.get(`/posts/saved/userid/${userId}`)
+
 
 export const followUser = (formData) => instance.post(`/follows/follow`, formData)
 export const unfollowUser = (formData) => instance.post(`/follows/unfollow`, formData)
@@ -64,7 +42,6 @@ export const getFollowersById = (userId) => instance.get(`/follows/followers/${u
 export const getFolloweesById = (userId) => instance.get(`/follows/followees/${userId}`)
 export const checkIsFollowing = (formData) => instance.post(`/follows/check`, formData)
 export const getMutualFollowsByUserId = (userId) => instance.get(`/follows/mutual/${userId}`)
-
 export const getRecentFollows = (userId, limit) => instance.get(`/follows/recent?userId=${userId}&limit=${limit}`)
 
 

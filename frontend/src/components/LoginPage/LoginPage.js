@@ -24,6 +24,9 @@ import {useNavigate} from "react-router-dom";
 
 const LoginPage = () => {
 
+
+    console.log(process.env)
+
     const { width } = useWindowDimensions();
 
     const navigate = useNavigate();
