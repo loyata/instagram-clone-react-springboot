@@ -241,7 +241,10 @@ const PersonalContent = ({setDisplay, userName, display, setUnfollow}) => {
                                 <div>SAVED</div>
                             </div>
                             {userType === 0 ?
-                                <div className={"personalContent_tag".concat(tag === 2 ? " selected":"")} onClick={() => {setTag(2);}}>
+                                <div className={"personalContent_tag".concat(tag === 2 ? " selected":"")} onClick={() => {
+                                    setTag(2);
+                                    navigate(`/${userName}/tagged`)
+                                }}>
                                     <BsFileEarmarkPerson/>&nbsp;&nbsp;
                                     <div>TAGGED</div>
                                 </div>
@@ -256,6 +259,7 @@ const PersonalContent = ({setDisplay, userName, display, setUnfollow}) => {
                     <Routes>
                         <Route path="/" element={<PersonalPosts allPosts={allPosts} setDisplay={setDisplay} userType={userType} userInfo={userInfo} otherUser={otherUser}/>}/>
                         <Route path="/saved" element={<PersonalPosts allPosts={allSavedPosts} setDisplay={setDisplay} userType={userType} userInfo={userInfo} otherUser={otherUser}/>}/>
+                        <Route path="/tagged" element={<div/>}/>
                     </Routes>
 
 

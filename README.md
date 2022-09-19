@@ -61,13 +61,19 @@ The main page is consisted of four major parts:
 ![hippo](https://github.com/loyata/instagram-clone/blob/main/images/explore-images.gif?raw=true)
 
 ### Get recent reports
+
 - [x] new followers along with event date will be arranged and displayed
 - [x] users can follow back
 
 ![recent-posts](https://github.com/loyata/instagram-clone/blob/main/images/get-recent-reports.png?raw=true)
 
-<<<<<<< HEAD
-![new_post](https://s3.amazonaws.com/loyata.images/make_new_posts.gif)
-=======
+### Operations on a single post
 
->>>>>>> bcaa62d37fdd9c921c23873ef9c51ea7099ea384
+- [x] unfollow/unfollow the post's author
+- [x] copy the post's url to the clipboard
+- [x] like the post
+- [x] save the post
+- [x] leave comments
+- [x] go to the post page(open the post)
+- [ ] send notifications when a post is liked
+
