@@ -3,6 +3,12 @@ Instagram-Clone
 
 <img src="https://s3.us-east-1.amazonaws.com/loyata.images/instagram-clone-logo.png" alt="avatar" style="zoom:67%;" />
 
+
+
+
+
+[toc]
+
 ## Project description
 
 **Create your own instagram app!**
