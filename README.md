@@ -192,4 +192,7 @@ To generate, please refer to the Python script under `/backend/python_scripts/us
 
 2. Create an unsplash developer account and get the clientId
 
-3. 
+3. configure `client_id`, `port_number` and `fake_users_to_generate` in `user_generator.py`
+
+4. run the code
+
