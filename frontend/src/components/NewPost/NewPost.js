@@ -335,7 +335,7 @@ const NewPost = () => {
     };
 
 
-    const uploadImage = () => {
+    const uploadImage = async () => {
         htmlToImage.toPng(imgParentRef.current).then(async function (dataUrl) {
             // download(dataUrl, "res.png")
             // console.log(dataUrl)
@@ -379,11 +379,7 @@ const NewPost = () => {
 
             console.log(postData)
 
-            createPost(postData).then((res) => {
-                console.log(res.data)
-            }).catch((e)=>{
-                console.log(e)
-            })
+            await createPost(postData)
 
         })
     }
@@ -656,13 +652,13 @@ const NewPost = () => {
                         <span className="newPost_next" onClick={(e)=>{
                             if(!captionStage) setCaptionStage(true)
                             else{
-                                // alert("等待上传完成, 显示动画, 并修改navbar的state, 如果在自己的展示界面还需要更新")
                                 uploadImage();
-                                alert("Successful")
-                                setShowDiscardCard(false);
+                                alert("Success")
+                                // setShowDiscardCard(false);
                                 dispatch(updateStateOuter());
                                 setFile(null)
                                 e.nativeEvent.stopImmediatePropagation();
+
                             }
                         }}>{captionStage? "Share": "Next"}</span>
                     </div>

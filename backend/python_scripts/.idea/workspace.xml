@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4865fcb5-b698-4df1-942d-bc6ea3343bd3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/model/DetailedFollow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/FollowMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/ca/uottawa/ins/mapper/FollowMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/scripts/create_users.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/scripts/create_users.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/api/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/NavBar/ReportInfo/ReportInfo.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/NavBar/ReportInfo/ReportInfo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/NavBar/ReportInfo/ReportInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/NavBar/ReportInfo/ReportInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/PersonalContent/PersonalContent.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/PersonalContent/PersonalContent.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +95,7 @@
       <option name="presentableId" value="Default" />
       <updated>1662936369540</updated>
       <workItem from="1662936371413" duration="1171000" />
-      <workItem from="1663035592524" duration="12932000" />
+      <workItem from="1663035592524" duration="13530000" />
     </task>
     <servers />
   </component>
