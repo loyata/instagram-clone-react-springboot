@@ -28,6 +28,7 @@ This project is only for study purposes, materials, logos, and designs involved 
 
 <img src="https://s3.us-east-1.amazonaws.com/loyata.images/signup_page.png" style="zoom:50%;" />
 
+![](https://s3.amazonaws.com/loyata.images/log-in-page.gif)
 
 ### Main Page
 
@@ -53,5 +54,4 @@ The main page is consisted of four major parts:
 - [x] Location suggestion (with Mapbox API)
 - [ ] Upload multiple images at same time
 
-![](https://s3.amazonaws.com/loyata.images/make-new-posts.gif)
-
+![new_post](https://s3.amazonaws.com/loyata.images/make_new_posts.gif)
