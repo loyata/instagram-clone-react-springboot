@@ -58,7 +58,6 @@ const PostCard = ({postInfo, setDisplay, setThreeDots}) => {
     const fetchComments = async ()=>{
         if(postInfo.postId){
             const res = await fetchCommentsByPostId(postInfo.postId)
-            if(res.data.length > 0) console.log(res.data)
             setComments(res.data)
         }
     }

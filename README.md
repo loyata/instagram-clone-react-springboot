@@ -77,3 +77,4 @@ The main page is consisted of four major parts:
 - [x] go to the post page(open the post)
 - [ ] send notifications when a post is liked
 
+![single](https://github.com/loyata/instagram-clone/blob/main/images/single-post-ops.gif?raw=true)
