@@ -83,10 +83,10 @@ export const AntSwitch = styled(Switch)(({ theme }) => ({
 
 
 const AWS = require('aws-sdk')
-const S3_BUCKET ='loyata.images';
-const REGION ='us-east-1';
-const ACCESS_KEY ='AKIAYYQLTSE2EYA5JA2I';
-const SECRET_ACCESS_KEY ='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';
+const S3_BUCKET = process.env.REACT_APP_S3_BUCKET
+const REGION = process.env.REACT_APP_REGION
+const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY
+const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY
 AWS.config.update({ accessKeyId: ACCESS_KEY, secretAccessKey: SECRET_ACCESS_KEY, region: REGION });
 const s3 = new AWS.S3();
 

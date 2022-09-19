@@ -104,3 +104,92 @@ The main page is consisted of four major parts:
 - [ ] video/phone call
 
 ![chat](https://github.com/loyata/instagram-clone/blob/main/images/personal-page.gif?raw=true)
+
+
+
+## How to run
+
+After cloning or downloading the repo
+
+### Frontend
+
+1. change directory to instagram-clone/frontend/
+
+2. install all dependencies
+
+   ```bash
+   # with npm
+   npm install
+   ```
+
+3. create a S3 bucket follow the instructions of https://blog.devgenius.io/upload-files-to-amazon-s3-from-a-react-frontend-fbd8f0b26f5
+
+4. create a `.env` file under frontend root
+
+   ```js
+   REACT_APP_baseURL="Tomcat backend URL"  =>  e.g. "http://localhost:8080"
+   
+   //see https://www.mapbox.com/
+   REACT_APP_geoAPIToken="Mapbox API Access Token"
+   
+   REACT_APP_S3_BUCKET="S3 Bucket Name"
+   REACT_APP_REGION="AWS Region"
+   REACT_APP_ACCESS_KEY="AWS access key"
+   REACT_APP_SECRET_ACCESS_KEY="AWS secret key"
+   ```
+
+4. start the code
+
+   ```bash
+   npm run start
+   ```
+
+### Backend
+
+1. change directory to instagram-clone/backend/
+
+2. create the database
+
+   ```sql
+   CREATE DATABASE `instagramDB`;
+   USE `instagramDB`;
+   ```
+
+3. use .sql file provided in backend/sql to generate tables
+
+4. configure backend dependencies using `pom.xml`
+
+5. configure `/backend/src/main/resources/application.properties` change the values if your configs are different
+
+   ```code
+   # DB Username
+   spring.datasource.username=root
+   # DB Password
+   spring.datasource.password=123456
+   # JDBC Driver
+   spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+   # JDBC URL
+   spring.datasource.url=jdbc:mysql://localhost:3306/instagramDB?serverTimezone=UTC
+   
+   mybatis.typeAliasesPackage=ca.uottawa.ins.model
+   mybatis.mapperLocations=classpath:mapper/*.xml
+   mybatis.configuration.map-underscore-to-camel-case=true
+   ```
+
+6. run `backendApplication.java`
+
+### Generate Fake Users
+
+For better experience, it is recommended to generate some fake users in advance. We can use Unsplash API to get random photos we need.
+
+To generate, please refer to the Python script under `/backend/python_scripts/user_generator.py`
+
+1. install dependency
+
+   ```shell
+   pip install Faker
+   ```
+
+2. Create an unsplash developer account and get the clientId
+
+3. 

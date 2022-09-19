@@ -1,21 +1,20 @@
 import time
+
 from faker import Faker
 import requests
 import json
 import random
 import uuid
+
 from datetime import datetime
+
 faker = Faker()
-
-
-client_id = ""
-port_number = '8080'
-fake_users_to_generate = 20
 
 
 def generate(num_user):
     r = requests.get(
-        "https://api.unsplash.com/photos/random?client_id={client_id}&orientation=portrait&count={num_user}".format(client_id = client_id, num_user = str(num_user)))
+        "https://api.unsplash.com/photos/random?client_id=LewwQkA3HsCrfG-Ebo-8bvRoUkoCt-q_HCOkwieYwSs&orientation=portrait&count=" + str(
+            num_user))
     obj = json.loads(r.text)
     all_users = []
     all_posts = []
@@ -32,8 +31,9 @@ def generate(num_user):
         formData['avatar'] = obj[i]['urls']['small_s3']
         formData['email'] = userName + '@example.com'
 
-        requests.post('http://localhost:{port_number}/accounts/signup'.format(port_number = port_number), json.dumps(formData))
-        user = requests.get('http://localhost:{port_number}/users/username/{userName}'.format(port_number = port_number, userName = userName))
+        requests.post('http://localhost:8080/accounts/signup', json.dumps(formData))
+
+        user = requests.get('http://localhost:8080/users/username/' + userName)
 
         try:
             userId = json.loads(user.text)['userId']
@@ -44,7 +44,7 @@ def generate(num_user):
         all_users.append([userId, userName, userAvatar])
         current_user_photo_num = random.randint(10, 30)
         r2 = requests.get(
-            "https://api.unsplash.com/photos/random?client_id={client_id}&orientation=landscape&count=".format(client_id = client_id) + str(
+            "https://api.unsplash.com/photos/random?client_id=LewwQkA3HsCrfG-Ebo-8bvRoUkoCt-q_HCOkwieYwSs&orientation=landscape&count=" + str(
                 current_user_photo_num))
         obj2 = json.loads(r2.text)
         time.sleep(1)
@@ -73,9 +73,9 @@ def generate(num_user):
 
             print(postFormData)
 
-            requests.post('http://localhost:{port_number}/posts/new'.format(port_number = port_number), json.dumps(postFormData))
+            requests.post('http://localhost:8080/posts/new', json.dumps(postFormData))
 
-            post = requests.get('http://localhost:{port_number}/posts/identifier/'.format(port_number = port_number) + identifier)
+            post = requests.get('http://localhost:8080/posts/identifier/' + identifier)
 
             try:
                 postId = json.loads(post.text)['postId']
@@ -92,7 +92,7 @@ def generate(num_user):
                 'followTimestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
             }
             if k[0] != n[0]:
-                requests.post('http://localhost:{port_number}/follows/follow'.format(port_number = port_number), json.dumps(follow_form_data))
+                requests.post('http://localhost:8080/follows/follow', json.dumps(follow_form_data))
 
     print("generating fake likes...")
     for k in all_users:
@@ -104,7 +104,7 @@ def generate(num_user):
                 'userAvatar': k[2],
                 'likeTimestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
             }
-            requests.post('http://localhost:{port_number}/likes/like'.format(port_number = port_number), json.dumps(like_form_data))
+            requests.post('http://localhost:8080/likes/like', json.dumps(like_form_data))
 
     print("generating fake saves...")
     for k in all_users:
@@ -114,10 +114,10 @@ def generate(num_user):
                 'postId': n,
                 'saveTimestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
             }
-            requests.post('http://localhost:{port_number}/saves/save'.format(port_number = port_number), json.dumps(save_form_data))
+            requests.post('http://localhost:8080/saves/save', json.dumps(save_form_data))
 
     print("done")
 
 
 if __name__ == '__main__':
-    generate(fake_users_to_generate)  # how many fake users you want to generate
+    generate(20)  # how many fake users you want to generate
