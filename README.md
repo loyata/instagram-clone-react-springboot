@@ -39,7 +39,7 @@ The main page is consisted of four major parts:
 - A main display area that shows random posts/ friends' posts/ saved posts(based on the selection on the navbar)
 - Personal information and friend recommendations
 
-![hippo](https://s3.amazonaws.com/loyata.images/main-page.png)
+![hippo](https://github.com/loyata/instagram-clone/blob/main/images/main-page-display.gif?raw=true)
 
 
 
