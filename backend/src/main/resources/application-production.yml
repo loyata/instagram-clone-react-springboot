@@ -1,0 +1,19 @@
+
+
+server:
+  port: 5000
+
+spring:
+  datasource:
+    username: admin
+    password: 12345678
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://instagramdb.c4pfxkg0otrp.us-east-1.rds.amazonaws.com:3306/instagramDB?serverTimezone=UTC
+  profiles:
+    active: @spring.profiles.active@
+
+mybatis:
+  type-aliases-package: ca.uottawa.ins.model
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
