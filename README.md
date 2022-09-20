@@ -3,7 +3,9 @@ Instagram-Clone
 
 <img src="https://s3.us-east-1.amazonaws.com/loyata.images/instagram-clone-logo.png" alt="avatar" style="zoom:67%;" />
 
+http://instagram-clone-deploy.s3-website-us-east-1.amazonaws.com/
 
+Please do not abuse sample accounts
 
 ## English
 

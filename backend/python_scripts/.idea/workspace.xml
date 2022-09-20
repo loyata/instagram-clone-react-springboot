@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4865fcb5-b698-4df1-942d-bc6ea3343bd3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_generator_backup.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_generator_backup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/resources/application-production.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/resources/application-production.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +119,7 @@
       <workItem from="1662936371413" duration="1171000" />
       <workItem from="1663035592524" duration="13530000" />
       <workItem from="1663563287219" duration="187000" />
-      <workItem from="1663655190885" duration="1889000" />
+      <workItem from="1663655190885" duration="2568000" />
     </task>
     <servers />
   </component>
