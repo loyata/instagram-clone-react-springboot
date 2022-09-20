@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import "./CustomInput.css"
 
 
 import {BsCheckCircle, BsXCircle} from "react-icons/bs";
 
-const CustomInput = ({placeholder, confidential, setSignUpInfo, SignUpKey, signUpInfo, signUpValidate,setSignUpValidate,validation}) => {
+const CustomInput = ({placeholder, confidential, setSignUpInfo, SignUpKey, signUpInfo, signUpValidate,setSignUpValidate,validation, defaultValue}) => {
 
     placeholder = placeholder || 'Email'
 
@@ -41,6 +41,14 @@ const CustomInput = ({placeholder, confidential, setSignUpInfo, SignUpKey, signU
     const [focus, setFocus] = useState(false)
     const [value, setValue] = useState('')
     const [showPassword, setShowPassword] = useState(false)
+    const ref = useRef(null);
+
+    useEffect(() => {
+        if(defaultValue !== ''){
+            ref.current.value = defaultValue
+            setValue('x')
+        }
+    },[defaultValue])
 
 
     return (
@@ -50,6 +58,7 @@ const CustomInput = ({placeholder, confidential, setSignUpInfo, SignUpKey, signU
             </div>
             <div className="ci_input" style={focus?borderColor:{}}>
                 <input type={setType()}
+                       ref={ref}
                        onFocus={() => setFocus(true)}
                        onBlur={() => setFocus(false)}
                        onChange={(e)=>{

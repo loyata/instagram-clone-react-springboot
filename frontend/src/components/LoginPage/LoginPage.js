@@ -25,7 +25,28 @@ import {useNavigate} from "react-router-dom";
 const LoginPage = () => {
 
 
-    console.log(process.env)
+    const sampleAccounts = [
+        {
+            email:'Dr._Bruce_5579@example.com',
+            password: 'Dr._Bruce@password'
+        },
+        {
+            email:'Heather_Smith_9662@example.com',
+            password: 'DHeather_Smith@password'
+        },
+        {
+            email:'Diana_Ray_9471@example.com',
+            password: 'Diana_Ray@password'
+        },
+        {
+            email:'Stephen_Davis_5887@example.com',
+            password: 'Stephen_Davis@password'
+        },
+        {
+            email: 'Evan_Tran_3697@example.com',
+            password: 'Evan_Tran@password'
+        }
+    ]
 
     const { width } = useWindowDimensions();
 
@@ -33,8 +54,15 @@ const LoginPage = () => {
 
     const [loginInfo, setLoginInfo] = useState({
         email:'',
-        password:'',
+        password:''
     });
+
+    const [loginDefault, setLoginDefault] = useState({
+        email:'',
+        password:''
+    })
+
+
 
     const [errMsg, setErrMsg] = useState('')
 
@@ -68,12 +96,21 @@ const LoginPage = () => {
                     <div className="upperCard">
                         <img src={insLogo} className="insLogo"/>
 
+                        <div onClick={() => {
+                            const index = Math.floor(sampleAccounts.length * Math.random());
+                            setLoginDefault(sampleAccounts[index]);
+                            setLoginInfo(sampleAccounts[index]);
+                        }}>
+                            <Button>Use sample accounts to try features</Button>
+                        </div>
+
                         <CustomInput
                             placeholder={"Email or Username"}
                             setSignUpInfo={setLoginInfo}
                             signUpInfo={loginInfo}
                             SignUpKey={"email"}
                             signUpValidate={null}
+                            defaultValue={loginDefault['email']}
                         />
 
                         <CustomInput
@@ -83,6 +120,7 @@ const LoginPage = () => {
                             signUpInfo={loginInfo}
                             SignUpKey={"password"}
                             signUpValidate={null}
+                            defaultValue={loginDefault['password']}
                         />
 
                         <Button variant="contained"
