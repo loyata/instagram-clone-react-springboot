@@ -9,8 +9,6 @@ spring:
     password: 12345678
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://instagramdb.c4pfxkg0otrp.us-east-1.rds.amazonaws.com:3306/instagramDB?serverTimezone=UTC
-  profiles:
-    active: @spring.profiles.active@
 
 mybatis:
   type-aliases-package: ca.uottawa.ins.model

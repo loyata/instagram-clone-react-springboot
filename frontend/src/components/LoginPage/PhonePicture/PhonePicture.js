@@ -24,7 +24,7 @@ const PhonePicture = () => {
     useEffect(()=>{
         const timer = setInterval(()=>{
             setIndex((index) => index + 1 < 4 ? index + 1 : 0)
-        }, 1500)
+        }, 3000)
         return ()=>clearInterval(timer)
     }, [])
 

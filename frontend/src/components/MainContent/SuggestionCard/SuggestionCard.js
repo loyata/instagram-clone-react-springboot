@@ -45,7 +45,7 @@ const SuggestionCard = () => {
 
 
     return (
-        <div className="suggestionCard_container">
+        <div className="suggestionCard_container" style={{display:`${suggestions.length === 0 ? 'none' : 'block'}`}}>
             <div className="suggestionCard_title">
                 <div style={{color:"rgb(142,142,142)", fontWeight:"bolder"}}>Suggestions For You</div>
                 <button className="suggestionCard_seeAllButton" onClick={() =>{

@@ -24,6 +24,7 @@ const SignUp = () => {
         if(token !== null) navigate("/")
     })
 
+
     const [signUpInfo, setSignUpInfo] = useState({
         email:'',
         fullName:'',

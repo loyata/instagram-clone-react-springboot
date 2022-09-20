@@ -44,7 +44,7 @@ const CustomInput = ({placeholder, confidential, setSignUpInfo, SignUpKey, signU
     const ref = useRef(null);
 
     useEffect(() => {
-        if(defaultValue !== ''){
+        if(defaultValue !== '' && defaultValue !== undefined){
             ref.current.value = defaultValue
             setValue('x')
         }

@@ -31,9 +31,9 @@ def generate(num_user):
         formData['avatar'] = obj[i]['urls']['small_s3']
         formData['email'] = userName + '@example.com'
 
-        requests.post('http://localhost:8080/accounts/signup', json.dumps(formData))
+        requests.post('http://instagramclone-env.eba-76ya3qcy.us-east-1.elasticbeanstalk.com/accounts/signup', json.dumps(formData))
 
-        user = requests.get('http://localhost:8080/users/username/' + userName)
+        user = requests.get('http://instagramclone-env.eba-76ya3qcy.us-east-1.elasticbeanstalk.com/users/username/' + userName)
 
         try:
             userId = json.loads(user.text)['userId']
@@ -73,9 +73,9 @@ def generate(num_user):
 
             print(postFormData)
 
-            requests.post('http://localhost:8080/posts/new', json.dumps(postFormData))
+            requests.post('http://instagramclone-env.eba-76ya3qcy.us-east-1.elasticbeanstalk.com/posts/new', json.dumps(postFormData))
 
-            post = requests.get('http://localhost:8080/posts/identifier/' + identifier)
+            post = requests.get('http://instagramclone-env.eba-76ya3qcy.us-east-1.elasticbeanstalk.com/posts/identifier/' + identifier)
 
             try:
                 postId = json.loads(post.text)['postId']
@@ -92,7 +92,7 @@ def generate(num_user):
                 'followTimestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
             }
             if k[0] != n[0]:
-                requests.post('http://localhost:8080/follows/follow', json.dumps(follow_form_data))
+                requests.post('http://instagramclone-env.eba-76ya3qcy.us-east-1.elasticbeanstalk.com/follows/follow', json.dumps(follow_form_data))
 
     print("generating fake likes...")
     for k in all_users:
@@ -104,7 +104,7 @@ def generate(num_user):
                 'userAvatar': k[2],
                 'likeTimestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
             }
-            requests.post('http://localhost:8080/likes/like', json.dumps(like_form_data))
+            requests.post('http://instagramclone-env.eba-76ya3qcy.us-east-1.elasticbeanstalk.com/likes/like', json.dumps(like_form_data))
 
     print("generating fake saves...")
     for k in all_users:
@@ -114,10 +114,10 @@ def generate(num_user):
                 'postId': n,
                 'saveTimestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
             }
-            requests.post('http://localhost:8080/saves/save', json.dumps(save_form_data))
+            requests.post('http://instagramclone-env.eba-76ya3qcy.us-east-1.elasticbeanstalk.com/saves/save', json.dumps(save_form_data))
 
     print("done")
 
 
 if __name__ == '__main__':
-    generate(20)  # how many fake users you want to generate
+    generate(30)  # how many fake users you want to generate

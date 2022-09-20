@@ -27,24 +27,24 @@ const LoginPage = () => {
 
     const sampleAccounts = [
         {
-            email:'Dr._Bruce_5579@example.com',
-            password: 'Dr._Bruce@password'
+            email:'John_Hall_9855@example.com',
+            password: 'John_Hall@password'
         },
         {
-            email:'Heather_Smith_9662@example.com',
-            password: 'DHeather_Smith@password'
+            email:'James_Jones_1211@example.com',
+            password: 'James_Jones@password'
         },
         {
-            email:'Diana_Ray_9471@example.com',
-            password: 'Diana_Ray@password'
+            email:'Mary_Cox_4976@example.com',
+            password: 'Mary_Cox@password'
         },
         {
-            email:'Stephen_Davis_5887@example.com',
-            password: 'Stephen_Davis@password'
+            email:'Christian_Freeman_4642@example.com',
+            password: 'Christian_Freeman@password'
         },
         {
-            email: 'Evan_Tran_3697@example.com',
-            password: 'Evan_Tran@password'
+            email: 'Jessica_Arnold_8382@example.com',
+            password: 'Jessica_Arnold@password'
         }
     ]
 

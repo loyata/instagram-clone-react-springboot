@@ -36,14 +36,31 @@ const FriendCard = () => {
     return (
         <div className="friendCard_container">
                 <div style={{display:"flex", overflow:"scroll", width:"470px"}}>
-                    {friends.map((friend, index) => (
-                        <div className="friendCard_person" key={index} onClick={() => {
-                            navigate(`/${friends[index].userName}`)
+                    {friends.length === 0 ?
+                        <div style={{
+                            display:"flex",
+                            justifyContent:"center",
+                            alignItems:"center",
+                            width:"100%",
+                            fontWeight:"bold"
                         }}>
-                            <Avatar sx={{width:"55px", height:"55px"}} src={friends[index].avatar}/>
-                            <div className="friendCard_text">{friends[index].userName}</div>
+                            Currently you are not following any account.
                         </div>
-                    ))}
+                        :
+                        <>
+                            {friends.map((friend, index) => (
+                            <div className="friendCard_person" key={index} onClick={() => {
+                                navigate(`/${friends[index].userName}`)
+                            }}>
+                                <Avatar sx={{width:"55px", height:"55px"}} src={friends[index].avatar}/>
+                                <div className="friendCard_text">{friends[index].userName}</div>
+                            </div>
+                             ))}
+                        </>
+
+
+                    }
+
                 </div>
         </div>
     );
